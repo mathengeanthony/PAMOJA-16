@@ -1,0 +1,6 @@
+{
+  "name": "Pamoja 16",
+  "description": "The digital home for peace & justice empowering youth-led SDG 16 initiatives in Kenya and globally.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
