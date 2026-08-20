@@ -65,7 +65,7 @@ export default function App() {
   ];
 
   return (
-    <div id="pamoja-root-container" className="w-full max-w-full min-h-screen bg-[var(--color-bg)] text-[var(--color-text-main)] flex flex-col relative overflow-x-hidden transition-colors duration-300 selection:bg-[#00C4CC] selection:text-black">
+    <div id="pamoja-root-container" className="w-full max-w-full h-screen h-[100dvh] max-h-screen bg-[var(--color-bg)] text-[var(--color-text-main)] flex flex-col relative overflow-hidden transition-colors duration-300 selection:bg-[#00C4CC] selection:text-black">
       
       {/* TOPOGRAPHIC BACKGROUND LAYER */}
       <div 
@@ -82,8 +82,8 @@ export default function App() {
         }}
       />
 
-      {/* HERO SECTION */}
-      <header id="main-hero" className="relative bg-[#005587] text-white py-6 min-h-[840px] overflow-hidden flex flex-col z-10 w-full max-w-full">
+      {/* HERO SECTION - FITS VIEWPORT 100% TOP TO BOTTOM */}
+      <header id="main-hero" className="relative bg-[#005587] text-white flex-1 h-full max-h-full overflow-hidden flex flex-col justify-between z-10 w-full max-w-full py-2 sm:py-3.5">
         
         {/* Hero Background with Unsplash Overlay */}
         <div 
@@ -105,11 +105,11 @@ export default function App() {
           />
         </div>
 
-        {/* Hero Content Container */}
-        <div id="hero-content-wrapper" className="relative z-10 flex flex-col flex-grow w-full max-w-full">
+        {/* Hero Content Container - Flex distribution */}
+        <div id="hero-content-wrapper" className="relative z-10 flex flex-col justify-between flex-grow w-full max-w-full h-full min-h-0">
           
           {/* NAVIGATION */}
-          <nav id="hero-navigation" className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 pb-6 md:pb-8 flex flex-col gap-4">
+          <nav id="hero-navigation" className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 pb-2 sm:pb-3 flex flex-col gap-2 sm:gap-3 shrink-0">
             
             {/* ROW 1: BRAND | USER TOOLS */}
             <div id="nav-row-1" className="flex justify-between items-center w-full gap-2">
@@ -117,7 +117,7 @@ export default function App() {
               {/* Brand */}
               <div 
                 id="brand-badge" 
-                className="flex items-center gap-2 font-black text-xs sm:text-sm md:text-base bg-black text-white px-3.5 sm:px-4 py-2 rounded-full shadow-lg shadow-black/20 select-none cursor-pointer transition-transform duration-200 hover:scale-105 shrink-0"
+                className="flex items-center gap-2 font-black text-xs sm:text-sm md:text-base bg-black text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg shadow-black/20 select-none cursor-pointer transition-transform duration-200 hover:scale-105 shrink-0"
               >
                 <HeartHandshake className="w-4 h-4 sm:w-5 sm:h-5 text-[#00C4CC] animate-heart-bounce" />
                 <span className="tracking-wide">PAMOJA 16</span>
@@ -128,7 +128,7 @@ export default function App() {
                 <button 
                   id="btn-sign-in"
                   onClick={() => setShowSignInModal(true)}
-                  className="bg-white/15 hover:bg-[#E5B80B] hover:text-black hover:border-[#E5B80B] text-white border border-white/20 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95"
+                  className="bg-white/15 hover:bg-[#E5B80B] hover:text-black hover:border-[#E5B80B] text-white border border-white/20 px-3 sm:px-4 py-1.5 sm:py-1.5 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95"
                 >
                   Sign In
                 </button>
@@ -137,7 +137,7 @@ export default function App() {
                   id="btn-theme-toggle"
                   onClick={() => setIsLightMode(!isLightMode)}
                   aria-label="Toggle Theme Mode"
-                  className="bg-white/10 hover:bg-white/30 border border-white/20 text-white w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:rotate-12 cursor-pointer hover:scale-105 active:scale-90 shrink-0"
+                  className="bg-white/10 hover:bg-white/30 border border-white/20 text-white w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:rotate-12 cursor-pointer hover:scale-105 active:scale-90 shrink-0"
                 >
                   {isLightMode ? (
                     <Moon className="w-4 h-4 text-amber-300 transition-transform" />
@@ -148,7 +148,7 @@ export default function App() {
                 
                 <div 
                   id="nav-user-avatar"
-                  className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-[#E5B80B] border-2 border-[#E5B80B] bg-cover bg-center cursor-pointer transition-transform duration-200 hover:scale-110 shadow-md shrink-0"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#E5B80B] border-2 border-[#E5B80B] bg-cover bg-center cursor-pointer transition-transform duration-200 hover:scale-110 shadow-md shrink-0"
                   style={{ backgroundImage: "url('https://i.pravatar.cc/150?img=12')" }}
                   title="Youth Ambassador Profile"
                 />
@@ -160,7 +160,7 @@ export default function App() {
               <button 
                 id="btn-menu-trigger"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="bg-white hover:bg-gray-100 text-gray-900 border-none px-3.5 sm:px-4 md:px-5 py-2 rounded-full flex items-center gap-1.5 sm:gap-2 font-extrabold uppercase text-[0.7rem] sm:text-xs tracking-wider whitespace-nowrap transition-transform duration-200 hover:scale-105 shadow-md shadow-black/10 cursor-pointer shrink-0"
+                className="bg-white hover:bg-gray-100 text-gray-900 border-none px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 font-extrabold uppercase text-[0.7rem] sm:text-xs tracking-wider whitespace-nowrap transition-transform duration-200 hover:scale-105 shadow-md shadow-black/10 cursor-pointer shrink-0"
               >
                 <GripVertical className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-800" />
                 <span>MENU</span>
@@ -169,7 +169,7 @@ export default function App() {
               <button 
                 id="btn-submit-project"
                 onClick={() => setShowSubmitModal(true)}
-                className="bg-[#00C4CC] hover:bg-white text-black font-extrabold uppercase text-[0.75rem] sm:text-xs md:text-sm px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-full flex items-center gap-1.5 sm:gap-2 whitespace-nowrap transition-all duration-200 hover:scale-105 shadow-[0_0_20px_rgba(0,196,204,0.4)] mx-auto cursor-pointer active:scale-95 shrink-0"
+                className="bg-[#00C4CC] hover:bg-white text-black font-extrabold uppercase text-[0.75rem] sm:text-xs md:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 whitespace-nowrap transition-all duration-200 hover:scale-105 shadow-[0_0_20px_rgba(0,196,204,0.4)] mx-auto cursor-pointer active:scale-95 shrink-0"
               >
                 <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span>Submit Project</span>
@@ -177,18 +177,18 @@ export default function App() {
 
               <div 
                 id="btn-country-badge"
-                className="bg-black/50 border border-white/20 text-white px-3 sm:px-4 py-2 rounded-full flex items-center gap-1.5 sm:gap-2 font-bold text-xs whitespace-nowrap backdrop-blur-md select-none shrink-0"
+                className="bg-black/50 border border-white/20 text-white px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 font-bold text-xs whitespace-nowrap backdrop-blur-md select-none shrink-0"
               >
                 <span>🇰🇪</span>
                 <span>KE</span>
               </div>
             </div>
 
-            {/* ROW 3: NAVIGATION PILLS (FITS CLEANLY WITHIN BOUNDARIES WITH PADDING) */}
-            <div id="nav-row-3" className="flex justify-center w-full px-2 mt-1">
+            {/* ROW 3: NAVIGATION PILLS */}
+            <div id="nav-row-3" className="flex justify-center w-full px-2 mt-0.5">
               <div 
                 id="nav-pills-bar"
-                className="flex items-center justify-center bg-white/10 backdrop-blur-md p-1 sm:p-1.5 rounded-full gap-1 sm:gap-1.5 border border-white/15 max-w-full overflow-x-auto no-scrollbar shadow-inner"
+                className="flex items-center justify-center bg-white/10 backdrop-blur-md p-1 rounded-full gap-1 border border-white/15 max-w-full overflow-x-auto no-scrollbar shadow-inner"
               >
                 {navLinks.map((tab) => {
                   const Icon = tab.icon;
@@ -198,7 +198,7 @@ export default function App() {
                       key={tab.name}
                       id={`tab-pill-${tab.name.toLowerCase().replace(/\s+/g, '-')}`}
                       onClick={() => setActiveTab(tab.name)}
-                      className={`px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-[0.7rem] sm:text-xs font-bold uppercase transition-all duration-200 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer shrink-0 ${
+                      className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[0.7rem] sm:text-xs font-bold uppercase transition-all duration-200 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer shrink-0 ${
                         isActive 
                           ? 'bg-white text-[#0b1120] shadow-sm scale-100' 
                           : 'text-white hover:bg-white/20'
@@ -214,28 +214,28 @@ export default function App() {
 
           </nav>
 
-          {/* HERO BODY */}
-          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center lg:items-end justify-between w-full max-w-[1400px] mx-auto px-4 sm:px-8 pb-10 pt-2 gap-10 lg:gap-6 overflow-hidden">
+          {/* HERO BODY - SCALES & FITS SCREEN WITH ZERO SCROLLBAR */}
+          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full max-w-[1400px] mx-auto px-4 sm:px-8 pb-3 sm:pb-4 pt-1 gap-4 sm:gap-6 md:gap-8 min-h-0 overflow-hidden">
             
             {/* LEFT: SOCIAL PROOF, ONLINE LINKS & HEADLINE */}
-            <div id="hero-left-column" className="w-full lg:max-w-[55%] flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div id="hero-left-column" className="w-full lg:max-w-[55%] flex flex-col items-center lg:items-start text-center lg:text-left justify-center">
               
-              {/* Social Proof Pill (Strictly 1 line, no wrapping, clean padding) */}
+              {/* Social Proof Pill */}
               <div 
                 id="social-proof-pill"
-                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-[0.72rem] sm:text-xs md:text-sm mb-4 sm:mb-5 border border-white/20 shadow-sm whitespace-nowrap max-w-full"
+                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full font-bold text-[0.7rem] sm:text-xs md:text-sm mb-2 sm:mb-3 border border-white/20 shadow-sm whitespace-nowrap max-w-full shrink-0"
               >
-                <div className="flex -space-x-1.5 sm:-space-x-2 mr-2.5 sm:mr-3 shrink-0">
+                <div className="flex -space-x-1.5 sm:-space-x-2 mr-2 sm:mr-2.5 shrink-0">
                   <div 
-                    className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-white bg-cover bg-center shadow-xs shrink-0"
+                    className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-white bg-cover bg-center shadow-xs shrink-0"
                     style={{ backgroundImage: "url('https://i.pravatar.cc/150?img=32')" }}
                   />
                   <div 
-                    className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-white bg-cover bg-center shadow-xs shrink-0"
+                    className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-white bg-cover bg-center shadow-xs shrink-0"
                     style={{ backgroundImage: "url('https://i.pravatar.cc/150?img=12')" }}
                   />
                   <div 
-                    className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-white bg-cover bg-center shadow-xs shrink-0"
+                    className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-white bg-cover bg-center shadow-xs shrink-0"
                     style={{ backgroundImage: "url('https://i.pravatar.cc/150?img=53')" }}
                   />
                 </div>
@@ -243,58 +243,58 @@ export default function App() {
               </div>
 
               {/* Read More Links */}
-              <div id="read-more-group" className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-5 text-xs sm:text-sm font-semibold text-[#00C4CC] flex-wrap justify-center lg:justify-start">
+              <div id="read-more-group" className="flex items-center gap-2 sm:gap-2.5 mb-2 sm:mb-3 text-[0.72rem] sm:text-xs md:text-sm font-semibold text-[#00C4CC] flex-wrap justify-center lg:justify-start shrink-0">
                 <a 
                   href="https://instagram.com" 
                   target="_blank" 
                   rel="noreferrer"
                   id="btn-instagram-icon"
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-[#00C4CC] hover:text-black hover:border-[#00C4CC] transition-all duration-200 cursor-pointer hover:scale-110 shrink-0"
+                  className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-[#00C4CC] hover:text-black hover:border-[#00C4CC] transition-all duration-200 cursor-pointer hover:scale-110 shrink-0"
                   aria-label="Instagram Link"
                 >
-                  <Instagram className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <Instagram className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 </a>
 
                 <a 
                   href="#platform-online" 
                   id="btn-globe-icon"
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-[#00C4CC] hover:text-black hover:border-[#00C4CC] transition-all duration-200 cursor-pointer hover:scale-110 shrink-0"
+                  className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-[#00C4CC] hover:text-black hover:border-[#00C4CC] transition-all duration-200 cursor-pointer hover:scale-110 shrink-0"
                   aria-label="Global Web Portal"
                 >
-                  <Globe className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 </a>
 
-                <span className="tracking-wide text-[0.75rem] sm:text-xs md:text-sm whitespace-nowrap">READ MORE ABOUT US ONLINE</span>
+                <span className="tracking-wide text-[0.72rem] sm:text-xs md:text-sm whitespace-nowrap">READ MORE ABOUT US ONLINE</span>
               </div>
 
               {/* Main Headline */}
               <h1 
                 id="hero-main-title" 
-                className="text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] font-black uppercase tracking-tight leading-[0.96] text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-200 drop-shadow-sm select-none"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.2rem] xl:text-[3.8rem] font-black uppercase tracking-tight leading-[0.96] text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-200 drop-shadow-sm select-none"
               >
                 THE DIGITAL HOME FOR PEACE &amp; JUSTICE
               </h1>
 
-              {/* Sub-context description for depth */}
-              <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-blue-100/80 font-medium max-w-xl">
+              {/* Sub-context description */}
+              <p className="mt-2 sm:mt-3 text-[0.75rem] sm:text-xs md:text-sm text-blue-100/85 font-medium max-w-lg leading-relaxed">
                 Mobilizing youth advocates, community monitors, and civic pioneers under United Nations Sustainable Development Goal 16 across Kenya and East Africa.
               </p>
             </div>
 
             {/* RIGHT: ORBIT VISUAL & TAGS */}
-            <div id="hero-right-column" className="w-full lg:flex-1 flex flex-col items-center lg:items-end justify-center overflow-hidden">
+            <div id="hero-right-column" className="w-full lg:flex-1 flex flex-col items-center lg:items-end justify-center min-h-0 overflow-hidden">
               
-              {/* Circular Feature with Orbit Animation (Labels slid inside orbit boundaries) */}
+              {/* Circular Feature with Orbit Animation */}
               <div 
                 id="circular-feature-node"
-                className="w-64 h-64 sm:w-72 sm:h-72 rounded-full border-2 border-white/25 relative flex items-center justify-center mb-6 sm:mb-8 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl overflow-hidden"
+                className="w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 lg:w-64 lg:h-64 xl:w-72 xl:h-72 rounded-full border-2 border-white/25 relative flex items-center justify-center mb-3 sm:mb-4 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl overflow-hidden"
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                   backgroundPosition: 'center',
                   backgroundSize: 'cover'
                 }}
               >
-                {/* Radial Gradient Overlay to ensure internal labels pop crisply */}
+                {/* Radial Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" />
 
                 {/* Orbiting Ring */}
@@ -308,34 +308,34 @@ export default function App() {
                   <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#00C4CC] rounded-full shadow-[0_0_10px_#00C4CC]" />
                 </div>
 
-                {/* Internal Orbit Perimeter Labels (Slid horizontally inside the orbit container) */}
+                {/* Internal Orbit Perimeter Labels */}
                 <div id="feature-orbit-labels" className="absolute inset-0 pointer-events-none">
-                  {/* Left Side Labels (Inside the orbit perimeter) */}
-                  <span className="absolute top-[26%] left-3.5 sm:left-4 px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.68rem] sm:text-[0.72rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  {/* Left Side Labels */}
+                  <span className="absolute top-[26%] left-2.5 sm:left-3.5 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
                     Peace
                   </span>
-                  <span className="absolute top-[50%] -translate-y-1/2 left-2 sm:left-2.5 px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.68rem] sm:text-[0.72rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute top-[50%] -translate-y-1/2 left-1.5 sm:left-2 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
                     Justice
                   </span>
-                  <span className="absolute bottom-[24%] left-3.5 sm:left-4 px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.68rem] sm:text-[0.72rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute bottom-[24%] left-2.5 sm:left-3.5 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
                     Action
                   </span>
 
-                  {/* Right Side Labels (Inside the orbit perimeter) */}
-                  <span className="absolute top-[26%] right-3.5 sm:right-4 px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.68rem] sm:text-[0.72rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  {/* Right Side Labels */}
+                  <span className="absolute top-[26%] right-2.5 sm:right-3.5 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
                     Unity
                   </span>
-                  <span className="absolute top-[50%] -translate-y-1/2 right-2 sm:right-2.5 px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.68rem] sm:text-[0.72rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute top-[50%] -translate-y-1/2 right-1.5 sm:right-2 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
                     Civic
                   </span>
-                  <span className="absolute bottom-[24%] right-3.5 sm:right-4 px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.68rem] sm:text-[0.72rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute bottom-[24%] right-2.5 sm:right-3.5 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
                     Voice
                   </span>
                 </div>
               </div>
 
               {/* Tags Cloud */}
-              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end gap-1.5 sm:gap-2 max-w-[560px] px-2">
+              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end gap-1.5 max-w-[540px] px-2 shrink-0">
                 {tags.map((tag) => {
                   const isSelected = selectedTag === tag;
                   return (
@@ -343,7 +343,7 @@ export default function App() {
                       key={tag}
                       id={`tag-pill-${tag.toLowerCase().replace(/\s+/g, '-')}`}
                       onClick={() => setSelectedTag(isSelected ? null : tag)}
-                      className={`border px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-[0.7rem] sm:text-xs uppercase font-bold tracking-wide backdrop-blur-xs transition-all duration-200 cursor-pointer ${
+                      className={`border px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[0.68rem] sm:text-xs uppercase font-bold tracking-wide backdrop-blur-xs transition-all duration-200 cursor-pointer ${
                         isSelected 
                           ? 'border-[#00C4CC] bg-[#00C4CC]/20 text-white scale-105 shadow-sm' 
                           : 'border-white/20 text-gray-200 hover:border-[#00C4CC] hover:text-white hover:scale-105'
@@ -355,20 +355,20 @@ export default function App() {
                 })}
 
                 {/* Tags Footer Row */}
-                <div id="tags-footer-row" className="flex items-center justify-center lg:justify-end gap-2 w-full mt-2">
+                <div id="tags-footer-row" className="flex items-center justify-center lg:justify-end gap-2 w-full mt-1 sm:mt-1.5">
                   <div 
                     id="tag-powered-by"
-                    className="bg-[#E5B80B] text-black px-3.5 sm:px-4 py-1.5 rounded-full text-[0.7rem] sm:text-xs font-black uppercase flex items-center gap-1.5 sm:gap-2 shadow-sm select-none"
+                    className="bg-[#E5B80B] text-black px-3 sm:px-3.5 py-1 rounded-full text-[0.68rem] sm:text-xs font-black uppercase flex items-center gap-1.5 shadow-sm select-none"
                   >
-                    <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-black flex items-center justify-center text-white text-[0.6rem]">
-                      <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#E5B80B]" />
+                    <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-black flex items-center justify-center text-white text-[0.55rem]">
+                      <Zap className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#E5B80B]" />
                     </div>
                     <span>Powered by Youth for SDGs</span>
                   </div>
 
                   <div 
                     id="tag-kenya-badge"
-                    className="bg-white text-gray-900 px-3 sm:px-4 py-1.5 rounded-full text-[0.7rem] sm:text-xs font-black uppercase shadow-sm select-none"
+                    className="bg-white text-gray-900 px-3 sm:px-3.5 py-1 rounded-full text-[0.68rem] sm:text-xs font-black uppercase shadow-sm select-none"
                   >
                     Kenya
                   </div>
