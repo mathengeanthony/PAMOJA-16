@@ -215,10 +215,10 @@ export default function App() {
           </nav>
 
           {/* HERO BODY - SCALES & FITS SCREEN WITH ZERO SCROLLBAR */}
-          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full max-w-[1400px] mx-auto px-4 sm:px-8 pb-3 sm:pb-4 pt-1 gap-4 sm:gap-6 md:gap-8 min-h-0 overflow-hidden">
+          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full max-w-[1400px] mx-auto px-4 sm:px-8 pb-3 sm:pb-4 pt-2 sm:pt-4 gap-4 sm:gap-6 md:gap-8 min-h-0">
             
             {/* LEFT: SOCIAL PROOF, ONLINE LINKS & HEADLINE */}
-            <div id="hero-left-column" className="w-full lg:max-w-[55%] flex flex-col items-center lg:items-start text-center lg:text-left justify-center">
+            <div id="hero-left-column" className="w-full lg:max-w-[54%] flex flex-col items-center lg:items-start text-center lg:text-left justify-center">
               
               {/* Social Proof Pill */}
               <div 
@@ -282,53 +282,53 @@ export default function App() {
             </div>
 
             {/* RIGHT: ORBIT VISUAL & TAGS */}
-            <div id="hero-right-column" className="w-full lg:flex-1 flex flex-col items-center lg:items-end justify-center min-h-0 overflow-hidden">
+            <div id="hero-right-column" className="w-full lg:flex-1 flex flex-col items-center lg:items-end justify-center min-h-0 pt-2 lg:pt-0">
               
-              {/* Circular Feature with Orbit Animation */}
+              {/* Circular Feature with Orbit Animation (Unclipped with outer orbit line and outer labels) */}
               <div 
                 id="circular-feature-node"
-                className="w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 lg:w-64 lg:h-64 xl:w-72 xl:h-72 rounded-full border-2 border-white/25 relative flex items-center justify-center mb-3 sm:mb-4 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl overflow-hidden"
+                className="w-44 h-44 sm:w-52 sm:h-52 md:w-56 md:h-56 lg:w-60 lg:h-60 xl:w-64 xl:h-64 rounded-full border-2 border-white/25 relative flex items-center justify-center mb-4 sm:mb-5 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl"
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                   backgroundPosition: 'center',
                   backgroundSize: 'cover'
                 }}
               >
-                {/* Radial Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" />
+                {/* Radial Shadow overlay inside image */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-b from-black/25 via-transparent to-black/50 pointer-events-none" />
 
-                {/* Orbiting Ring */}
+                {/* Orbiting Ring (Outer) */}
                 <div 
                   id="orbit-ring-line" 
-                  className="absolute inset-2 rounded-full border border-white/20 pointer-events-none" 
+                  className="absolute -inset-[14%] rounded-full border border-white/20 pointer-events-none" 
                 />
 
-                {/* Orbit Container with Rotating Cyan Dot inside ring */}
-                <div id="orbit-dot-spinner" className="absolute inset-2 rounded-full animate-orbit-spin pointer-events-none">
-                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#00C4CC] rounded-full shadow-[0_0_10px_#00C4CC]" />
+                {/* Orbit Container with Rotating Cyan Dot on the outer ring */}
+                <div id="orbit-dot-spinner" className="absolute -inset-[14%] rounded-full animate-orbit-spin pointer-events-none">
+                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#00C4CC] rounded-full shadow-[0_0_10px_#00C4CC]" />
                 </div>
 
-                {/* Internal Orbit Perimeter Labels */}
+                {/* Orbit Perimeter Labels (Positioned partially outside the orbit, clean text without pills) */}
                 <div id="feature-orbit-labels" className="absolute inset-0 pointer-events-none">
                   {/* Left Side Labels */}
-                  <span className="absolute top-[26%] left-2.5 sm:left-3.5 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute top-[28%] -left-[20%] sm:-left-[24%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Peace
                   </span>
-                  <span className="absolute top-[50%] -translate-y-1/2 left-1.5 sm:left-2 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute bottom-[30%] -left-[26%] sm:-left-[32%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Justice
                   </span>
-                  <span className="absolute bottom-[24%] left-2.5 sm:left-3.5 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute bottom-[10%] -left-[14%] sm:-left-[18%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Action
                   </span>
 
                   {/* Right Side Labels */}
-                  <span className="absolute top-[26%] right-2.5 sm:right-3.5 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute top-[28%] -right-[20%] sm:-right-[24%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Unity
                   </span>
-                  <span className="absolute top-[50%] -translate-y-1/2 right-1.5 sm:right-2 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute bottom-[30%] -right-[26%] sm:-right-[32%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Civic
                   </span>
-                  <span className="absolute bottom-[24%] right-2.5 sm:right-3.5 px-1.5 sm:px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-full text-[0.62rem] sm:text-[0.7rem] font-black uppercase tracking-wider text-[#E5B80B] border border-white/10 shadow-md">
+                  <span className="absolute bottom-[10%] -right-[14%] sm:-right-[18%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Voice
                   </span>
                 </div>
