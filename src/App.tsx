@@ -83,12 +83,12 @@ export default function App() {
       />
 
       {/* HERO SECTION - FITS VIEWPORT 100% TOP TO BOTTOM */}
-      <header id="main-hero" className="relative bg-[#005587] text-white flex-1 h-full max-h-full overflow-hidden flex flex-col justify-between z-10 w-full max-w-full py-2 sm:py-3.5">
+      <header id="main-hero" className="relative bg-[#005587] text-white flex-1 h-full max-h-full overflow-hidden flex flex-col justify-between z-10 w-full max-w-full py-2.5 sm:py-4">
         
         {/* Hero Background with Unsplash Overlay */}
         <div 
           id="hero-bg-media"
-          className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-300"
+          className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-300 pointer-events-none"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1526666923127-b2970f64b422?q=80&w=2072&auto=format&fit=crop')",
             filter: 'brightness(0.9) contrast(1.1)'
@@ -109,26 +109,26 @@ export default function App() {
         <div id="hero-content-wrapper" className="relative z-10 flex flex-col justify-between flex-grow w-full max-w-full h-full min-h-0">
           
           {/* NAVIGATION */}
-          <nav id="hero-navigation" className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 pb-2 sm:pb-3 flex flex-col gap-2 sm:gap-3 shrink-0">
+          <nav id="hero-navigation" className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-2 sm:pb-3 flex flex-col gap-2.5 sm:gap-3.5 shrink-0">
             
             {/* ROW 1: BRAND | USER TOOLS */}
-            <div id="nav-row-1" className="flex justify-between items-center w-full gap-2">
+            <div id="nav-row-1" className="flex justify-between items-center w-full gap-3">
               
               {/* Brand */}
               <div 
                 id="brand-badge" 
-                className="flex items-center gap-2 font-black text-xs sm:text-sm md:text-base bg-black text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg shadow-black/20 select-none cursor-pointer transition-transform duration-200 hover:scale-105 shrink-0"
+                className="flex items-center gap-2 font-black text-xs sm:text-sm md:text-base bg-black text-white px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg shadow-black/20 select-none cursor-pointer transition-transform duration-200 hover:scale-105 shrink-0"
               >
                 <HeartHandshake className="w-4 h-4 sm:w-5 sm:h-5 text-[#00C4CC] animate-heart-bounce" />
                 <span className="tracking-wide">PAMOJA 16</span>
               </div>
 
               {/* User Tools (Right) */}
-              <div id="nav-tools-group" className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+              <div id="nav-tools-group" className="flex items-center gap-2 sm:gap-3 shrink-0">
                 <button 
                   id="btn-sign-in"
                   onClick={() => setShowSignInModal(true)}
-                  className="bg-white/15 hover:bg-[#E5B80B] hover:text-black hover:border-[#E5B80B] text-white border border-white/20 px-3 sm:px-4 py-1.5 sm:py-1.5 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95"
+                  className="bg-white/15 hover:bg-[#E5B80B] hover:text-black hover:border-[#E5B80B] text-white border border-white/20 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95"
                 >
                   Sign In
                 </button>
@@ -137,7 +137,7 @@ export default function App() {
                   id="btn-theme-toggle"
                   onClick={() => setIsLightMode(!isLightMode)}
                   aria-label="Toggle Theme Mode"
-                  className="bg-white/10 hover:bg-white/30 border border-white/20 text-white w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:rotate-12 cursor-pointer hover:scale-105 active:scale-90 shrink-0"
+                  className="bg-white/10 hover:bg-white/30 border border-white/20 text-white w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:rotate-12 cursor-pointer hover:scale-105 active:scale-90 shrink-0"
                 >
                   {isLightMode ? (
                     <Moon className="w-4 h-4 text-amber-300 transition-transform" />
@@ -148,47 +148,53 @@ export default function App() {
                 
                 <div 
                   id="nav-user-avatar"
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#E5B80B] border-2 border-[#E5B80B] bg-cover bg-center cursor-pointer transition-transform duration-200 hover:scale-110 shadow-md shrink-0"
+                  className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-[#E5B80B] border-2 border-[#E5B80B] bg-cover bg-center cursor-pointer transition-transform duration-200 hover:scale-110 shadow-md shrink-0"
                   style={{ backgroundImage: "url('https://i.pravatar.cc/150?img=12')" }}
                   title="Youth Ambassador Profile"
                 />
               </div>
             </div>
 
-            {/* ROW 2: MENU | SUBMIT PROJECT CTA | COUNTRY */}
-            <div id="nav-row-2" className="flex justify-between items-center w-full gap-2">
-              <button 
-                id="btn-menu-trigger"
-                onClick={() => setIsMobileMenuOpen(true)}
-                className="bg-white hover:bg-gray-100 text-gray-900 border-none px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 font-extrabold uppercase text-[0.7rem] sm:text-xs tracking-wider whitespace-nowrap transition-transform duration-200 hover:scale-105 shadow-md shadow-black/10 cursor-pointer shrink-0"
-              >
-                <GripVertical className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-800" />
-                <span>MENU</span>
-              </button>
+            {/* ROW 2: MENU (Left) | SUBMIT PROJECT CTA (True Center) | COUNTRY (Right) */}
+            <div id="nav-row-2" className="flex items-center justify-between w-full gap-2 sm:gap-3">
+              <div className="flex-1 flex justify-start">
+                <button 
+                  id="btn-menu-trigger"
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="bg-white hover:bg-gray-100 text-gray-900 border-none px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 font-extrabold uppercase text-[0.7rem] sm:text-xs tracking-wider whitespace-nowrap transition-transform duration-200 hover:scale-105 shadow-md shadow-black/10 cursor-pointer shrink-0"
+                >
+                  <GripVertical className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-800" />
+                  <span>MENU</span>
+                </button>
+              </div>
 
-              <button 
-                id="btn-submit-project"
-                onClick={() => setShowSubmitModal(true)}
-                className="bg-[#00C4CC] hover:bg-white text-black font-extrabold uppercase text-[0.75rem] sm:text-xs md:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 whitespace-nowrap transition-all duration-200 hover:scale-105 shadow-[0_0_20px_rgba(0,196,204,0.4)] mx-auto cursor-pointer active:scale-95 shrink-0"
-              >
-                <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <span>Submit Project</span>
-              </button>
+              <div className="flex-none flex justify-center">
+                <button 
+                  id="btn-submit-project"
+                  onClick={() => setShowSubmitModal(true)}
+                  className="bg-[#00C4CC] hover:bg-white text-black font-extrabold uppercase text-[0.72rem] sm:text-xs md:text-sm px-4 sm:px-6 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 whitespace-nowrap transition-all duration-200 hover:scale-105 shadow-[0_0_20px_rgba(0,196,204,0.4)] cursor-pointer active:scale-95 shrink-0"
+                >
+                  <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span>Submit Project</span>
+                </button>
+              </div>
 
-              <div 
-                id="btn-country-badge"
-                className="bg-black/50 border border-white/20 text-white px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 font-bold text-xs whitespace-nowrap backdrop-blur-md select-none shrink-0"
-              >
-                <span>🇰🇪</span>
-                <span>KE</span>
+              <div className="flex-1 flex justify-end">
+                <div 
+                  id="btn-country-badge"
+                  className="bg-black/50 border border-white/20 text-white px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 font-bold text-xs whitespace-nowrap backdrop-blur-md select-none shrink-0"
+                >
+                  <span>🇰🇪</span>
+                  <span>KE</span>
+                </div>
               </div>
             </div>
 
-            {/* ROW 3: NAVIGATION PILLS */}
+            {/* ROW 3: NAVIGATION PILLS (Symmetrically Centered & Padded) */}
             <div id="nav-row-3" className="flex justify-center w-full px-2 mt-0.5">
               <div 
                 id="nav-pills-bar"
-                className="flex items-center justify-center bg-white/10 backdrop-blur-md p-1 rounded-full gap-1 border border-white/15 max-w-full overflow-x-auto no-scrollbar shadow-inner"
+                className="flex items-center justify-center bg-white/10 backdrop-blur-md p-1 sm:p-1.5 rounded-full gap-1 sm:gap-2 border border-white/15 max-w-full overflow-x-auto no-scrollbar shadow-inner"
               >
                 {navLinks.map((tab) => {
                   const Icon = tab.icon;
@@ -198,7 +204,7 @@ export default function App() {
                       key={tab.name}
                       id={`tab-pill-${tab.name.toLowerCase().replace(/\s+/g, '-')}`}
                       onClick={() => setActiveTab(tab.name)}
-                      className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[0.7rem] sm:text-xs font-bold uppercase transition-all duration-200 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer shrink-0 ${
+                      className={`px-3.5 sm:px-5 py-1 sm:py-1.5 rounded-full text-[0.7rem] sm:text-xs font-bold uppercase transition-all duration-200 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer shrink-0 ${
                         isActive 
                           ? 'bg-white text-[#0b1120] shadow-sm scale-100' 
                           : 'text-white hover:bg-white/20'
@@ -214,18 +220,18 @@ export default function App() {
 
           </nav>
 
-          {/* HERO BODY - SCALES & FITS SCREEN WITH ZERO SCROLLBAR */}
-          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full max-w-[1400px] mx-auto px-4 sm:px-8 pb-3 sm:pb-4 pt-2 sm:pt-4 gap-4 sm:gap-6 md:gap-8 min-h-0">
+          {/* HERO BODY - SCALES & FITS SCREEN WITH EQUALIZED BALANCED SPACING */}
+          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-3 sm:pb-5 pt-1 sm:pt-2 gap-4 sm:gap-6 lg:gap-10 min-h-0">
             
-            {/* LEFT: SOCIAL PROOF, ONLINE LINKS & HEADLINE */}
-            <div id="hero-left-column" className="w-full lg:max-w-[54%] flex flex-col items-center lg:items-start text-center lg:text-left justify-center">
+            {/* LEFT COLUMN: SOCIAL PROOF, ONLINE LINKS & HEADLINE */}
+            <div id="hero-left-column" className="w-full lg:max-w-[54%] flex flex-col items-center lg:items-start text-center lg:text-left justify-center shrink-0">
               
               {/* Social Proof Pill */}
               <div 
                 id="social-proof-pill"
-                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full font-bold text-[0.7rem] sm:text-xs md:text-sm mb-2 sm:mb-3 border border-white/20 shadow-sm whitespace-nowrap max-w-full shrink-0"
+                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full font-bold text-[0.7rem] sm:text-xs md:text-sm mb-2 sm:mb-3 border border-white/20 shadow-sm whitespace-nowrap max-w-full shrink-0"
               >
-                <div className="flex -space-x-1.5 sm:-space-x-2 mr-2 sm:mr-2.5 shrink-0">
+                <div className="flex -space-x-1.5 sm:-space-x-2 mr-2.5 sm:mr-3 shrink-0">
                   <div 
                     className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-white bg-cover bg-center shadow-xs shrink-0"
                     style={{ backgroundImage: "url('https://i.pravatar.cc/150?img=32')" }}
@@ -243,7 +249,7 @@ export default function App() {
               </div>
 
               {/* Read More Links */}
-              <div id="read-more-group" className="flex items-center gap-2 sm:gap-2.5 mb-2 sm:mb-3 text-[0.72rem] sm:text-xs md:text-sm font-semibold text-[#00C4CC] flex-wrap justify-center lg:justify-start shrink-0">
+              <div id="read-more-group" className="flex items-center gap-2 sm:gap-2.5 mb-2 sm:mb-3.5 text-[0.72rem] sm:text-xs md:text-sm font-semibold text-[#00C4CC] flex-wrap justify-center lg:justify-start shrink-0">
                 <a 
                   href="https://instagram.com" 
                   target="_blank" 
@@ -276,18 +282,18 @@ export default function App() {
               </h1>
 
               {/* Sub-context description */}
-              <p className="mt-2 sm:mt-3 text-[0.75rem] sm:text-xs md:text-sm text-blue-100/85 font-medium max-w-lg leading-relaxed">
+              <p className="mt-2.5 sm:mt-3.5 text-[0.75rem] sm:text-xs md:text-sm lg:text-base text-blue-100/85 font-medium max-w-xl leading-relaxed">
                 Mobilizing youth advocates, community monitors, and civic pioneers under United Nations Sustainable Development Goal 16 across Kenya and East Africa.
               </p>
             </div>
 
-            {/* RIGHT: ORBIT VISUAL & TAGS */}
-            <div id="hero-right-column" className="w-full lg:flex-1 flex flex-col items-center lg:items-end justify-center min-h-0 pt-2 lg:pt-0">
+            {/* RIGHT COLUMN: ORBIT VISUAL & TAGS */}
+            <div id="hero-right-column" className="w-full lg:flex-1 flex flex-col items-center lg:items-end justify-center min-h-0">
               
-              {/* Circular Feature with Orbit Animation (Unclipped with outer orbit line and outer labels) */}
+              {/* Circular Feature with Orbit Animation (Symmetrically positioned labels outside) */}
               <div 
                 id="circular-feature-node"
-                className="w-44 h-44 sm:w-52 sm:h-52 md:w-56 md:h-56 lg:w-60 lg:h-60 xl:w-64 xl:h-64 rounded-full border-2 border-white/25 relative flex items-center justify-center mb-4 sm:mb-5 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl"
+                className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-60 lg:h-60 xl:w-68 xl:h-68 rounded-full border-2 border-white/25 relative flex items-center justify-center mb-3 sm:mb-4 lg:mb-5 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl"
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                   backgroundPosition: 'center',
@@ -311,31 +317,31 @@ export default function App() {
                 {/* Orbit Perimeter Labels (Positioned partially outside the orbit, clean text without pills) */}
                 <div id="feature-orbit-labels" className="absolute inset-0 pointer-events-none">
                   {/* Left Side Labels */}
-                  <span className="absolute top-[28%] -left-[20%] sm:-left-[24%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-[26%] -left-[20%] sm:-left-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Peace
                   </span>
-                  <span className="absolute bottom-[30%] -left-[26%] sm:-left-[32%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-[50%] -translate-y-1/2 -left-[24%] sm:-left-[30%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Justice
                   </span>
-                  <span className="absolute bottom-[10%] -left-[14%] sm:-left-[18%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute bottom-[24%] -left-[20%] sm:-left-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Action
                   </span>
 
                   {/* Right Side Labels */}
-                  <span className="absolute top-[28%] -right-[20%] sm:-right-[24%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-[26%] -right-[20%] sm:-right-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Unity
                   </span>
-                  <span className="absolute bottom-[30%] -right-[26%] sm:-right-[32%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-[50%] -translate-y-1/2 -right-[24%] sm:-right-[30%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Civic
                   </span>
-                  <span className="absolute bottom-[10%] -right-[14%] sm:-right-[18%] text-[0.7rem] sm:text-[0.75rem] font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute bottom-[24%] -right-[20%] sm:-right-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Voice
                   </span>
                 </div>
               </div>
 
               {/* Tags Cloud */}
-              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end gap-1.5 max-w-[540px] px-2 shrink-0">
+              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end gap-1.5 sm:gap-2 max-w-[540px] px-2 shrink-0">
                 {tags.map((tag) => {
                   const isSelected = selectedTag === tag;
                   return (
@@ -343,7 +349,7 @@ export default function App() {
                       key={tag}
                       id={`tag-pill-${tag.toLowerCase().replace(/\s+/g, '-')}`}
                       onClick={() => setSelectedTag(isSelected ? null : tag)}
-                      className={`border px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[0.68rem] sm:text-xs uppercase font-bold tracking-wide backdrop-blur-xs transition-all duration-200 cursor-pointer ${
+                      className={`border px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-[0.68rem] sm:text-xs uppercase font-bold tracking-wide backdrop-blur-xs transition-all duration-200 cursor-pointer ${
                         isSelected 
                           ? 'border-[#00C4CC] bg-[#00C4CC]/20 text-white scale-105 shadow-sm' 
                           : 'border-white/20 text-gray-200 hover:border-[#00C4CC] hover:text-white hover:scale-105'
@@ -354,21 +360,21 @@ export default function App() {
                   );
                 })}
 
-                {/* Tags Footer Row */}
-                <div id="tags-footer-row" className="flex items-center justify-center lg:justify-end gap-2 w-full mt-1 sm:mt-1.5">
+                {/* Tags Footer Row (Equalized padding, height and alignment) */}
+                <div id="tags-footer-row" className="flex items-center justify-center lg:justify-end gap-2 sm:gap-2.5 w-full mt-1.5 sm:mt-2">
                   <div 
                     id="tag-powered-by"
-                    className="bg-[#E5B80B] text-black px-3 sm:px-3.5 py-1 rounded-full text-[0.68rem] sm:text-xs font-black uppercase flex items-center gap-1.5 shadow-sm select-none"
+                    className="bg-[#E5B80B] text-black px-3.5 sm:px-4 py-1.5 rounded-full text-[0.68rem] sm:text-xs font-black uppercase flex items-center gap-1.5 sm:gap-2 shadow-sm select-none"
                   >
-                    <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-black flex items-center justify-center text-white text-[0.55rem]">
-                      <Zap className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#E5B80B]" />
+                    <div className="w-4 h-4 sm:w-4.5 sm:h-4.5 rounded-full bg-black flex items-center justify-center text-white text-[0.55rem]">
+                      <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#E5B80B]" />
                     </div>
                     <span>Powered by Youth for SDGs</span>
                   </div>
 
                   <div 
                     id="tag-kenya-badge"
-                    className="bg-white text-gray-900 px-3 sm:px-3.5 py-1 rounded-full text-[0.68rem] sm:text-xs font-black uppercase shadow-sm select-none"
+                    className="bg-white text-gray-900 px-3.5 sm:px-4 py-1.5 rounded-full text-[0.68rem] sm:text-xs font-black uppercase shadow-sm select-none"
                   >
                     Kenya
                   </div>
