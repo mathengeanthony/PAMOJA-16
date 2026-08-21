@@ -82,8 +82,8 @@ export default function App() {
         }}
       />
 
-      {/* HERO SECTION - FITS VIEWPORT 100% TOP TO BOTTOM */}
-      <header id="main-hero" className="relative bg-[#005587] text-white flex-1 h-full max-h-full overflow-hidden flex flex-col justify-between z-10 w-full max-w-full py-2.5 sm:py-4">
+      {/* HERO SECTION - FITS VIEWPORT ON LOAD & RESPONSIVE ON ALL SCREENS */}
+      <header id="main-hero" className="relative bg-[#005587] text-white flex-1 min-h-screen lg:min-h-0 lg:h-full lg:max-h-full overflow-y-auto lg:overflow-hidden flex flex-col z-10 w-full max-w-full py-2.5 sm:py-3.5 lg:py-3">
         
         {/* Hero Background with Unsplash Overlay */}
         <div 
@@ -105,11 +105,11 @@ export default function App() {
           />
         </div>
 
-        {/* Hero Content Container - Flex distribution */}
-        <div id="hero-content-wrapper" className="relative z-10 flex flex-col justify-between flex-grow w-full max-w-full h-full min-h-0">
+        {/* Hero Content Container - Proportional flex distribution */}
+        <div id="hero-content-wrapper" className="relative z-10 flex flex-col justify-start lg:justify-between flex-1 w-full max-w-full h-full min-h-0 gap-2 sm:gap-3 lg:gap-2">
           
           {/* NAVIGATION */}
-          <nav id="hero-navigation" className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-2 sm:pb-3 flex flex-col gap-2.5 sm:gap-3.5 shrink-0">
+          <nav id="hero-navigation" className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-1 sm:pb-2 flex flex-col gap-2 sm:gap-2.5 shrink-0">
             
             {/* ROW 1: BRAND | USER TOOLS */}
             <div id="nav-row-1" className="flex justify-between items-center w-full gap-3">
@@ -220,8 +220,8 @@ export default function App() {
 
           </nav>
 
-          {/* HERO BODY - SCALES & FITS SCREEN WITH EQUALIZED BALANCED SPACING */}
-          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-3 sm:pb-5 pt-1 sm:pt-2 gap-4 sm:gap-6 lg:gap-10 min-h-0">
+          {/* HERO BODY - SCALES & FITS SCREEN WITH NATURAL TIGHT SPACING */}
+          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-3 sm:pb-4 pt-1 sm:pt-2 gap-5 sm:gap-6 lg:gap-10 min-h-0">
             
             {/* LEFT COLUMN: SOCIAL PROOF, ONLINE LINKS & HEADLINE */}
             <div id="hero-left-column" className="w-full lg:max-w-[54%] flex flex-col items-center lg:items-start text-center lg:text-left justify-center shrink-0">
@@ -229,7 +229,7 @@ export default function App() {
               {/* Social Proof Pill */}
               <div 
                 id="social-proof-pill"
-                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full font-bold text-[0.7rem] sm:text-xs md:text-sm mb-2 sm:mb-3 border border-white/20 shadow-sm whitespace-nowrap max-w-full shrink-0"
+                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full font-bold text-[0.7rem] sm:text-xs md:text-sm mb-2 sm:mb-2.5 lg:mb-3 border border-white/20 shadow-sm whitespace-nowrap max-w-full shrink-0"
               >
                 <div className="flex -space-x-1.5 sm:-space-x-2 mr-2.5 sm:mr-3 shrink-0">
                   <div 
@@ -249,7 +249,7 @@ export default function App() {
               </div>
 
               {/* Read More Links */}
-              <div id="read-more-group" className="flex items-center gap-2 sm:gap-2.5 mb-2 sm:mb-3.5 text-[0.72rem] sm:text-xs md:text-sm font-semibold text-[#00C4CC] flex-wrap justify-center lg:justify-start shrink-0">
+              <div id="read-more-group" className="flex items-center gap-2 sm:gap-2.5 mb-2 sm:mb-2.5 lg:mb-3 text-[0.72rem] sm:text-xs md:text-sm font-semibold text-[#00C4CC] flex-wrap justify-center lg:justify-start shrink-0">
                 <a 
                   href="https://instagram.com" 
                   target="_blank" 
@@ -276,13 +276,13 @@ export default function App() {
               {/* Main Headline */}
               <h1 
                 id="hero-main-title" 
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.2rem] xl:text-[3.8rem] font-black uppercase tracking-tight leading-[0.96] text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-200 drop-shadow-sm select-none"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.9rem] xl:text-[3.6rem] font-black uppercase tracking-tight leading-[0.98] text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-200 drop-shadow-sm select-none"
               >
                 THE DIGITAL HOME FOR PEACE &amp; JUSTICE
               </h1>
 
               {/* Sub-context description */}
-              <p className="mt-2.5 sm:mt-3.5 text-[0.75rem] sm:text-xs md:text-sm lg:text-base text-blue-100/85 font-medium max-w-xl leading-relaxed">
+              <p className="mt-2 sm:mt-2.5 lg:mt-3 text-[0.75rem] sm:text-xs md:text-sm lg:text-base text-blue-100/85 font-medium max-w-xl leading-relaxed">
                 Mobilizing youth advocates, community monitors, and civic pioneers under United Nations Sustainable Development Goal 16 across Kenya and East Africa.
               </p>
             </div>
@@ -293,7 +293,7 @@ export default function App() {
               {/* Circular Feature with Orbit Animation (Symmetrically positioned labels outside) */}
               <div 
                 id="circular-feature-node"
-                className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-60 lg:h-60 xl:w-68 xl:h-68 rounded-full border-2 border-white/25 relative flex items-center justify-center mb-3 sm:mb-4 lg:mb-5 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl"
+                className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 rounded-full border-2 border-white/25 relative flex items-center justify-center mb-3 sm:mb-4 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl"
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                   backgroundPosition: 'center',
@@ -317,24 +317,24 @@ export default function App() {
                 {/* Orbit Perimeter Labels (Positioned partially outside the orbit, clean text without pills) */}
                 <div id="feature-orbit-labels" className="absolute inset-0 pointer-events-none">
                   {/* Left Side Labels */}
-                  <span className="absolute top-[26%] -left-[20%] sm:-left-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-[26%] -left-[22%] sm:-left-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Peace
                   </span>
-                  <span className="absolute top-[50%] -translate-y-1/2 -left-[24%] sm:-left-[30%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-[50%] -translate-y-1/2 -left-[26%] sm:-left-[30%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Justice
                   </span>
-                  <span className="absolute bottom-[24%] -left-[20%] sm:-left-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute bottom-[24%] -left-[22%] sm:-left-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Action
                   </span>
 
                   {/* Right Side Labels */}
-                  <span className="absolute top-[26%] -right-[20%] sm:-right-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-[26%] -right-[22%] sm:-right-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Unity
                   </span>
-                  <span className="absolute top-[50%] -translate-y-1/2 -right-[24%] sm:-right-[30%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-[50%] -translate-y-1/2 -right-[26%] sm:-right-[30%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Civic
                   </span>
-                  <span className="absolute bottom-[24%] -right-[20%] sm:-right-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute bottom-[24%] -right-[22%] sm:-right-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
                     Voice
                   </span>
                 </div>
