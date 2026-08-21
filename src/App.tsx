@@ -288,12 +288,12 @@ export default function App() {
             </div>
 
             {/* RIGHT COLUMN: ORBIT VISUAL & TAGS */}
-            <div id="hero-right-column" className="w-full lg:flex-1 flex flex-col items-center lg:items-end justify-center min-h-0">
+            <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-start min-h-0">
               
               {/* Circular Feature with Orbit Animation (Symmetrically positioned labels outside) */}
               <div 
                 id="circular-feature-node"
-                className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 rounded-full border-2 border-white/25 relative flex items-center justify-center mt-1 sm:mt-2 lg:mt-0 mb-6 sm:mb-8 md:mb-9 lg:mb-3.5 xl:mb-4.5 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl"
+                className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 rounded-full border-2 border-white/25 relative flex items-center justify-center mt-2 sm:mt-4 lg:mt-0 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl"
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                   backgroundPosition: 'center',
@@ -341,7 +341,7 @@ export default function App() {
               </div>
 
               {/* Tags Cloud */}
-              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end gap-1.5 sm:gap-2 max-w-[540px] px-2 shrink-0 pt-1 sm:pt-2 lg:pt-0">
+              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end mt-auto gap-1.5 sm:gap-2 max-w-[540px] px-2 shrink-0 pt-6 sm:pt-8 lg:pt-0">
                 {tags.map((tag) => {
                   const isSelected = selectedTag === tag;
                   return (
@@ -361,7 +361,7 @@ export default function App() {
                 })}
 
                 {/* Tags Footer Row (Equalized padding, height and alignment) */}
-                <div id="tags-footer-row" className="flex items-center justify-center lg:justify-end gap-2 sm:gap-2.5 w-full mt-2.5 sm:mt-3.5 mb-1 sm:mb-2 lg:mb-0">
+                <div id="tags-footer-row" className="flex items-center justify-center lg:justify-end gap-2 sm:gap-2.5 w-full mt-2.5 sm:mt-3.5 mb-0">
                   <div 
                     id="tag-powered-by"
                     className="bg-[#E5B80B] text-black px-3.5 sm:px-4 py-1.5 rounded-full text-[0.68rem] sm:text-xs font-black uppercase flex items-center gap-1.5 sm:gap-2 shadow-sm select-none"
