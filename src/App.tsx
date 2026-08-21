@@ -106,10 +106,10 @@ export default function App() {
         </div>
 
         {/* Hero Content Container - Proportional flex distribution */}
-        <div id="hero-content-wrapper" className="relative z-10 flex flex-col justify-start lg:justify-between flex-1 w-full max-w-full h-full min-h-0 gap-2 sm:gap-3 lg:gap-2">
+        <div id="hero-content-wrapper" className="relative z-10 flex flex-col justify-start flex-1 w-full max-w-full h-full min-h-0 gap-0">
           
           {/* NAVIGATION */}
-          <nav id="hero-navigation" className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-1 sm:pb-2 flex flex-col gap-2 sm:gap-2.5 shrink-0">
+          <nav id="hero-navigation" className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-0 sm:pb-0.5 flex flex-col gap-1.5 sm:gap-2 shrink-0">
             
             {/* ROW 1: BRAND | USER TOOLS */}
             <div id="nav-row-1" className="flex justify-between items-center w-full gap-3">
@@ -191,7 +191,7 @@ export default function App() {
             </div>
 
             {/* ROW 3: NAVIGATION PILLS (Symmetrically Centered & Padded) */}
-            <div id="nav-row-3" className="flex justify-center w-full px-2 mt-0.5">
+            <div id="nav-row-3" className="flex justify-center w-full px-2 mt-0">
               <div 
                 id="nav-pills-bar"
                 className="flex items-center justify-center bg-white/10 backdrop-blur-md p-1 sm:p-1.5 rounded-full gap-1 sm:gap-2 border border-white/15 max-w-full overflow-x-auto no-scrollbar shadow-inner"
@@ -220,16 +220,16 @@ export default function App() {
 
           </nav>
 
-          {/* HERO BODY - SCALES & FITS SCREEN WITH NATURAL TIGHT SPACING */}
-          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-3 sm:pb-4 pt-1 sm:pt-2 gap-5 sm:gap-6 lg:gap-10 min-h-0">
+          {/* HERO BODY - DIRECTLY BELOW NAV WITH MINIMAL 90% REDUCED GAP */}
+          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-start lg:justify-between w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-2 sm:pb-3 pt-0.5 sm:pt-1 gap-4 sm:gap-5 lg:gap-8 min-h-0">
             
             {/* LEFT COLUMN: SOCIAL PROOF, ONLINE LINKS & HEADLINE */}
-            <div id="hero-left-column" className="w-full lg:max-w-[54%] flex flex-col items-center lg:items-start text-center lg:text-left justify-center shrink-0">
+            <div id="hero-left-column" className="w-full lg:max-w-[54%] flex flex-col items-center lg:items-start text-center lg:text-left justify-start shrink-0 pt-0">
               
               {/* Social Proof Pill */}
               <div 
                 id="social-proof-pill"
-                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full font-bold text-[0.7rem] sm:text-xs md:text-sm mb-2 sm:mb-2.5 lg:mb-3 border border-white/20 shadow-sm whitespace-nowrap max-w-full shrink-0"
+                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3.5 sm:px-4 py-0.5 sm:py-1 rounded-full font-bold text-[0.7rem] sm:text-xs md:text-sm mb-1.5 sm:mb-2 border border-white/20 shadow-sm whitespace-nowrap max-w-full shrink-0 mt-0"
               >
                 <div className="flex -space-x-1.5 sm:-space-x-2 mr-2.5 sm:mr-3 shrink-0">
                   <div 
