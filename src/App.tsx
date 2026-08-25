@@ -20,8 +20,16 @@ import {
   Megaphone,
   Handshake,
   ShieldCheck,
-  CheckCircle2
+  CheckCircle2,
+  ChevronDown
 } from 'lucide-react';
+import { SectionTwo } from './components/SectionTwo';
+import { SectionThree } from './components/SectionThree';
+import { SectionFour } from './components/SectionFour';
+import { SectionFive } from './components/SectionFive';
+import { SectionSix } from './components/SectionSix';
+import { SectionSeven } from './components/SectionSeven';
+import { SectionEight } from './components/SectionEight';
 
 export default function App() {
   const [isLightMode, setIsLightMode] = useState<boolean>(false);
@@ -65,7 +73,7 @@ export default function App() {
   ];
 
   return (
-    <div id="pamoja-root-container" className="w-full max-w-full h-screen h-[100dvh] max-h-screen bg-[var(--color-bg)] text-[var(--color-text-main)] flex flex-col relative overflow-hidden transition-colors duration-300 selection:bg-[#00C4CC] selection:text-black">
+    <div id="pamoja-root-container" className="w-full max-w-full min-h-screen bg-[var(--color-bg)] text-[var(--color-text-main)] flex flex-col relative overflow-x-hidden overflow-y-auto scroll-smooth transition-colors duration-300 selection:bg-[#00C4CC] selection:text-black">
       
       {/* TOPOGRAPHIC BACKGROUND LAYER */}
       <div 
@@ -82,8 +90,8 @@ export default function App() {
         }}
       />
 
-      {/* HERO SECTION - FITS VIEWPORT ON LOAD & RESPONSIVE ON ALL SCREENS */}
-      <header id="main-hero" className="relative bg-[#005587] text-white flex-1 min-h-screen lg:min-h-0 lg:h-full lg:max-h-full overflow-y-auto lg:overflow-hidden flex flex-col z-10 w-full max-w-full py-2.5 sm:py-3.5 lg:py-3">
+      {/* SECTION 1: HERO SECTION - FITS FULL SCREEN AS POSTER VIEWPORT */}
+      <header id="main-hero" className="relative bg-[#005587] text-white min-h-screen lg:h-screen lg:max-h-screen overflow-y-auto lg:overflow-hidden flex flex-col z-10 w-full max-w-full py-2.5 sm:py-3.5 lg:py-3 shrink-0">
         
         {/* Hero Background with Unsplash Overlay */}
         <div 
@@ -389,6 +397,56 @@ export default function App() {
         </div>
 
       </header>
+
+      {/* SECTIONS BODY */}
+      <main id="landing-body-sections" className="relative z-10 w-full flex flex-col items-center gap-4 sm:gap-8 pb-16">
+        {/* SECTION 2: BIOTECH FUTURE / BIOIDEA SHOWCASE */}
+        <SectionTwo 
+          onStartNow={() => setShowSignInModal(true)} 
+          onContact={() => setShowSubmitModal(true)} 
+        />
+
+        {/* SECTION 3: AEMPORE AI / FUTURISTIC MACHINERIES (EXACT REPLICATION) */}
+        <SectionThree 
+          onVisitWebsite={() => window.open('#', '_self')}
+          onVisitPortfolio={() => setShowSubmitModal(true)}
+          onJoinUs={() => setShowSignInModal(true)}
+        />
+
+        {/* SECTION 4: SHAPING THE FUTURE WITH AI (EXACT REPLICATION) */}
+        <SectionFour 
+          onSignUp={() => setShowSignInModal(true)}
+          onJoinUsNow={() => setShowSignInModal(true)}
+          onExploreSolutions={() => setShowSubmitModal(true)}
+        />
+
+        {/* SECTION 5: EXPLORE THE WORLD OF ARTIFICIAL INTELLIGENCE (EXACT REPLICATION) */}
+        <SectionFive 
+          onSignUp={() => setShowSignInModal(true)}
+          onJoinCommunity={() => setShowSignInModal(true)}
+          onLearnMore={() => setShowSubmitModal(true)}
+        />
+
+        {/* SECTION 6: PROBIOTICHUB - BENEFICIAL BACTERIA (EXACT REPLICATION) */}
+        <SectionSix 
+          onShopNow={() => setShowSignInModal(true)}
+          onCheckCatalog={() => setShowSubmitModal(true)}
+          onAddToCart={() => setShowSubmitModal(true)}
+        />
+
+        {/* SECTION 7: ASICS 1:1 EDITORIAL CAMPAIGN MATRIX (EXACT REPLICATION) */}
+        <SectionSeven 
+          onSelectCategory={(cat) => console.log('Selected category:', cat)}
+          onDiscoverTemplate={() => setShowSubmitModal(true)}
+        />
+
+        {/* SECTION 8: COLABS - BIO-INNOVATION & COMMUNITY (EXACT REPLICATION) */}
+        <SectionEight 
+          onSearch={() => console.log('CoLabs search opened')}
+          onExploreArticle={() => setShowSubmitModal(true)}
+          onSelectNav={(item) => console.log('CoLabs nav:', item)}
+        />
+      </main>
 
       {/* MOBILE / EXPANDED SLIDE-OVER MENU DRAWER */}
       <div 
