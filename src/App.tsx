@@ -21,15 +21,15 @@ import {
   Handshake,
   ShieldCheck,
   CheckCircle2,
-  ChevronDown
+  ChevronDown,
+  FileText,
+  Download,
+  Search,
+  ExternalLink,
+  Sparkles
 } from 'lucide-react';
-import { SectionTwo } from './components/SectionTwo';
-import { SectionThree } from './components/SectionThree';
-import { SectionFour } from './components/SectionFour';
-import { SectionFive } from './components/SectionFive';
-import { SectionSix } from './components/SectionSix';
-import { SectionSeven } from './components/SectionSeven';
-import { SectionEight } from './components/SectionEight';
+import { LuxtenMap } from './components/luxten/LuxtenMap';
+import { LuxtenExcellence } from './components/luxten/LuxtenExcellence';
 
 export default function App() {
   const [isLightMode, setIsLightMode] = useState<boolean>(false);
@@ -37,6 +37,10 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>('THE PLATFORM');
   const [showSignInModal, setShowSignInModal] = useState<boolean>(false);
   const [showSubmitModal, setShowSubmitModal] = useState<boolean>(false);
+  const [showLibraryModal, setShowLibraryModal] = useState<boolean>(false);
+  const [libraryCategory, setLibraryCategory] = useState<string>('all');
+  const [librarySearch, setLibrarySearch] = useState<string>('');
+  const [downloadNotice, setDownloadNotice] = useState<string | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   // Sync theme with body class
@@ -72,8 +76,83 @@ export default function App() {
     'Innovation'
   ];
 
+  const libraryResources = [
+    {
+      id: 'doc-1',
+      title: 'Constitution of Kenya: Article 35 Access to Information & Public Participation Guide',
+      category: 'legal',
+      categoryLabel: 'Legal Toolkits',
+      sdgTarget: 'SDG 16.3 / 16.10',
+      pages: '44 pages',
+      format: 'PDF Guide',
+      size: '2.4 MB',
+      description: 'Comprehensive toolkit detailing procedures for requesting public records, lodging civic petitions, and participating in county budget consultations.',
+      downloads: '1,420+'
+    },
+    {
+      id: 'doc-2',
+      title: 'Grassroots Peace Accord & Community Mediation Protocol',
+      category: 'peace',
+      categoryLabel: 'Peace Accords',
+      sdgTarget: 'SDG 16.1',
+      pages: '32 pages',
+      format: 'Framework Guide',
+      size: '1.8 MB',
+      description: 'Operational conflict de-escalation protocol for youth peace champions, elders, and ward monitors addressing local tensions.',
+      downloads: '980+'
+    },
+    {
+      id: 'doc-3',
+      title: 'Devolved County Budget Social Audit & Expenditure Monitoring Toolkit',
+      category: 'legal',
+      categoryLabel: 'Legal Toolkits',
+      sdgTarget: 'SDG 16.6',
+      pages: '56 pages',
+      format: 'Audit Toolkit',
+      size: '3.1 MB',
+      description: 'Step-by-step audit manual for tracking County Integrated Development Plans (CIDP), ward bursaries, and public infrastructure delivery.',
+      downloads: '2,150+'
+    },
+    {
+      id: 'doc-4',
+      title: 'UNSCR 2250 (Youth, Peace, and Security) Kenya National Implementation Matrix',
+      category: 'un',
+      categoryLabel: 'UN SDG 16',
+      sdgTarget: 'SDG 16.7',
+      pages: '28 pages',
+      format: 'UN Policy Brief',
+      size: '1.2 MB',
+      description: 'The Kenya Youth Coalition action roadmap aligning youth governance engagement directly with UN Security Council Resolution 2250.',
+      downloads: '840+'
+    },
+    {
+      id: 'doc-5',
+      title: 'Civic Monitor Digital Security, Encryption & Whistleblower Protection Standard',
+      category: 'legal',
+      categoryLabel: 'Legal Toolkits',
+      sdgTarget: 'SDG 16.5 / 16.10',
+      pages: '38 pages',
+      format: 'Security Manual',
+      size: '2.0 MB',
+      description: 'Practical data encryption, anonymous submission methods, and legal protections under Kenya’s Witness Protection Act for civic investigators.',
+      downloads: '1,730+'
+    },
+    {
+      id: 'doc-6',
+      title: 'East Africa Community (EAC) Cross-Border Youth Peace Pact & Early Warning Protocol',
+      category: 'peace',
+      categoryLabel: 'Peace Accords',
+      sdgTarget: 'SDG 16.a',
+      pages: '48 pages',
+      format: 'Regional Accord',
+      size: '2.6 MB',
+      description: 'Cross-border peacebuilding accord linking youth networks across Kenya, Uganda, Tanzania, and South Sudan for conflict prevention.',
+      downloads: '620+'
+    }
+  ];
+
   return (
-    <div id="pamoja-root-container" className="w-full max-w-full min-h-screen bg-[var(--color-bg)] text-[var(--color-text-main)] flex flex-col relative overflow-x-hidden overflow-y-auto scroll-smooth transition-colors duration-300 selection:bg-[#00C4CC] selection:text-black">
+    <div id="pamoja-root-container" className="master-viewport w-full max-w-full bg-[var(--color-bg)] text-[var(--color-text-main)] flex flex-col relative overflow-x-hidden scroll-smooth transition-colors duration-300 selection:bg-[#00C4CC] selection:text-black">
       
       {/* TOPOGRAPHIC BACKGROUND LAYER */}
       <div 
@@ -91,7 +170,7 @@ export default function App() {
       />
 
       {/* SECTION 1: HERO SECTION - FITS FULL SCREEN AS POSTER VIEWPORT */}
-      <header id="main-hero" className="relative bg-[#005587] text-white min-h-screen lg:h-screen lg:max-h-screen overflow-y-auto lg:overflow-hidden flex flex-col z-10 w-full max-w-full py-2.5 sm:py-3.5 lg:py-3 shrink-0">
+      <header id="main-hero" className="snap-section relative bg-[#005587] text-white min-h-[100dvh] lg:h-[100dvh] lg:max-h-[100dvh] overflow-y-auto lg:overflow-hidden flex flex-col w-full max-w-full py-2.5 sm:py-3.5 lg:py-3 shrink-0">
         
         {/* Hero Background with Unsplash Overlay */}
         <div 
@@ -107,14 +186,14 @@ export default function App() {
             className="absolute inset-0 transition-colors duration-300"
             style={{
               background: isLightMode
-                ? 'linear-gradient(to bottom, rgba(0, 85, 135, 0.4) 0%, rgba(0, 51, 85, 0.7) 100%)'
-                : 'linear-gradient(to bottom, rgba(11, 17, 32, 0.6) 0%, rgba(11, 17, 32, 0.9) 100%)'
+                ? 'linear-gradient(to bottom, rgba(0, 51, 85, 0.7) 0%, rgba(0, 51, 85, 0.5) 50%, rgba(0, 51, 85, 0.95) 100%)'
+                : 'linear-gradient(to bottom, rgba(10, 23, 41, 0.6) 0%, rgba(10, 23, 41, 0.4) 50%, rgba(10, 23, 41, 0.95) 100%)'
             }}
           />
         </div>
 
         {/* Hero Content Container - Proportional flex distribution */}
-        <div id="hero-content-wrapper" className="relative z-10 flex flex-col justify-start lg:justify-between flex-1 w-full max-w-full h-full min-h-0 gap-1.5 sm:gap-2">
+        <div id="hero-content-wrapper" className="relative z-20 flex flex-col justify-start lg:justify-between flex-1 w-full max-w-full h-full min-h-0 gap-1.5 sm:gap-2">
           
           {/* NAVIGATION */}
           <nav id="hero-navigation" className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-1.5 sm:pb-2 flex flex-col gap-2 sm:gap-2.5 shrink-0">
@@ -193,16 +272,16 @@ export default function App() {
                   className="bg-black/50 border border-white/20 text-white px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 font-bold text-xs whitespace-nowrap backdrop-blur-md select-none shrink-0"
                 >
                   <span>🇰🇪</span>
-                  <span>KE</span>
+                  <span className="tracking-wider uppercase">Kenya</span>
                 </div>
               </div>
             </div>
 
-            {/* ROW 3: NAVIGATION PILLS (Symmetrically Centered & Padded) */}
+            {/* ROW 3: NAVIGATION PILLS (Symmetrically Centered, Non-scrollable, No highlight cut-off) */}
             <div id="nav-row-3" className="flex justify-center w-full px-2 mt-0.5 sm:mt-1">
               <div 
                 id="nav-pills-bar"
-                className="flex items-center justify-center bg-white/10 backdrop-blur-md p-1 sm:p-1.5 rounded-full gap-1 sm:gap-2 border border-white/15 max-w-full overflow-x-auto no-scrollbar shadow-inner"
+                className="inline-flex items-center justify-center bg-white/10 backdrop-blur-md px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-full gap-1 sm:gap-2 border border-white/20 shadow-inner"
               >
                 {navLinks.map((tab) => {
                   const Icon = tab.icon;
@@ -211,10 +290,33 @@ export default function App() {
                     <button
                       key={tab.name}
                       id={`tab-pill-${tab.name.toLowerCase().replace(/\s+/g, '-')}`}
-                      onClick={() => setActiveTab(tab.name)}
-                      className={`px-3.5 sm:px-5 py-1 sm:py-1.5 rounded-full text-[0.7rem] sm:text-xs font-bold uppercase transition-all duration-200 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer shrink-0 ${
+                      onClick={() => {
+                        setActiveTab(tab.name);
+                        if (tab.name === 'THE PLATFORM') {
+                          const el = document.getElementById('section-map');
+                          if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            const container = document.getElementById('pamoja-root-container');
+                            if (container) {
+                              container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                            }
+                          }
+                        } else if (tab.name === 'ACTION HUB') {
+                          const el = document.getElementById('section-excellence');
+                          if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            const container = document.getElementById('pamoja-root-container');
+                            if (container) {
+                              container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                            }
+                          }
+                        } else if (tab.name === 'LIBRARY') {
+                          setShowLibraryModal(true);
+                        }
+                      }}
+                      className={`px-3 sm:px-5 py-1 sm:py-1.5 rounded-full text-[0.68rem] sm:text-xs font-bold uppercase transition-all duration-200 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer shrink-0 ${
                         isActive 
-                          ? 'bg-white text-[#0b1120] shadow-sm scale-100' 
+                          ? 'bg-white text-[#0b1120] shadow-sm' 
                           : 'text-white hover:bg-white/20'
                       }`}
                     >
@@ -301,7 +403,7 @@ export default function App() {
               {/* Circular Feature with Orbit Animation (Symmetrically positioned labels outside) */}
               <div 
                 id="circular-feature-node"
-                className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 rounded-full border-2 border-white/25 relative flex items-center justify-center mt-2 sm:mt-4 lg:mt-0 shrink-0 animate-pulse-wave transition-transform duration-300 hover:scale-105 shadow-2xl"
+                className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 rounded-full border-2 border-white/30 relative flex items-center justify-center mt-2 sm:mt-4 lg:mt-0 shrink-0 shadow-2xl"
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                   backgroundPosition: 'center',
@@ -311,38 +413,38 @@ export default function App() {
                 {/* Radial Shadow overlay inside image */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-b from-black/25 via-transparent to-black/50 pointer-events-none" />
 
-                {/* Orbiting Ring (Outer) */}
+                {/* Orbiting Ring (Outer) emitting the pulsing aura */}
                 <div 
                   id="orbit-ring-line" 
-                  className="absolute -inset-[14%] rounded-full border border-white/20 pointer-events-none" 
+                  className="absolute -inset-[14%] rounded-full border border-white/25 pointer-events-none animate-pulse-wave" 
                 />
 
                 {/* Orbit Container with Rotating Cyan Dot on the outer ring */}
-                <div id="orbit-dot-spinner" className="absolute -inset-[14%] rounded-full animate-orbit-spin pointer-events-none">
-                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#00C4CC] rounded-full shadow-[0_0_10px_#00C4CC]" />
+                <div id="orbit-dot-spinner" className="absolute -inset-[14%] rounded-full animate-orbit-spin pointer-events-none origin-center">
+                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#00C4CC] rounded-full shadow-[0_0_12px_#00C4CC]" />
                 </div>
 
-                {/* Orbit Perimeter Labels (Positioned partially outside the orbit, clean text without pills) */}
+                {/* Orbit Perimeter Labels (Positioned outside the orbit so they don't obscure the image) */}
                 <div id="feature-orbit-labels" className="absolute inset-0 pointer-events-none">
-                  {/* Left Side Labels */}
-                  <span className="absolute top-[26%] -left-[22%] sm:-left-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  {/* Left Side Labels - Anchored right-full so they extend outside to the left */}
+                  <span className="absolute top-[22%] right-full mr-3 sm:mr-4 md:mr-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
                     Peace
                   </span>
-                  <span className="absolute top-[50%] -translate-y-1/2 -left-[26%] sm:-left-[30%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-1/2 -translate-y-1/2 right-full mr-4 sm:mr-5 md:mr-6 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
                     Justice
                   </span>
-                  <span className="absolute bottom-[24%] -left-[22%] sm:-left-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute bottom-[22%] right-full mr-3 sm:mr-4 md:mr-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
                     Action
                   </span>
 
-                  {/* Right Side Labels */}
-                  <span className="absolute top-[26%] -right-[22%] sm:-right-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  {/* Right Side Labels - Anchored left-full so they extend outside to the right */}
+                  <span className="absolute top-[22%] left-full ml-3 sm:ml-4 md:ml-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
                     Unity
                   </span>
-                  <span className="absolute top-[50%] -translate-y-1/2 -right-[26%] sm:-right-[30%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute top-1/2 -translate-y-1/2 left-full ml-4 sm:ml-5 md:ml-6 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
                     Civic
                   </span>
-                  <span className="absolute bottom-[24%] -right-[22%] sm:-right-[26%] text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none">
+                  <span className="absolute bottom-[22%] left-full ml-3 sm:ml-4 md:ml-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
                     Voice
                   </span>
                 </div>
@@ -398,55 +500,13 @@ export default function App() {
 
       </header>
 
-      {/* SECTIONS BODY */}
-      <main id="landing-body-sections" className="relative z-10 w-full flex flex-col items-center gap-4 sm:gap-8 pb-16">
-        {/* SECTION 2: BIOTECH FUTURE / BIOIDEA SHOWCASE */}
-        <SectionTwo 
-          onStartNow={() => setShowSignInModal(true)} 
-          onContact={() => setShowSubmitModal(true)} 
-        />
-
-        {/* SECTION 3: AEMPORE AI / FUTURISTIC MACHINERIES (EXACT REPLICATION) */}
-        <SectionThree 
-          onVisitWebsite={() => window.open('#', '_self')}
-          onVisitPortfolio={() => setShowSubmitModal(true)}
-          onJoinUs={() => setShowSignInModal(true)}
-        />
-
-        {/* SECTION 4: SHAPING THE FUTURE WITH AI (EXACT REPLICATION) */}
-        <SectionFour 
-          onSignUp={() => setShowSignInModal(true)}
-          onJoinUsNow={() => setShowSignInModal(true)}
-          onExploreSolutions={() => setShowSubmitModal(true)}
-        />
-
-        {/* SECTION 5: EXPLORE THE WORLD OF ARTIFICIAL INTELLIGENCE (EXACT REPLICATION) */}
-        <SectionFive 
-          onSignUp={() => setShowSignInModal(true)}
-          onJoinCommunity={() => setShowSignInModal(true)}
-          onLearnMore={() => setShowSubmitModal(true)}
-        />
-
-        {/* SECTION 6: PROBIOTICHUB - BENEFICIAL BACTERIA (EXACT REPLICATION) */}
-        <SectionSix 
-          onShopNow={() => setShowSignInModal(true)}
-          onCheckCatalog={() => setShowSubmitModal(true)}
-          onAddToCart={() => setShowSubmitModal(true)}
-        />
-
-        {/* SECTION 7: ASICS 1:1 EDITORIAL CAMPAIGN MATRIX (EXACT REPLICATION) */}
-        <SectionSeven 
-          onSelectCategory={(cat) => console.log('Selected category:', cat)}
-          onDiscoverTemplate={() => setShowSubmitModal(true)}
-        />
-
-        {/* SECTION 8: COLABS - BIO-INNOVATION & COMMUNITY (EXACT REPLICATION) */}
-        <SectionEight 
-          onSearch={() => console.log('CoLabs search opened')}
-          onExploreArticle={() => setShowSubmitModal(true)}
-          onSelectNav={(item) => console.log('CoLabs nav:', item)}
-        />
-      </main>
+      {/* LUXTEN SECTIONS BODY */}
+      <LuxtenMap isLightMode={isLightMode} />
+      <LuxtenExcellence 
+        isLightMode={isLightMode}
+        onOpenSubmitModal={() => setShowSubmitModal(true)} 
+        onOpenDrawer={() => setIsMobileMenuOpen(true)}
+      />
 
       {/* MOBILE / EXPANDED SLIDE-OVER MENU DRAWER */}
       <div 
@@ -490,8 +550,22 @@ export default function App() {
                     key={item.name}
                     id={`drawer-item-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
                     onClick={() => {
-                      setActiveTab(item.name.toUpperCase());
+                      const upper = item.name.toUpperCase();
+                      setActiveTab(upper);
                       setIsMobileMenuOpen(false);
+                      if (upper === 'THE PLATFORM') {
+                        const el = document.getElementById('section-map');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      } else if (upper === 'ACTION HUB') {
+                        const el = document.getElementById('section-excellence');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      } else if (upper === 'LIBRARY') {
+                        setShowLibraryModal(true);
+                      } else if (upper === 'ADVOCACY') {
+                        setShowSubmitModal(true);
+                      } else if (upper === 'PARTNERS') {
+                        setShowSignInModal(true);
+                      }
                     }}
                     className={`flex items-center gap-3.5 px-4 py-3 rounded-xl font-bold text-sm text-left transition-all cursor-pointer ${
                       isCurrent 
@@ -665,6 +739,148 @@ export default function App() {
                 Submit for Verification
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* SDG 16 CIVIC LIBRARY & KNOWLEDGE VAULT MODAL */}
+      {showLibraryModal && (
+        <div 
+          id="modal-library-backdrop"
+          className="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-5"
+          onClick={() => setShowLibraryModal(false)}
+        >
+          <div 
+            id="modal-library-card"
+            className="bg-[#0f172a] text-white rounded-2xl max-w-3xl w-full p-5 sm:p-7 border border-white/15 shadow-2xl relative max-h-[88vh] flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Close Button */}
+            <button 
+              id="btn-close-library-modal"
+              onClick={() => setShowLibraryModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/5 hover:bg-white/15 w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Close Library"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Modal Header */}
+            <div className="flex items-center gap-3.5 pb-4 border-b border-white/10 shrink-0">
+              <div className="w-11 h-11 rounded-2xl bg-[#005587] flex items-center justify-center text-[#00C4CC] shadow-inner shrink-0">
+                <BookOpen className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-extrabold text-lg sm:text-xl tracking-tight text-white">SDG 16 Civic Library</h3>
+                  <span className="bg-[#E5B80B]/20 text-[#E5B80B] text-[0.65rem] font-black uppercase px-2 py-0.5 rounded-full border border-[#E5B80B]/30">Open Access</span>
+                </div>
+                <p className="text-xs text-gray-300 mt-0.5">Grassroots peace accords, legal toolkits, and civic oversight frameworks for Kenya &amp; East Africa.</p>
+              </div>
+            </div>
+
+            {/* Search & Category Filter Bar */}
+            <div className="flex flex-col sm:flex-row gap-2.5 my-4 shrink-0">
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input 
+                  type="text"
+                  placeholder="Search toolkits, accords, constitution..."
+                  value={librarySearch}
+                  onChange={(e) => setLibrarySearch(e.target.value)}
+                  className="w-full bg-black/40 border border-white/15 rounded-xl pl-9 pr-3.5 py-2 text-xs sm:text-sm text-white focus:outline-hidden focus:border-[#00C4CC] placeholder-gray-500"
+                />
+              </div>
+
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
+                {[
+                  { id: 'all', label: 'All Resources' },
+                  { id: 'legal', label: 'Legal Toolkits' },
+                  { id: 'peace', label: 'Peace Accords' },
+                  { id: 'un', label: 'UN SDG 16' }
+                ].map(cat => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setLibraryCategory(cat.id)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer shrink-0 ${
+                      libraryCategory === cat.id 
+                        ? 'bg-[#00C4CC] text-black shadow-sm font-extrabold' 
+                        : 'bg-white/5 text-gray-300 hover:bg-white/15 hover:text-white'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Download Confirmation Toast */}
+            {downloadNotice && (
+              <div className="mb-3 bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 animate-fadeIn shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Downloading <strong>{downloadNotice}</strong>. Verified Pamoja 16 toolkit.</span>
+              </div>
+            )}
+
+            {/* Resources List (Scrollable) */}
+            <div className="flex-1 overflow-y-auto pr-1 space-y-3 min-h-0">
+              {libraryResources
+                .filter(doc => libraryCategory === 'all' || doc.category === libraryCategory)
+                .filter(doc => librarySearch === '' || doc.title.toLowerCase().includes(librarySearch.toLowerCase()) || doc.description.toLowerCase().includes(librarySearch.toLowerCase()))
+                .map((doc) => (
+                  <div 
+                    key={doc.id}
+                    className="p-3.5 sm:p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-[#00C4CC]/50 hover:bg-white/[0.06] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  >
+                    <div className="flex items-start gap-3 min-w-0">
+                      <div className="w-8 h-8 rounded-lg bg-[#005587]/30 border border-[#005587] flex items-center justify-center text-[#00C4CC] shrink-0 mt-0.5">
+                        <FileText className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <span className="text-[0.65rem] font-extrabold text-[#E5B80B] bg-[#E5B80B]/10 px-2 py-0.5 rounded-sm">
+                            {doc.sdgTarget}
+                          </span>
+                          <span className="text-[0.65rem] font-bold text-gray-400">
+                            {doc.format} • {doc.pages} • {doc.size}
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-bold text-white leading-snug">{doc.title}</h4>
+                        <p className="text-xs text-gray-300 mt-1 line-clamp-2 leading-relaxed">{doc.description}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center sm:flex-col justify-between sm:justify-center gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/5">
+                      <button
+                        onClick={() => {
+                          setDownloadNotice(doc.title);
+                          setTimeout(() => setDownloadNotice(null), 4000);
+                        }}
+                        className="bg-[#00C4CC] hover:bg-white text-black font-extrabold text-xs px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer shadow-sm hover:scale-102"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        <span>Download</span>
+                      </button>
+                      <span className="text-[0.65rem] text-gray-400 font-medium text-center">{doc.downloads} downloads</span>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            {/* Modal Footer with quick submission prompt */}
+            <div className="pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-xs text-gray-400 shrink-0">
+              <span className="hidden sm:inline">Have research or an accord to archive?</span>
+              <button 
+                onClick={() => {
+                  setShowLibraryModal(false);
+                  setShowSubmitModal(true);
+                }}
+                className="text-[#00C4CC] hover:underline font-bold flex items-center gap-1 ml-auto cursor-pointer"
+              >
+                <span>Contribute to Library</span>
+                <ExternalLink className="w-3 h-3" />
+              </button>
+            </div>
           </div>
         </div>
       )}
