@@ -30,11 +30,16 @@ import {
 } from 'lucide-react';
 import { LuxtenMap } from './components/luxten/LuxtenMap';
 import { LuxtenExcellence } from './components/luxten/LuxtenExcellence';
+import { PamojaMovementSection } from './components/luxten/PamojaMovementSection';
+import { PamojaAboutSection } from './components/luxten/PamojaAboutSection';
+import { PamojaStoryWallSection } from './components/luxten/PamojaStoryWallSection';
+import { PamojaNetworkSection } from './components/luxten/PamojaNetworkSection';
 
 export default function App() {
   const [isLightMode, setIsLightMode] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>('THE PLATFORM');
+  const [section3Mode, setSection3Mode] = useState<'platform' | 'action-hub' | 'library'>('platform');
   const [showSignInModal, setShowSignInModal] = useState<boolean>(false);
   const [showSubmitModal, setShowSubmitModal] = useState<boolean>(false);
   const [showLibraryModal, setShowLibraryModal] = useState<boolean>(false);
@@ -63,7 +68,8 @@ export default function App() {
     { name: 'Action Hub', icon: Compass },
     { name: 'Library', icon: BookOpen },
     { name: 'Advocacy', icon: Megaphone },
-    { name: 'Partners', icon: Handshake }
+    { name: 'Partners', icon: Handshake },
+    { name: 'Networking', icon: Globe }
   ];
 
   const tags = [
@@ -170,7 +176,7 @@ export default function App() {
       />
 
       {/* SECTION 1: HERO SECTION - FITS FULL SCREEN AS POSTER VIEWPORT */}
-      <header id="main-hero" className="snap-section relative bg-[#005587] text-white min-h-[100dvh] lg:h-[100dvh] lg:max-h-[100dvh] overflow-y-auto lg:overflow-hidden flex flex-col w-full max-w-full py-2.5 sm:py-3.5 lg:py-3 shrink-0">
+      <header id="main-hero" className="snap-section relative bg-[#005587] text-white h-[100dvh] min-h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col w-full max-w-full py-2 sm:py-3 lg:py-3 shrink-0">
         
         {/* Hero Background with Unsplash Overlay */}
         <div 
@@ -293,7 +299,8 @@ export default function App() {
                       onClick={() => {
                         setActiveTab(tab.name);
                         if (tab.name === 'THE PLATFORM') {
-                          const el = document.getElementById('section-map');
+                          setSection3Mode('platform');
+                          const el = document.getElementById('section-excellence');
                           if (el) {
                             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             const container = document.getElementById('pamoja-root-container');
@@ -302,6 +309,7 @@ export default function App() {
                             }
                           }
                         } else if (tab.name === 'ACTION HUB') {
+                          setSection3Mode('action-hub');
                           const el = document.getElementById('section-excellence');
                           if (el) {
                             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -311,7 +319,15 @@ export default function App() {
                             }
                           }
                         } else if (tab.name === 'LIBRARY') {
-                          setShowLibraryModal(true);
+                          setSection3Mode('library');
+                          const el = document.getElementById('section-excellence');
+                          if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            const container = document.getElementById('pamoja-root-container');
+                            if (container) {
+                              container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                            }
+                          }
                         }
                       }}
                       className={`px-3 sm:px-5 py-1 sm:py-1.5 rounded-full text-[0.68rem] sm:text-xs font-bold uppercase transition-all duration-200 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer shrink-0 ${
@@ -427,24 +443,24 @@ export default function App() {
                 {/* Orbit Perimeter Labels (Positioned outside the orbit so they don't obscure the image) */}
                 <div id="feature-orbit-labels" className="absolute inset-0 pointer-events-none">
                   {/* Left Side Labels - Anchored right-full so they extend outside to the left */}
-                  <span className="absolute top-[22%] right-full mr-3 sm:mr-4 md:mr-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
+                  <span className="absolute top-[22%] right-full mr-3 sm:mr-4 md:mr-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
                     Peace
                   </span>
-                  <span className="absolute top-1/2 -translate-y-1/2 right-full mr-4 sm:mr-5 md:mr-6 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
+                  <span className="absolute top-1/2 -translate-y-1/2 right-full mr-4 sm:mr-5 md:mr-6 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
                     Justice
                   </span>
-                  <span className="absolute bottom-[22%] right-full mr-3 sm:mr-4 md:mr-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
+                  <span className="absolute bottom-[22%] right-full mr-3 sm:mr-4 md:mr-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
                     Action
                   </span>
 
                   {/* Right Side Labels - Anchored left-full so they extend outside to the right */}
-                  <span className="absolute top-[22%] left-full ml-3 sm:ml-4 md:ml-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
+                  <span className="absolute top-[22%] left-full ml-3 sm:ml-4 md:ml-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
                     Unity
                   </span>
-                  <span className="absolute top-1/2 -translate-y-1/2 left-full ml-4 sm:ml-5 md:ml-6 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
+                  <span className="absolute top-1/2 -translate-y-1/2 left-full ml-4 sm:ml-5 md:ml-6 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
                     Civic
                   </span>
-                  <span className="absolute bottom-[22%] left-full ml-3 sm:ml-4 md:ml-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-[#E5B80B] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
+                  <span className="absolute bottom-[22%] left-full ml-3 sm:ml-4 md:ml-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
                     Voice
                   </span>
                 </div>
@@ -504,8 +520,48 @@ export default function App() {
       <LuxtenMap isLightMode={isLightMode} />
       <LuxtenExcellence 
         isLightMode={isLightMode}
+        activeMode={section3Mode}
+        onModeChange={setSection3Mode}
         onOpenSubmitModal={() => setShowSubmitModal(true)} 
         onOpenDrawer={() => setIsMobileMenuOpen(true)}
+      />
+      <PamojaMovementSection
+        isLightMode={isLightMode}
+        onOpenSignInModal={() => setShowSignInModal(true)}
+        onOpenSubmitModal={() => setShowSubmitModal(true)}
+      />
+      <PamojaAboutSection
+        isLightMode={isLightMode}
+        onOpenSubmitModal={() => setShowSubmitModal(true)}
+        onJumpToPlatform={() => {
+          setSection3Mode('platform');
+          const el = document.getElementById('section-excellence');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }}
+        onOpenStoryWall={() => {
+          const el = document.getElementById('section-story-wall');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }}
+      />
+      <PamojaStoryWallSection
+        isLightMode={isLightMode}
+        onBackToAbout={() => {
+          const el = document.getElementById('section-about');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }}
+        onOpenSignInModal={() => setShowSignInModal(true)}
+        onScrollHome={() => {
+          const el = document.getElementById('main-hero');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }}
+      />
+      <PamojaNetworkSection
+        isLightMode={isLightMode}
+        onOpenSignInModal={() => setShowSignInModal(true)}
+        onScrollHome={() => {
+          const el = document.getElementById('main-hero');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }}
       />
 
       {/* MOBILE / EXPANDED SLIDE-OVER MENU DRAWER */}
@@ -554,17 +610,25 @@ export default function App() {
                       setActiveTab(upper);
                       setIsMobileMenuOpen(false);
                       if (upper === 'THE PLATFORM') {
-                        const el = document.getElementById('section-map');
+                        setSection3Mode('platform');
+                        const el = document.getElementById('section-excellence');
                         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       } else if (upper === 'ACTION HUB') {
+                        setSection3Mode('action-hub');
                         const el = document.getElementById('section-excellence');
                         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       } else if (upper === 'LIBRARY') {
-                        setShowLibraryModal(true);
+                        setSection3Mode('library');
+                        const el = document.getElementById('section-excellence');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       } else if (upper === 'ADVOCACY') {
                         setShowSubmitModal(true);
                       } else if (upper === 'PARTNERS') {
-                        setShowSignInModal(true);
+                        const el = document.getElementById('section-about');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      } else if (upper === 'NETWORKING') {
+                        const el = document.getElementById('section-network');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }
                     }}
                     className={`flex items-center gap-3.5 px-4 py-3 rounded-xl font-bold text-sm text-left transition-all cursor-pointer ${

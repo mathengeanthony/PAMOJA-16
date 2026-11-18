@@ -7,9 +7,12 @@ interface LuxtenMapProps {
 }
 
 export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => {
+    const sectionRef = useRef<HTMLDivElement>(null);
     const mapRef = useRef<HTMLDivElement>(null);
     const mapInstance = useRef<L.Map | null>(null);
     const tileLayerRef = useRef<L.TileLayer | null>(null);
+    const hasFlownRef = useRef<boolean>(false);
+    const tilesReadyRef = useRef<boolean>(false);
 
     useEffect(() => {
         if (!mapRef.current || mapInstance.current) return;
@@ -18,7 +21,7 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
         const listingData = [
             { loc: "Nairobi-Kilimani", lat: -1.2902, lng: 36.7904, size: 'md', growth: '2.1%', price: '14.5M' },
             { loc: "Nairobi-Westlands", lat: -1.2684, lng: 36.8044, size: 'md', growth: '5.4%', price: '18.0M' },
-            { loc: "Nairobi-LUXTEN", lat: -1.3197, lng: 36.7050, size: 'lg', growth: '4.2%', price: '85.0M' },
+            { loc: "Nairobi-Kibera Hub", lat: -1.3127, lng: 36.7885, size: 'lg', growth: '4.2%', price: '85.0M' },
             { loc: "Mombasa-Nyali", lat: -4.0322, lng: 39.7081, size: 'lg', growth: '8.1%', price: '35.0M' },
             { loc: "Mombasa-Bamburi", lat: -3.9961, lng: 39.7138, size: 'md', growth: '6.4%', price: '12.0M' },
             { loc: "Kwale-Diani Beach", lat: -4.2798, lng: 39.5947, size: 'lg', growth: '12.4%', price: '45.0M' },
@@ -38,24 +41,96 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
             { loc: "Narok-Maasai Mara", lat: -1.5273, lng: 35.1925, size: 'lg', growth: '1.2%', price: '120.0M' }
         ];
 
+        // Prefetch initial Nairobi (z=10) and full Kenya overview (z=6) OSM tiles immediately on mount
+        const prefetchCoords = [
+            { z: 10, x: 616, y: 515 }, { z: 10, x: 616, y: 516 },
+            { z: 10, x: 617, y: 515 }, { z: 10, x: 617, y: 516 },
+            { z: 6, x: 37, y: 31 }, { z: 6, x: 38, y: 31 }, { z: 6, x: 39, y: 31 },
+            { z: 6, x: 37, y: 32 }, { z: 6, x: 38, y: 32 }, { z: 6, x: 39, y: 32 },
+            { z: 6, x: 37, y: 30 }, { z: 6, x: 38, y: 30 }, { z: 6, x: 39, y: 30 },
+        ];
+        prefetchCoords.forEach(({ z, x, y }) => {
+            const img = new Image();
+            img.src = `https://tile.openstreetmap.org/${z}/${x}/${y}.png`;
+        });
+
         const map = L.map(mapRef.current, { 
             zoomControl: false, scrollWheelZoom: false, 
-            doubleClickZoom: false, dragging: false, attributionControl: false 
-        }).setView([-1.2921, 36.8219], 13);
+            doubleClickZoom: false, dragging: false, attributionControl: false,
+            zoomAnimation: true, fadeAnimation: true, markerZoomAnimation: true
+        }).setView([-1.2921, 36.8219], 10);
         mapInstance.current = map;
 
-        const flyToTimeout = setTimeout(() => {
-            if (mapInstance.current) {
-                mapInstance.current.flyTo([0.3, 37.0], 6, { duration: 2.5, easeLinearity: 0.25 });
+        const osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            updateWhenIdle: false,
+            updateWhenZooming: true,
+            keepBuffer: 6,
+            attribution: '&copy; OpenStreetMap contributors',
+        });
+        osmLayer.on('load', () => {
+            tilesReadyRef.current = true;
+        });
+        osmLayer.addTo(map);
+        tileLayerRef.current = osmLayer;
+
+        let flyToTimeout: ReturnType<typeof setTimeout> | null = null;
+        let fallbackTimeout: ReturnType<typeof setTimeout> | null = null;
+
+        const runFlyTo = () => {
+            if (!mapInstance.current) return;
+            mapInstance.current.invalidateSize({ animate: false });
+            mapInstance.current.flyTo([0.3, 37.0], 6, {
+                animate: true,
+                duration: 2.2,
+                easeLinearity: 0.28,
+            });
+            mapInstance.current.once('moveend', () => {
+                mapInstance.current?.invalidateSize({ animate: false });
+            });
+        };
+
+        const triggerZoomOut = () => {
+            if (hasFlownRef.current || !mapInstance.current) return;
+            hasFlownRef.current = true;
+            mapInstance.current.invalidateSize({ animate: false });
+
+            if (tilesReadyRef.current) {
+                flyToTimeout = setTimeout(runFlyTo, 280);
+            } else {
+                let launched = false;
+                const launchOnce = () => {
+                    if (launched) return;
+                    launched = true;
+                    if (fallbackTimeout) clearTimeout(fallbackTimeout);
+                    flyToTimeout = setTimeout(runFlyTo, 200);
+                };
+                osmLayer.once('load', launchOnce);
+                fallbackTimeout = setTimeout(launchOnce, 750);
             }
-        }, 800);
+        };
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        triggerZoomOut();
+                    }
+                });
+            },
+            { threshold: 0.35 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
 
         function createStarIcon(sizeClass: string) {
-            let px = sizeClass === 'lg' ? 14 : sizeClass === 'md' ? 8 : 5;
+            let px = sizeClass === 'lg' ? 16 : sizeClass === 'md' ? 11 : 8;
             let delay = -(Math.random() * 3).toFixed(2);
             return L.divIcon({
                 className: 'custom-star-icon',
-                html: `<div style="width:${px}px; height:${px}px; animation-delay: ${delay}s; background-color: #FFFF00; border: 1px solid #000; border-radius: 50%; box-shadow: 0 0 12px rgba(255,255,0,0.8);" class="animate-pulse"></div>`,
+                html: `<div style="width:${px}px; height:${px}px; animation-delay: ${delay}s; background: radial-gradient(circle, #ffffff 15%, #FFE600 55%, #E5B80B 100%); border: 1.5px solid #050a14; border-radius: 50%; box-shadow: 0 0 14px rgba(255, 230, 0, 0.95), 0 0 4px rgba(255, 255, 255, 0.8);" class="animate-pulse"></div>`,
                 iconSize: [px, px], iconAnchor: [px/2, px/2]
             });
         }
@@ -87,7 +162,9 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
         });
 
         return () => {
-            clearTimeout(flyToTimeout);
+            observer.disconnect();
+            if (flyToTimeout) clearTimeout(flyToTimeout);
+            if (fallbackTimeout) clearTimeout(fallbackTimeout);
             if (mapInstance.current) {
                 mapInstance.current.remove();
                 mapInstance.current = null;
@@ -95,22 +172,6 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
             tileLayerRef.current = null;
         };
     }, []);
-
-    // Tile Layer switching Effect
-    useEffect(() => {
-        if (!mapInstance.current) return;
-        
-        if (tileLayerRef.current) {
-            mapInstance.current.removeLayer(tileLayerRef.current);
-        }
-
-        const tileUrl = isLightMode 
-            ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
-            : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-
-        tileLayerRef.current = L.tileLayer(tileUrl, { maxZoom: 18, updateWhenIdle: true, keepBuffer: 4, crossOrigin: true });
-        tileLayerRef.current.addTo(mapInstance.current);
-    }, [isLightMode]);
 
     const toggleLock = () => {
         const map = mapInstance.current;
@@ -133,19 +194,27 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
     };
 
     return (
-        <div className="snap-section relative transition-colors duration-700 z-10" id="section-map" style={{ backgroundColor: isLightMode ? '#f1f5f9' : '#0a1729' }}>
+        <div ref={sectionRef} className="snap-section relative transition-colors duration-700 z-10 h-[100dvh] min-h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col justify-between" id="section-map" style={{ backgroundColor: isLightMode ? '#f1f5f9' : '#0a1729' }}>
             <style>{`
                 .custom-map-hud {
-                    background: rgba(5, 5, 5, 0.9) !important;
-                    backdrop-filter: blur(8px) !important;
-                    border: 1px solid rgba(0, 196, 204, 0.3) !important;
+                    background: rgba(6, 12, 22, 0.96) !important;
+                    backdrop-filter: blur(10px) !important;
+                    border: 1px solid rgba(0, 196, 204, 0.45) !important;
                     border-left: 4px solid #E5B80B !important;
                     border-radius: 8px !important;
                     padding: 12px 16px !important;
-                    color: white !important;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
+                    color: #ffffff !important;
+                    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.85) !important;
                 }
+                .leaflet-tooltip-pane { z-index: 1000 !important; }
+                .leaflet-marker-pane { z-index: 900 !important; }
                 .leaflet-tooltip-left:before, .leaflet-tooltip-right:before, .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before { display: none; }
+                #section-map .leaflet-tile-pane {
+                    filter: ${isLightMode
+                        ? 'saturate(0.65) hue-rotate(8deg) contrast(1.06) brightness(0.98)'
+                        : 'invert(1) hue-rotate(195deg) brightness(0.88) contrast(1.18) saturate(1.45)'};
+                    transition: filter 0.5s ease;
+                }
             `}</style>
             
             {/* Map Wrapper with Overflow and Crossfade Mask */}
@@ -159,11 +228,15 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
             >
                 <div id="map" ref={mapRef} className="absolute inset-0 z-0 pointer-events-auto"></div>
                 
-                {/* BASE MAP TINT */}
-                <div className={`absolute inset-0 mix-blend-color pointer-events-none z-[5] transition-colors duration-700 ${isLightMode ? 'bg-[#00C4CC] opacity-20' : 'bg-[#005587] opacity-60'}`}></div>
-                
-                {/* GENERAL OVERLAY VIGNETTE */}
-                <div className={`absolute inset-0 bg-gradient-to-b pointer-events-none z-10 transition-colors duration-700 ${isLightMode ? 'from-[#003355]/60 via-transparent to-[#f8f8f8]/80' : 'from-[#0a1729]/80 via-[#005587]/30 to-[#050505]/90'}`}></div>
+                {/* EDGE-ONLY VIGNETTE (Keeps center markers and popups completely untinted and vivid) */}
+                <div
+                    className="absolute inset-0 pointer-events-none z-10 transition-colors duration-700"
+                    style={{
+                        background: isLightMode
+                            ? 'linear-gradient(to bottom, rgba(0, 51, 85, 0.52) 0%, rgba(0, 51, 85, 0) 24%, rgba(248, 250, 252, 0) 76%, rgba(244, 247, 251, 0.85) 100%)'
+                            : 'linear-gradient(to bottom, rgba(10, 23, 41, 0.78) 0%, rgba(10, 23, 41, 0) 24%, rgba(5, 5, 5, 0) 76%, rgba(5, 5, 5, 0.9) 100%)'
+                    }}
+                ></div>
             </div>
 
             {/* BOTTOM CURTAIN - Matches Section 3 Top */}
@@ -190,9 +263,9 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 mt-4">
                         <div className="text-left">
                             <h1 className="font-extrabold leading-[0.82] uppercase tracking-tighter text-white" style={{ fontSize: 'clamp(2.5rem, 9vw, 4.8rem)' }}>
-                                <div className="block">PAMOJA 16</div>
-                                <div className="block text-black bg-[#E5B80B] px-4 w-fit -ml-4 my-2 pb-1">CIVIC</div>
-                                <div className="block text-[#00C4CC]">COMMAND</div>
+                                <div className="block text-white">PAMOJA 16</div>
+                                <div className="block text-white my-2">CIVIC</div>
+                                <div className="block text-white">COMMAND</div>
                             </h1>
                             <div className="mt-3 pl-4 border-l-2 border-[#E5B80B]">
                                 <p className="text-[10px] md:text-[11px] font-bold tracking-[0.3em] uppercase text-[#E5B80B]">Live Action Map</p>
@@ -287,13 +360,21 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                                 }}
                                 className="explore-pill bg-[#E5B80B] text-black hover:bg-black hover:text-[#E5B80B] border border-transparent hover:border-[#E5B80B] transition-colors"
                             >
-                                <span className="text-[10px] font-bold">Explore Data</span>
+                                <span className="text-[10px] font-bold">Explore Platform</span>
                             </a>
                         </div>
                     </div>
                     <div className="text-right flex flex-col items-end gap-3">
                         <button id="map-lock-btn" onClick={toggleLock} className="lock-btn border-white text-white hover:text-[#E5B80B] hover:border-[#E5B80B] transition-colors"><i id="lock-icon" className="fa-solid fa-lock text-lg"></i></button>
                         <p id="lock-text" className="text-[10px] md:text-[11px] font-bold text-white opacity-80 tracking-[0.15em] uppercase leading-tight text-right">Click to interact <br/> with map</p>
+                        <a
+                            href="https://www.openstreetmap.org/copyright"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-[9px] font-mono text-white/60 hover:text-[#E5B80B] transition-colors"
+                        >
+                            &copy; OpenStreetMap contributors
+                        </a>
                     </div>
                 </div>
             </main>
