@@ -263,7 +263,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
       />
 
       {/* MAIN CONTAINER */}
-      <div className="w-full max-w-[460px] md:max-w-[820px] lg:max-w-[1180px] mx-auto h-full flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-3 sm:pt-5 pb-2 relative z-10 min-h-0">
+      <div className="w-full max-w-[460px] md:max-w-[820px] lg:max-w-[1180px] mx-auto h-full flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-2.5 sm:pt-4 pb-1.5 relative z-10 min-h-0">
         
         {/* ===================================================================== */}
         {/* 1. TOP BAR: AVATAR + GREETING | MESSAGE & DIRECTORY ICON BUTTONS      */}
@@ -276,7 +276,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
             }}
             className="flex items-center gap-2.5 cursor-pointer group min-w-0"
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-[#00C4CC] overflow-hidden bg-[#003355] shrink-0 shadow-md">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-[#00C4CC] overflow-hidden bg-[#003355] shrink-0 shadow-md">
               <img
                 src="https://i.pravatar.cc/150?img=12"
                 alt="Your peacebuilder profile"
@@ -298,7 +298,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
               id="btn-network-requests"
               onClick={() => setShowRequestsModal(true)}
               aria-label="Open Help & Collaboration Requests"
-              className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all cursor-pointer"
+              className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all cursor-pointer"
               title="Messages & Peace Requests"
             >
               <MessageCircle className="w-4 h-4" />
@@ -314,7 +314,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
               id="btn-network-directory"
               onClick={() => setShowDirectoryModal(true)}
               aria-label="Browse Advocates by Strength"
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all cursor-pointer"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all cursor-pointer"
               title="Browse Strength Directory"
             >
               <Calendar className="w-4 h-4" />
@@ -325,15 +325,15 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
         {/* ===================================================================== */}
         {/* 2. 4-LINE TWO-TONE HEADLINE + SUB-ROW                                 */}
         {/* ===================================================================== */}
-        <div className="shrink-0 mt-1 sm:mt-2">
-          <h2 className="text-[1.85rem] xs:text-[2.1rem] sm:text-[2.7rem] lg:text-[3.2rem] font-normal tracking-tight leading-[1.03] text-balance">
+        <div className="shrink-0 mt-0.5 sm:mt-1">
+          <h2 className="text-[clamp(1.38rem,min(7.2vw,4dvh),3rem)] font-normal tracking-tight leading-[1.02] text-balance">
             <span className="block text-cyan-100/75">Find Peace</span>
             <span className="block text-cyan-100/75">Advocates</span>
             <span className="block font-medium text-white">With Diverse</span>
             <span className="block font-medium text-white">Strengths</span>
           </h2>
 
-          <div className="mt-2 sm:mt-3 flex items-start justify-between gap-4">
+          <div className="mt-1 sm:mt-2 flex items-start justify-between gap-4">
             <button
               type="button"
               onClick={() => setShowDirectoryModal(true)}
@@ -363,10 +363,10 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
         {/* ===================================================================== */}
         {/* 3. CENTER CIRCULAR ADVOCATE CAROUSEL + METADATA & ENDORSE/COLLAB PILLS */}
         {/* ===================================================================== */}
-        <div className="flex-1 min-h-0 flex flex-col items-center justify-center relative my-1">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center relative my-0.5">
           
           {/* Carousel Strip */}
-          <div className="relative w-full flex items-center justify-center py-1">
+          <div className="relative w-full flex items-center justify-center py-0.5">
             {/* Far Left Peek */}
             {filteredAdvocates.length > 3 && (
               <button
@@ -377,7 +377,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
                   )
                 }
                 aria-label={`Select ${leftOuter.name}`}
-                className="hidden xs:flex w-14 h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden opacity-45 hover:opacity-85 transition-all duration-300 cursor-pointer -mr-3 sm:-mr-2 shrink-0 border border-white/20"
+                className="hidden xs:flex w-[clamp(44px,min(12vw,8.5dvh),78px)] h-[clamp(44px,min(12vw,8.5dvh),78px)] rounded-full overflow-hidden opacity-45 hover:opacity-85 transition-all duration-300 cursor-pointer -mr-3 sm:-mr-2 shrink-0 border border-white/20"
               >
                 {renderAvatar(leftOuter, 'w-full h-full', 'text-xs')}
               </button>
@@ -393,7 +393,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
                   )
                 }
                 aria-label={`Select ${leftInner.name}`}
-                className="w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-pointer -mr-3 sm:-mr-4 z-10 shrink-0 border-2 border-white/25 shadow-lg"
+                className="w-[clamp(54px,min(16vw,11dvh),108px)] h-[clamp(54px,min(16vw,11dvh),108px)] rounded-full overflow-hidden opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-pointer -mr-3 sm:-mr-4 z-10 shrink-0 border-2 border-white/25 shadow-lg"
               >
                 {renderAvatar(leftInner, 'w-full h-full', 'text-sm')}
               </button>
@@ -405,7 +405,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
                 type="button"
                 id="btn-network-center-advocate"
                 onClick={() => handleOpenBooking('collaborate', currentAdvocate.id)}
-                className="group relative w-40 h-40 xs:w-44 xs:h-44 sm:w-52 sm:h-52 lg:w-60 lg:h-60 rounded-full p-1.5 flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.02] shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                className="group relative w-[clamp(124px,min(38vw,22.5dvh),228px)] h-[clamp(124px,min(38vw,22.5dvh),228px)] rounded-full p-1.5 flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.02] shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
                 title={`Reach out or book ${currentAdvocate.name}`}
               >
                 {/* Signature Partial White/Cyan Arc matching screenshot */}
@@ -439,7 +439,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
                 </div>
 
                 {/* Subtle Corridor Pill */}
-                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-[#E5B80B] text-[#0b0f17] text-[9.5px] sm:text-[10px] font-extrabold whitespace-nowrap shadow-md">
+                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-[#E5B80B] text-[#0b0f17] text-[9px] sm:text-[10px] font-extrabold whitespace-nowrap shadow-md">
                   {currentAdvocate.corridor}
                 </span>
               </button>
@@ -453,7 +453,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
                   setActiveIndex((safeIndex + 1) % filteredAdvocates.length)
                 }
                 aria-label={`Select ${rightInner.name}`}
-                className="w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-pointer -ml-3 sm:-ml-4 z-10 shrink-0 border-2 border-white/25 shadow-lg"
+                className="w-[clamp(54px,min(16vw,11dvh),108px)] h-[clamp(54px,min(16vw,11dvh),108px)] rounded-full overflow-hidden opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-pointer -ml-3 sm:-ml-4 z-10 shrink-0 border-2 border-white/25 shadow-lg"
               >
                 {renderAvatar(rightInner, 'w-full h-full', 'text-sm')}
               </button>
@@ -467,7 +467,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
                   setActiveIndex((safeIndex + 2) % filteredAdvocates.length)
                 }
                 aria-label={`Select ${rightOuter.name}`}
-                className="hidden xs:flex w-14 h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden opacity-45 hover:opacity-85 transition-all duration-300 cursor-pointer -ml-3 sm:-ml-2 shrink-0 border border-white/20"
+                className="hidden xs:flex w-[clamp(44px,min(12vw,8.5dvh),78px)] h-[clamp(44px,min(12vw,8.5dvh),78px)] rounded-full overflow-hidden opacity-45 hover:opacity-85 transition-all duration-300 cursor-pointer -ml-3 sm:-ml-2 shrink-0 border border-white/20"
               >
                 {renderAvatar(rightOuter, 'w-full h-full', 'text-xs')}
               </button>
@@ -475,7 +475,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
           </div>
 
           {/* Advocate Metadata Row: Endorse Pill (Left) | Strength & Name (Center) | Collaborators Pill (Right) */}
-          <div className="w-full max-w-[440px] sm:max-w-[540px] flex items-center justify-between gap-2 mt-2.5 sm:mt-3">
+          <div className="w-full max-w-[440px] sm:max-w-[540px] flex items-center justify-between gap-2 mt-2">
             <button
               type="button"
               onClick={() =>
@@ -528,15 +528,15 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
         {/* ===================================================================== */}
         {/* 4. BOTTOM PREVIEW CARDS + FLOATING WHITE PILL DOCK                    */}
         {/* ===================================================================== */}
-        <div className="relative shrink-0 pt-1">
+        <div className="relative shrink-0 pt-0.5">
           
           {/* Bottom Two Cards (Ask for Help & Book Cross-Border Peace Effort) */}
-          <div className="grid grid-cols-2 gap-2.5 sm:gap-4 pb-6 sm:pb-7">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4 pb-5 sm:pb-6">
             <button
               type="button"
               id="btn-network-collaborate-card"
               onClick={() => handleOpenBooking('collaborate', currentAdvocate.id)}
-              className="group rounded-2xl bg-white/95 hover:bg-white text-[#0b0f17] p-3 sm:p-4 text-left shadow-xl transition-all duration-200 cursor-pointer flex items-center justify-between gap-2 min-h-[68px] sm:min-h-[82px]"
+              className="group rounded-2xl bg-white/95 hover:bg-white text-[#0b0f17] p-2.5 sm:p-3.5 text-left shadow-xl transition-all duration-200 cursor-pointer flex items-center justify-between gap-2 min-h-[58px] sm:min-h-[76px]"
             >
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
@@ -547,7 +547,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
                     Collaborate
                   </span>
                 </div>
-                <span className="block text-xs sm:text-sm font-extrabold mt-1 truncate">
+                <span className="block text-xs sm:text-sm font-extrabold mt-0.5 sm:mt-1 truncate">
                   Book Peace Effort
                 </span>
                 <span className="hidden sm:block text-[11px] text-gray-500 truncate">
@@ -561,7 +561,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
               type="button"
               id="btn-network-help-card"
               onClick={() => handleOpenBooking('help', currentAdvocate.id)}
-              className="group rounded-2xl bg-[#d7f5f7] hover:bg-[#c5f0f3] text-[#041824] p-3 sm:p-4 text-left shadow-xl transition-all duration-200 cursor-pointer flex items-center justify-between gap-2 min-h-[68px] sm:min-h-[82px]"
+              className="group rounded-2xl bg-[#d7f5f7] hover:bg-[#c5f0f3] text-[#041824] p-2.5 sm:p-3.5 text-left shadow-xl transition-all duration-200 cursor-pointer flex items-center justify-between gap-2 min-h-[58px] sm:min-h-[76px]"
             >
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
@@ -570,7 +570,7 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
                     Beyond Borders
                   </span>
                 </div>
-                <span className="block text-xs sm:text-sm font-extrabold mt-1 truncate">
+                <span className="block text-xs sm:text-sm font-extrabold mt-0.5 sm:mt-1 truncate">
                   Ask for Help
                 </span>
                 <span className="hidden sm:block text-[11px] text-[#00446e]/80 truncate">
@@ -581,11 +581,11 @@ export const PamojaNetworkSection: React.FC<PamojaNetworkSectionProps> = ({
             </button>
           </div>
 
-          {/* Floating White Pill Navigation Dock (Matches Screenshot Bottom Pill) */}
-          <div className="flex justify-center -mt-10 sm:-mt-11 relative z-30 pb-1">
+          {/* Floating White Pill Navigation Dock */}
+          <div className="flex justify-center -mt-9 sm:-mt-10 relative z-30 pb-0.5">
             <nav
               aria-label="Peace Networking Dock"
-              className="inline-flex items-center gap-3 sm:gap-5 px-4 sm:px-6 py-2 rounded-full bg-white text-[#0b0f17] shadow-[0_14px_34px_rgba(0,0,0,0.35)] border border-white/60"
+              className="inline-flex items-center gap-3 sm:gap-5 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-white text-[#0b0f17] shadow-[0_14px_34px_rgba(0,0,0,0.35)] border border-white/60"
             >
               <button
                 type="button"

@@ -450,7 +450,7 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
             </div>
 
             {/* 2. TOP HERO CARD (like 'The Power You Need') */}
-            <div className="relative w-full rounded-2xl sm:rounded-3xl bg-[#141417] border border-white/10 overflow-hidden p-3 sm:p-3.5 flex flex-col justify-between shrink-0 shadow-lg min-h-[105px] sm:min-h-[122px]">
+            <div className="relative w-full rounded-2xl sm:rounded-3xl bg-[#141417] border border-white/10 overflow-hidden p-2.5 sm:p-3.5 flex flex-col justify-between flex-1 min-h-[86px] max-h-[160px] shadow-lg">
               {/* Photo backdrop with dark vignette */}
               <div 
                 className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none transition-all duration-700"
@@ -461,7 +461,7 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
               {/* Title Top Left */}
               <div className="relative z-10 flex items-start justify-between">
                 <div>
-                  <h2 className="text-base sm:text-lg font-black text-white leading-tight uppercase tracking-tight">
+                  <h2 className="text-sm sm:text-lg font-black text-white leading-tight uppercase tracking-tight">
                     The Power <br />
                     You Need
                   </h2>
@@ -478,7 +478,7 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
                 </p>
 
                 {/* 4 Carousel Dots with active elongated pill */}
-                <div className="flex items-center justify-center gap-1.5 mt-2">
+                <div className="flex items-center justify-center gap-1.5 mt-1.5 sm:mt-2">
                   {[0, 1, 2, 3].map((idx) => (
                     <button
                       key={idx}
@@ -499,12 +499,12 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
             </div>
 
             {/* 3. MIDDLE BENTO ROW (2 Columns: Tall Light Card + 2 Stacked Cards) */}
-            <div className="grid grid-cols-2 gap-2 shrink-0 my-0.5">
+            <div className="grid grid-cols-2 gap-2 flex-1 min-h-[104px] max-h-[195px] my-0.5">
               
               {/* Left Column: Tall High-Contrast Card (like 'Choose Bikes') */}
               <div 
                 onClick={handleNextCard}
-                className="rounded-2xl sm:rounded-3xl bg-white text-black p-2.5 sm:p-3 flex flex-col justify-between relative overflow-hidden shadow-md cursor-pointer hover:shadow-xl transition-all group min-h-[120px] sm:min-h-[135px]"
+                className="rounded-2xl sm:rounded-3xl bg-white text-black p-2.5 sm:p-3 flex flex-col justify-between relative overflow-hidden shadow-md cursor-pointer hover:shadow-xl transition-all group min-h-0"
                 title="Click to cycle modules"
               >
                 {/* Header */}
@@ -919,7 +919,7 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
             </div>
 
             {/* Featured Carousel Card */}
-            <div className={`relative w-full rounded-2xl overflow-hidden border shadow-xl flex-1 min-h-[140px] max-h-[185px] sm:max-h-[220px] flex flex-col justify-between p-2.5 sm:p-3 transition-colors ${
+            <div className={`relative w-full rounded-2xl overflow-hidden border shadow-xl flex-1 min-h-[92px] max-h-[210px] flex flex-col justify-between p-2 sm:p-3 transition-colors ${
               isLightMode 
                 ? 'bg-[#003355] border-[#005587]/30 text-white' 
                 : 'bg-[#0a0a0c] border-white/15 text-white'

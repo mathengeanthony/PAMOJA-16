@@ -57,6 +57,16 @@ export default function App() {
     }
   }, [isLightMode]);
 
+  const scrollToSection = (sectionId: string) => {
+    const el = document.getElementById(sectionId);
+    const container = document.getElementById('pamoja-root-container');
+    if (el && container) {
+      container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+    } else if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const navLinks = [
     { name: 'THE PLATFORM', icon: Layers },
     { name: 'ACTION HUB', icon: Compass },
@@ -176,7 +186,7 @@ export default function App() {
       />
 
       {/* SECTION 1: HERO SECTION - FITS FULL SCREEN AS POSTER VIEWPORT */}
-      <header id="main-hero" className="snap-section relative bg-[#005587] text-white h-[100dvh] min-h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col w-full max-w-full py-2 sm:py-3 lg:py-3 shrink-0">
+      <header id="main-hero" className="snap-section relative bg-[#005587] text-white h-[100dvh] min-h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col w-full max-w-full py-1.5 sm:py-3 lg:py-3 shrink-0">
         
         {/* Hero Background with Unsplash Overlay */}
         <div 
@@ -199,10 +209,10 @@ export default function App() {
         </div>
 
         {/* Hero Content Container - Proportional flex distribution */}
-        <div id="hero-content-wrapper" className="relative z-20 flex flex-col justify-start lg:justify-between flex-1 w-full max-w-full h-full min-h-0 gap-1.5 sm:gap-2">
+        <div id="hero-content-wrapper" className="relative z-20 flex flex-col justify-between flex-1 w-full max-w-full h-full min-h-0 gap-1 sm:gap-2">
           
           {/* NAVIGATION */}
-          <nav id="hero-navigation" className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-1.5 sm:pb-2 flex flex-col gap-2 sm:gap-2.5 shrink-0">
+          <nav id="hero-navigation" className="w-full max-w-[1360px] mx-auto px-3.5 sm:px-6 lg:px-8 pb-1 sm:pb-2 flex flex-col gap-1.5 sm:gap-2.5 shrink-0">
             
             {/* ROW 1: BRAND | USER TOOLS */}
             <div id="nav-row-1" className="flex justify-between items-center w-full gap-3">
@@ -300,34 +310,13 @@ export default function App() {
                         setActiveTab(tab.name);
                         if (tab.name === 'THE PLATFORM') {
                           setSection3Mode('platform');
-                          const el = document.getElementById('section-excellence');
-                          if (el) {
-                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            const container = document.getElementById('pamoja-root-container');
-                            if (container) {
-                              container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
-                            }
-                          }
+                          scrollToSection('section-excellence');
                         } else if (tab.name === 'ACTION HUB') {
                           setSection3Mode('action-hub');
-                          const el = document.getElementById('section-excellence');
-                          if (el) {
-                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            const container = document.getElementById('pamoja-root-container');
-                            if (container) {
-                              container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
-                            }
-                          }
+                          scrollToSection('section-excellence');
                         } else if (tab.name === 'LIBRARY') {
                           setSection3Mode('library');
-                          const el = document.getElementById('section-excellence');
-                          if (el) {
-                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            const container = document.getElementById('pamoja-root-container');
-                            if (container) {
-                              container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
-                            }
-                          }
+                          scrollToSection('section-excellence');
                         }
                       }}
                       className={`px-3 sm:px-5 py-1 sm:py-1.5 rounded-full text-[0.68rem] sm:text-xs font-bold uppercase transition-all duration-200 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer shrink-0 ${
@@ -346,8 +335,8 @@ export default function App() {
 
           </nav>
 
-          {/* HERO BODY - SCALED WITH 60% REDUCED GAP FOR BALANCED BREATHING ROOM */}
-          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-start lg:justify-between w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pb-3 sm:pb-4 pt-1 sm:pt-2 gap-4 sm:gap-5 lg:gap-8 min-h-0">
+          {/* HERO BODY - FLUID HEIGHT-AWARE DISTRIBUTION */}
+          <div id="hero-body-content" className="flex-1 flex flex-col lg:flex-row items-center justify-between w-full max-w-[1360px] mx-auto px-3.5 sm:px-6 lg:px-8 pb-2 sm:pb-4 pt-0.5 sm:pt-2 gap-1.5 sm:gap-4 lg:gap-8 min-h-0">
             
             {/* LEFT COLUMN: SOCIAL PROOF, ONLINE LINKS & HEADLINE */}
             <div id="hero-left-column" className="w-full lg:max-w-[54%] flex flex-col items-center lg:items-start text-center lg:text-left justify-start shrink-0">
@@ -355,9 +344,9 @@ export default function App() {
               {/* Social Proof Pill */}
               <div 
                 id="social-proof-pill"
-                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3.5 sm:px-4 py-1 sm:py-1.2 rounded-full font-bold text-[0.7rem] sm:text-xs md:text-sm mb-2 sm:mb-2.5 border border-white/20 shadow-sm whitespace-nowrap max-w-full shrink-0"
+                className="bg-white/10 backdrop-blur-md text-white inline-flex items-center px-3 sm:px-4 py-1 rounded-full font-bold text-[0.65rem] sm:text-xs md:text-sm mb-1.5 sm:mb-2.5 border border-white/20 shadow-sm whitespace-nowrap max-w-full shrink-0"
               >
-                <div className="flex -space-x-1.5 sm:-space-x-2 mr-2.5 sm:mr-3 shrink-0">
+                <div className="flex -space-x-1.5 sm:-space-x-2 mr-2 sm:mr-3 shrink-0">
                   <div 
                     className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-white bg-cover bg-center shadow-xs shrink-0"
                     style={{ backgroundImage: "url('https://i.pravatar.cc/150?img=32')" }}
@@ -375,7 +364,7 @@ export default function App() {
               </div>
 
               {/* Read More Links */}
-              <div id="read-more-group" className="flex items-center gap-2 sm:gap-2.5 mb-2 sm:mb-2.5 lg:mb-3 text-[0.72rem] sm:text-xs md:text-sm font-semibold text-[#00C4CC] flex-wrap justify-center lg:justify-start shrink-0">
+              <div id="read-more-group" className="flex items-center gap-2 sm:gap-2.5 mb-1 sm:mb-2.5 lg:mb-3 text-[0.68rem] sm:text-xs md:text-sm font-semibold text-[#00C4CC] flex-wrap justify-center lg:justify-start shrink-0">
                 <a 
                   href="https://instagram.com" 
                   target="_blank" 
@@ -396,30 +385,30 @@ export default function App() {
                   <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 </a>
 
-                <span className="tracking-wide text-[0.72rem] sm:text-xs md:text-sm whitespace-nowrap">READ MORE ABOUT US ONLINE</span>
+                <span className="tracking-wide text-[0.68rem] sm:text-xs md:text-sm whitespace-nowrap">READ MORE ABOUT US ONLINE</span>
               </div>
 
               {/* Main Headline */}
               <h1 
                 id="hero-main-title" 
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.9rem] xl:text-[3.6rem] font-black uppercase tracking-tight leading-[0.98] text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-200 drop-shadow-sm select-none"
+                className="text-[clamp(1.3rem,min(6.2vw,3.5dvh),2.25rem)] lg:text-[clamp(2.35rem,3.6vw,3.5rem)] font-black uppercase tracking-tight leading-[0.98] text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-200 drop-shadow-sm select-none"
               >
                 THE DIGITAL HOME FOR PEACE &amp; JUSTICE
               </h1>
 
               {/* Sub-context description */}
-              <p className="mt-2 sm:mt-2.5 lg:mt-3 text-[0.75rem] sm:text-xs md:text-sm lg:text-base text-blue-100/85 font-medium max-w-xl leading-relaxed">
+              <p className="mt-1 sm:mt-2.5 lg:mt-3 text-[0.7rem] sm:text-xs md:text-sm lg:text-base text-blue-100/85 font-medium max-w-xl leading-snug sm:leading-relaxed line-clamp-2 sm:line-clamp-none">
                 Mobilizing youth advocates, community monitors, and civic pioneers under United Nations Sustainable Development Goal 16 across Kenya and East Africa.
               </p>
             </div>
 
             {/* RIGHT COLUMN: ORBIT VISUAL & TAGS */}
-            <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-start min-h-0">
+            <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-between lg:justify-center min-h-0">
               
               {/* Circular Feature with Orbit Animation (Symmetrically positioned labels outside) */}
               <div 
                 id="circular-feature-node"
-                className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 rounded-full border-2 border-white/30 relative flex items-center justify-center mt-2 sm:mt-4 lg:mt-0 shrink-0 shadow-2xl"
+                className="w-[clamp(98px,17dvh,168px)] h-[clamp(98px,17dvh,168px)] sm:w-40 sm:h-40 lg:w-52 lg:h-52 xl:w-60 xl:h-60 rounded-full border-2 border-white/30 relative flex items-center justify-center my-auto lg:my-0 shrink-0 shadow-2xl"
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                   backgroundPosition: 'center',
@@ -467,7 +456,7 @@ export default function App() {
               </div>
 
               {/* Tags Cloud */}
-              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end mt-auto gap-1.5 sm:gap-2 max-w-[540px] px-2 shrink-0 pt-6 sm:pt-8 lg:pt-0">
+              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end mt-auto gap-1 sm:gap-2 max-w-[540px] px-1 shrink-0 pt-1.5 sm:pt-4 lg:pt-6">
                 {tags.map((tag) => {
                   const isSelected = selectedTag === tag;
                   return (
@@ -475,7 +464,7 @@ export default function App() {
                       key={tag}
                       id={`tag-pill-${tag.toLowerCase().replace(/\s+/g, '-')}`}
                       onClick={() => setSelectedTag(isSelected ? null : tag)}
-                      className={`border px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-[0.68rem] sm:text-xs uppercase font-bold tracking-wide backdrop-blur-xs transition-all duration-200 cursor-pointer ${
+                      className={`border px-2.5 sm:px-3.5 py-0.5 sm:py-1.5 rounded-full text-[0.62rem] sm:text-xs uppercase font-bold tracking-wide backdrop-blur-xs transition-all duration-200 cursor-pointer ${
                         isSelected 
                           ? 'border-[#00C4CC] bg-[#00C4CC]/20 text-white scale-105 shadow-sm' 
                           : 'border-white/20 text-gray-200 hover:border-[#00C4CC] hover:text-white hover:scale-105'
@@ -487,12 +476,12 @@ export default function App() {
                 })}
 
                 {/* Tags Footer Row (Equalized padding, height and alignment) */}
-                <div id="tags-footer-row" className="flex items-center justify-center lg:justify-end gap-2 sm:gap-2.5 w-full mt-2.5 sm:mt-3.5 mb-0">
+                <div id="tags-footer-row" className="flex items-center justify-center lg:justify-end gap-2 sm:gap-2.5 w-full mt-1.5 sm:mt-3 mb-0">
                   <div 
                     id="tag-powered-by"
-                    className="bg-[#E5B80B] text-black px-3.5 sm:px-4 py-1.5 rounded-full text-[0.68rem] sm:text-xs font-black uppercase flex items-center gap-1.5 sm:gap-2 shadow-sm select-none"
+                    className="bg-[#E5B80B] text-black px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[0.64rem] sm:text-xs font-black uppercase flex items-center gap-1.5 sm:gap-2 shadow-sm select-none"
                   >
-                    <div className="w-4 h-4 sm:w-4.5 sm:h-4.5 rounded-full bg-black flex items-center justify-center text-white text-[0.55rem]">
+                    <div className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full bg-black flex items-center justify-center text-white text-[0.55rem]">
                       <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#E5B80B]" />
                     </div>
                     <span>Powered by Youth for SDGs</span>
@@ -500,7 +489,7 @@ export default function App() {
 
                   <div 
                     id="tag-kenya-badge"
-                    className="bg-white text-gray-900 px-3.5 sm:px-4 py-1.5 rounded-full text-[0.68rem] sm:text-xs font-black uppercase shadow-sm select-none"
+                    className="bg-white text-gray-900 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[0.64rem] sm:text-xs font-black uppercase shadow-sm select-none"
                   >
                     Kenya
                   </div>
@@ -535,32 +524,27 @@ export default function App() {
         onOpenSubmitModal={() => setShowSubmitModal(true)}
         onJumpToPlatform={() => {
           setSection3Mode('platform');
-          const el = document.getElementById('section-excellence');
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          scrollToSection('section-excellence');
         }}
         onOpenStoryWall={() => {
-          const el = document.getElementById('section-story-wall');
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          scrollToSection('section-story-wall');
         }}
       />
       <PamojaStoryWallSection
         isLightMode={isLightMode}
         onBackToAbout={() => {
-          const el = document.getElementById('section-about');
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          scrollToSection('section-about');
         }}
         onOpenSignInModal={() => setShowSignInModal(true)}
         onScrollHome={() => {
-          const el = document.getElementById('main-hero');
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          scrollToSection('main-hero');
         }}
       />
       <PamojaNetworkSection
         isLightMode={isLightMode}
         onOpenSignInModal={() => setShowSignInModal(true)}
         onScrollHome={() => {
-          const el = document.getElementById('main-hero');
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          scrollToSection('main-hero');
         }}
       />
 
@@ -611,24 +595,19 @@ export default function App() {
                       setIsMobileMenuOpen(false);
                       if (upper === 'THE PLATFORM') {
                         setSection3Mode('platform');
-                        const el = document.getElementById('section-excellence');
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        scrollToSection('section-excellence');
                       } else if (upper === 'ACTION HUB') {
                         setSection3Mode('action-hub');
-                        const el = document.getElementById('section-excellence');
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        scrollToSection('section-excellence');
                       } else if (upper === 'LIBRARY') {
                         setSection3Mode('library');
-                        const el = document.getElementById('section-excellence');
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        scrollToSection('section-excellence');
                       } else if (upper === 'ADVOCACY') {
                         setShowSubmitModal(true);
                       } else if (upper === 'PARTNERS') {
-                        const el = document.getElementById('section-about');
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        scrollToSection('section-about');
                       } else if (upper === 'NETWORKING') {
-                        const el = document.getElementById('section-network');
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        scrollToSection('section-network');
                       }
                     }}
                     className={`flex items-center gap-3.5 px-4 py-3 rounded-xl font-bold text-sm text-left transition-all cursor-pointer ${

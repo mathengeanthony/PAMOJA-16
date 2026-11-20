@@ -340,7 +340,7 @@ export const PamojaMovementSection: React.FC<PamojaMovementSectionProps> = ({
     <section
       ref={sectionRef}
       id="section-movement"
-      className={`snap-section min-h-[100dvh] h-[100dvh] max-h-[100dvh] w-full flex flex-col justify-between overflow-hidden relative select-none border-b transition-colors duration-500 px-4 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-7 ${canvasBg} ${
+      className={`snap-section min-h-[100dvh] h-[100dvh] max-h-[100dvh] w-full flex flex-col justify-between overflow-hidden relative select-none border-b transition-colors duration-500 px-3.5 py-2.5 sm:px-8 sm:py-4 lg:px-12 lg:py-5 ${canvasBg} ${
         isLightMode ? 'border-[#005587]/15' : 'border-white/10'
       }`}
     >
@@ -360,22 +360,22 @@ export const PamojaMovementSection: React.FC<PamojaMovementSectionProps> = ({
       <div className="w-full max-w-[460px] md:max-w-[760px] lg:max-w-[1160px] mx-auto h-full flex flex-col justify-between relative z-10 min-h-0">
         
         {/* ========================================================================= */}
-        {/* 1. TOP INTERLOCKING WORD-PILL HEADLINE (4 ROWS, EXACT SCREENSHOT RHYTHM) */}
+        {/* 1. TOP INTERLOCKING WORD-PILL HEADLINE (4 ROWS, HEIGHT-AWARE RHYTHM)      */}
         {/* ========================================================================= */}
-        <div className="w-full flex flex-col items-center justify-center pt-1 sm:pt-2 shrink-0">
+        <div className="w-full flex flex-col items-center justify-center pt-0.5 sm:pt-1 shrink-0">
           <h2
             aria-label="Everything you need for a just civic movement — All in Pamoja 16"
-            className="flex flex-col items-center gap-1 sm:gap-1.5 md:gap-2 font-medium tracking-tight leading-none"
+            className="flex flex-col items-center gap-[clamp(3px,0.75dvh,8px)] font-medium tracking-tight leading-none"
           >
             {/* Row 1: Everything | you */}
             <span className="flex items-center justify-center">
               <span
-                className={`relative z-20 inline-flex items-center justify-center rounded-full px-4 sm:px-6 lg:px-8 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] shadow-xs ${primaryPill}`}
+                className={`relative z-20 inline-flex items-center justify-center rounded-full px-[clamp(0.8rem,2.4vw,1.85rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] shadow-xs ${primaryPill}`}
               >
                 Everything
               </span>
               <span
-                className={`relative z-10 -ml-3.5 sm:-ml-5 inline-flex items-center justify-center rounded-r-full rounded-l-2xl pl-5 sm:pl-7 pr-4 sm:pr-6 lg:pr-7 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] ${bluePill}`}
+                className={`relative z-10 -ml-3 sm:-ml-4 inline-flex items-center justify-center rounded-r-full rounded-l-2xl pl-[clamp(1.1rem,3vw,1.9rem)] pr-[clamp(0.8rem,2.4vw,1.7rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] ${bluePill}`}
               >
                 you
               </span>
@@ -384,22 +384,22 @@ export const PamojaMovementSection: React.FC<PamojaMovementSectionProps> = ({
             {/* Row 2: need | for | a | just */}
             <span className="flex items-center justify-center">
               <span
-                className={`relative z-10 inline-flex items-center justify-center rounded-full px-3.5 sm:px-5 lg:px-7 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold ${cyanPill}`}
+                className={`relative z-10 inline-flex items-center justify-center rounded-full px-[clamp(0.75rem,2.1vw,1.65rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] font-semibold ${cyanPill}`}
               >
                 need
               </span>
               <span
-                className={`relative z-20 -ml-0.5 inline-flex items-center justify-center rounded-full px-3.5 sm:px-5 lg:px-6 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] ${primaryPill}`}
+                className={`relative z-20 -ml-0.5 inline-flex items-center justify-center rounded-full px-[clamp(0.75rem,2.1vw,1.5rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] ${primaryPill}`}
               >
                 for
               </span>
               <span
-                className={`relative z-20 -ml-0.5 inline-flex items-center justify-center rounded-full px-3.5 sm:px-5 lg:px-6 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold ${goldPill}`}
+                className={`relative z-20 -ml-0.5 inline-flex items-center justify-center rounded-full px-[clamp(0.7rem,2vw,1.45rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] font-semibold ${goldPill}`}
               >
                 a
               </span>
               <span
-                className={`relative z-10 -ml-3.5 sm:-ml-5 inline-flex items-center justify-center rounded-r-full rounded-l-2xl pl-5 sm:pl-7 pr-4 sm:pr-6 lg:pr-8 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] ${primaryPill}`}
+                className={`relative z-10 -ml-3 sm:-ml-4 inline-flex items-center justify-center rounded-r-full rounded-l-2xl pl-[clamp(1.1rem,3vw,1.9rem)] pr-[clamp(0.8rem,2.4vw,1.85rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] ${primaryPill}`}
               >
                 just
               </span>
@@ -408,18 +408,18 @@ export const PamojaMovementSection: React.FC<PamojaMovementSectionProps> = ({
             {/* Row 3: civic | movement | — */}
             <span className="flex items-center justify-center">
               <span
-                className={`relative z-10 inline-flex items-center justify-center rounded-full px-4 sm:px-6 lg:px-7 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] ${primaryPill}`}
+                className={`relative z-10 inline-flex items-center justify-center rounded-full px-[clamp(0.8rem,2.4vw,1.7rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] ${primaryPill}`}
               >
                 civic
               </span>
               <span
-                className={`relative z-20 -ml-0.5 inline-flex items-center justify-center rounded-l-full rounded-r-lg px-4 sm:px-6 lg:px-8 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold ${cyanPill}`}
+                className={`relative z-20 -ml-0.5 inline-flex items-center justify-center rounded-l-full rounded-r-lg px-[clamp(0.8rem,2.4vw,1.85rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] font-semibold ${cyanPill}`}
               >
                 movement
               </span>
               <span
                 aria-hidden="true"
-                className={`relative z-10 -ml-1.5 sm:-ml-2 inline-flex items-center justify-center rounded-full w-[2.35rem] h-[2.35rem] xs:w-[2.6rem] xs:h-[2.6rem] sm:w-[3.5rem] sm:h-[3.5rem] lg:w-[4.25rem] lg:h-[4.25rem] text-[1.15rem] sm:text-[1.75rem] lg:text-[2.2rem] font-normal ${bluePill}`}
+                className={`relative z-10 -ml-1.5 sm:-ml-2 inline-flex items-center justify-center rounded-full w-[clamp(1.95rem,min(8.4vw,5.4dvh),3.9rem)] h-[clamp(1.95rem,min(8.4vw,5.4dvh),3.9rem)] text-[clamp(0.95rem,min(4vw,2.7dvh),2rem)] font-normal ${bluePill}`}
               >
                 —
               </span>
@@ -428,22 +428,22 @@ export const PamojaMovementSection: React.FC<PamojaMovementSectionProps> = ({
             {/* Row 4: All | in | Pamoja | 16 */}
             <span className="flex items-center justify-center">
               <span
-                className={`relative z-10 inline-flex items-center justify-center rounded-full px-4 sm:px-5 lg:px-7 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] ${bluePill}`}
+                className={`relative z-10 inline-flex items-center justify-center rounded-full px-[clamp(0.8rem,2.2vw,1.7rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] ${bluePill}`}
               >
                 All
               </span>
               <span
-                className={`relative z-10 -ml-0.5 inline-flex items-center justify-center rounded-full px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold ${cyanPill}`}
+                className={`relative z-10 -ml-0.5 inline-flex items-center justify-center rounded-full px-[clamp(0.65rem,1.8vw,1.3rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] font-semibold ${cyanPill}`}
               >
                 in
               </span>
               <span
-                className={`relative z-20 -ml-0.5 inline-flex items-center justify-center rounded-full px-4 sm:px-6 lg:px-7 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] ${primaryPill}`}
+                className={`relative z-20 -ml-0.5 inline-flex items-center justify-center rounded-full px-[clamp(0.8rem,2.4vw,1.75rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] ${primaryPill}`}
               >
                 Pamoja
               </span>
               <span
-                className={`relative z-10 -ml-3.5 sm:-ml-5 inline-flex items-center justify-center rounded-r-full rounded-l-2xl pl-5 sm:pl-7 pr-4 sm:pr-6 lg:pr-7 py-1.5 sm:py-2 lg:py-2.5 text-[1.28rem] xs:text-[1.45rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold ${bluePill}`}
+                className={`relative z-10 -ml-3 sm:-ml-4 inline-flex items-center justify-center rounded-r-full rounded-l-2xl pl-[clamp(1.1rem,3vw,1.9rem)] pr-[clamp(0.8rem,2.4vw,1.7rem)] py-[clamp(0.32rem,0.9dvh,0.62rem)] text-[clamp(1.05rem,min(4.8vw,3.3dvh),2.5rem)] font-semibold ${bluePill}`}
               >
                 16
               </span>
@@ -454,11 +454,11 @@ export const PamojaMovementSection: React.FC<PamojaMovementSectionProps> = ({
         {/* ========================================================================= */}
         {/* 2. MIDDLE VISUAL STAGE: TAGLINE + TWO OVERLAPPING CIRCULAR 3D BADGES     */}
         {/* ========================================================================= */}
-        <div className="flex-1 min-h-0 relative flex flex-col justify-center w-full my-1 sm:my-2">
+        <div className="flex-1 min-h-0 relative flex flex-col justify-center w-full my-0.5 sm:my-1">
           
-          {/* Editorial Tagline (Upper-Right, mirroring "Manage / your money / with ease") */}
-          <div className="w-full flex justify-end pr-1 sm:pr-4 lg:pr-8 mb-1 sm:mb-0 lg:mb-2 relative z-20 shrink-0">
-            <div className="text-right leading-[1.12] tracking-tight text-base xs:text-lg sm:text-2xl lg:text-3xl font-medium">
+          {/* Editorial Tagline (Upper-Right) */}
+          <div className="w-full flex justify-end pr-1 sm:pr-4 lg:pr-8 mb-0.5 relative z-20 shrink-0">
+            <div className="text-right leading-[1.08] tracking-tight text-[clamp(0.95rem,2.5dvh,1.85rem)] font-medium">
               <span className={`block ${isLightMode ? 'text-[#005587]/40' : 'text-[#00C4CC]/45'}`}>
                 Mobilize
               </span>
@@ -472,98 +472,99 @@ export const PamojaMovementSection: React.FC<PamojaMovementSectionProps> = ({
           </div>
 
           {/* Overlapping Circular Badges Stage */}
-          <div className="relative w-full flex-1 min-h-[210px] sm:min-h-[270px] lg:min-h-[320px] max-h-[380px] flex items-center justify-center">
-            
-            {/* LEFT-CENTER BLUE CIRCLE: PAMOJA 16 UNITY CLUSTER */}
-            <button
-              type="button"
-              onClick={() => {
-                setActiveMetricIdx(0);
-                setActiveCircleModal('unity');
-              }}
-              aria-label="Explore Pamoja 16 Peace & Unity Network"
-              className="group absolute left-[-6%] xs:left-[-2%] sm:left-[4%] md:left-[10%] lg:left-[18%] top-[2%] sm:top-[0%] w-[205px] h-[205px] xs:w-[235px] xs:h-[235px] sm:w-[275px] sm:h-[275px] lg:w-[325px] lg:h-[325px] rounded-full bg-[#005587] shadow-[0_20px_50px_rgba(0,85,135,0.35)] flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00C4CC] z-10"
-            >
-              {/* Curved Perimeter Typography */}
-              <svg
-                viewBox="0 0 200 200"
-                className="absolute inset-0 w-full h-full pointer-events-none animate-[spin_32s_linear_infinite] motion-reduce:animate-none"
-                aria-hidden="true"
+          <div className="relative w-full flex-1 min-h-0 flex items-center justify-center">
+            <div className="relative w-full max-w-[460px] md:max-w-[540px] h-full max-h-[340px] flex items-center justify-center">
+              {/* LEFT-CENTER BLUE CIRCLE: PAMOJA 16 UNITY CLUSTER */}
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveMetricIdx(0);
+                  setActiveCircleModal('unity');
+                }}
+                aria-label="Explore Pamoja 16 Peace & Unity Network"
+                className="group absolute left-[-2%] sm:left-[2%] top-[2%] w-[clamp(145px,min(45vw,28dvh),290px)] h-[clamp(145px,min(45vw,28dvh),290px)] rounded-full bg-[#005587] shadow-[0_20px_50px_rgba(0,85,135,0.35)] flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00C4CC] z-10"
               >
-                <defs>
-                  <path
-                    id="pamoja-circle-path-left"
-                    d="M 100, 100 m -84, 0 a 84,84 0 1,1 168,0 a 84,84 0 1,1 -168,0"
-                  />
-                </defs>
-                <text
-                  fill="#ffffff"
-                  fillOpacity="0.92"
-                  fontSize="12.2"
-                  fontWeight="500"
-                  letterSpacing="1.6"
-                  fontFamily="Manrope, sans-serif"
+                {/* Curved Perimeter Typography */}
+                <svg
+                  viewBox="0 0 200 200"
+                  className="absolute inset-0 w-full h-full pointer-events-none animate-[spin_32s_linear_infinite] motion-reduce:animate-none"
+                  aria-hidden="true"
                 >
-                  <textPath href="#pamoja-circle-path-left" startOffset="0%">
-                    PAMOJA16PAMOJA16PAMOJA16PAMOJA16
-                  </textPath>
-                </text>
-              </svg>
+                  <defs>
+                    <path
+                      id="pamoja-circle-path-left"
+                      d="M 100, 100 m -84, 0 a 84,84 0 1,1 168,0 a 84,84 0 1,1 -168,0"
+                    />
+                  </defs>
+                  <text
+                    fill="#ffffff"
+                    fillOpacity="0.92"
+                    fontSize="12.2"
+                    fontWeight="500"
+                    letterSpacing="1.6"
+                    fontFamily="Manrope, sans-serif"
+                  >
+                    <textPath href="#pamoja-circle-path-left" startOffset="0%">
+                      PAMOJA16PAMOJA16PAMOJA16PAMOJA16
+                    </textPath>
+                  </text>
+                </svg>
 
-              {/* Center Tactile 3D Canvas Sculpture */}
-              <div className="relative z-10 w-full h-full flex items-center justify-center">
-                <OrganicSphereCanvas variant="unity-cluster" isLightMode={isLightMode} />
-              </div>
-            </button>
+                {/* Center Tactile 3D Canvas Sculpture */}
+                <div className="relative z-10 w-full h-full flex items-center justify-center">
+                  <OrganicSphereCanvas variant="unity-cluster" isLightMode={isLightMode} />
+                </div>
+              </button>
 
-            {/* RIGHT-BOTTOM SOFT-CYAN / GOLD CIRCLE: SDG 16 CIVIC ACTION */}
-            <button
-              type="button"
-              onClick={() => {
-                setActiveMetricIdx((prev) => (prev + 1) % metrics.length);
-                setActiveCircleModal('action');
-              }}
-              aria-label="Explore SDG 16 Civic Action Metrics"
-              className={`group absolute right-[-6%] xs:right-[-2%] sm:right-[4%] md:right-[10%] lg:right-[18%] bottom-[-4%] sm:bottom-[-2%] w-[185px] h-[185px] xs:w-[215px] xs:h-[215px] sm:w-[255px] sm:h-[255px] lg:w-[295px] lg:h-[295px] rounded-full flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E5B80B] z-20 ${
-                isLightMode
-                  ? 'bg-[#ccf5f7] shadow-[0_20px_50px_rgba(0,196,204,0.22)] ring-4 ring-[#f4f7fb]'
-                  : 'bg-[#0b2a3c] shadow-[0_20px_50px_rgba(0,196,204,0.18)] ring-4 ring-[#050505]'
-              }`}
-            >
-              {/* Curved Perimeter Typography */}
-              <svg
-                viewBox="0 0 200 200"
-                className="absolute inset-0 w-full h-full pointer-events-none animate-[spin_38s_linear_infinite_reverse] motion-reduce:animate-none"
-                aria-hidden="true"
+              {/* RIGHT-BOTTOM SOFT-CYAN / GOLD CIRCLE: SDG 16 CIVIC ACTION */}
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveMetricIdx((prev) => (prev + 1) % metrics.length);
+                  setActiveCircleModal('action');
+                }}
+                aria-label="Explore SDG 16 Civic Action Metrics"
+                className={`group absolute right-[-2%] sm:right-[2%] bottom-[0%] w-[clamp(132px,min(41vw,25.5dvh),265px)] h-[clamp(132px,min(41vw,25.5dvh),265px)] rounded-full flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E5B80B] z-20 ${
+                  isLightMode
+                    ? 'bg-[#ccf5f7] shadow-[0_20px_50px_rgba(0,196,204,0.22)] ring-4 ring-[#f4f7fb]'
+                    : 'bg-[#0b2a3c] shadow-[0_20px_50px_rgba(0,196,204,0.18)] ring-4 ring-[#050505]'
+                }`}
               >
-                <defs>
-                  <path
-                    id="pamoja-circle-path-right"
-                    d="M 100, 100 m -84, 0 a 84,84 0 1,1 168,0 a 84,84 0 1,1 -168,0"
-                  />
-                </defs>
-                <text
-                  fill={isLightMode ? '#005587' : '#00C4CC'}
-                  fillOpacity="0.9"
-                  fontSize="12.2"
-                  fontWeight="600"
-                  letterSpacing="1.6"
-                  fontFamily="Manrope, sans-serif"
+                {/* Curved Perimeter Typography */}
+                <svg
+                  viewBox="0 0 200 200"
+                  className="absolute inset-0 w-full h-full pointer-events-none animate-[spin_38s_linear_infinite_reverse] motion-reduce:animate-none"
+                  aria-hidden="true"
                 >
-                  <textPath href="#pamoja-circle-path-right" startOffset="0%">
-                    SDG16KENYA•SDG16KENYA•SDG16KENYA•
-                  </textPath>
-                </text>
-              </svg>
+                  <defs>
+                    <path
+                      id="pamoja-circle-path-right"
+                      d="M 100, 100 m -84, 0 a 84,84 0 1,1 168,0 a 84,84 0 1,1 -168,0"
+                    />
+                  </defs>
+                  <text
+                    fill={isLightMode ? '#005587' : '#00C4CC'}
+                    fillOpacity="0.9"
+                    fontSize="12.2"
+                    fontWeight="600"
+                    letterSpacing="1.6"
+                    fontFamily="Manrope, sans-serif"
+                  >
+                    <textPath href="#pamoja-circle-path-right" startOffset="0%">
+                      SDG16KENYA•SDG16KENYA•SDG16KENYA•
+                    </textPath>
+                  </text>
+                </svg>
 
-              {/* Center Tactile 3D Nodular Sphere */}
-              <div className="relative z-10 w-full h-full flex items-center justify-center">
-                <OrganicSphereCanvas variant="civic-bloom" isLightMode={isLightMode} />
-              </div>
-            </button>
+                {/* Center Tactile 3D Nodular Sphere */}
+                <div className="relative z-10 w-full h-full flex items-center justify-center">
+                  <OrganicSphereCanvas variant="civic-bloom" isLightMode={isLightMode} />
+                </div>
+              </button>
+            </div>
 
-            {/* BOTTOM-LEFT STAT COUNTER (Anchored cleanly on bottom-left just like screenshot) */}
-            <div className="absolute left-0 bottom-1 sm:bottom-2 z-30 flex flex-col items-start pointer-events-auto">
+            {/* BOTTOM-LEFT STAT COUNTER */}
+            <div className="absolute left-0 bottom-0.5 sm:bottom-1 z-30 flex flex-col items-start pointer-events-auto">
               <button
                 type="button"
                 onClick={() => setActiveMetricIdx((prev) => (prev + 1) % metrics.length)}
@@ -571,14 +572,14 @@ export const PamojaMovementSection: React.FC<PamojaMovementSectionProps> = ({
                 title="Click to cycle verified Pamoja 16 impact figures"
               >
                 <span
-                  className={`block text-[11px] sm:text-xs font-semibold tracking-wide transition-colors ${
+                  className={`block text-[10px] sm:text-xs font-semibold tracking-wide transition-colors ${
                     isLightMode ? 'text-[#0b0f17]' : 'text-gray-300'
                   }`}
                 >
                   {currentMetric.label}
                 </span>
                 <span
-                  className={`block text-[2.45rem] xs:text-[2.85rem] sm:text-[3.5rem] lg:text-[4.25rem] font-light leading-[0.95] tracking-tight tabular-nums mt-0.5 transition-colors ${
+                  className={`block text-[clamp(1.85rem,5.2dvh,3.9rem)] font-light leading-[0.95] tracking-tight tabular-nums mt-0.5 transition-colors ${
                     isLightMode
                       ? 'text-[#005587]/45 group-hover:text-[#005587]'
                       : 'text-[#00C4CC]/65 group-hover:text-[#00C4CC]'
@@ -594,7 +595,7 @@ export const PamojaMovementSection: React.FC<PamojaMovementSectionProps> = ({
         {/* ========================================================================= */}
         {/* 3. BOTTOM BAR: SOCIAL CIRCLES (IG, FB, X) + CONTINUE PILL CTA            */}
         {/* ========================================================================= */}
-        <div className="w-full shrink-0 pt-2 sm:pt-3 relative z-30">
+        <div className="w-full shrink-0 pt-1.5 sm:pt-2 relative z-30">
           {socialNotice && (
             <div
               role="status"

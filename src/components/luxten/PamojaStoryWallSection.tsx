@@ -443,12 +443,12 @@ export const PamojaStoryWallSection: React.FC<PamojaStoryWallSectionProps> = ({
       className={`snap-section min-h-[100dvh] h-[100dvh] max-h-[100dvh] w-full flex flex-col justify-between overflow-hidden relative select-none border-b transition-colors duration-500 ${surfaceBg}`}
     >
       {/* MAIN CONTAINER */}
-      <div className="w-full max-w-[480px] md:max-w-[860px] lg:max-w-[1240px] mx-auto h-full flex flex-col justify-between min-h-0 px-3.5 sm:px-6 lg:px-10 pt-2.5 sm:pt-4 pb-1.5">
+      <div className="w-full max-w-[480px] md:max-w-[860px] lg:max-w-[1240px] mx-auto h-full flex flex-col justify-between min-h-0 px-3.5 sm:px-6 lg:px-10 pt-2 sm:pt-3.5 pb-1">
         
         {/* ===================================================================== */}
         {/* 1. TOP APP HEADER BAR (BACK TO SECTION 5 | STORY WALL | SUBMIT ICON)  */}
         {/* ===================================================================== */}
-        <header className="flex items-center justify-between gap-3 shrink-0 pb-1.5">
+        <header className="flex items-center justify-between gap-3 shrink-0 pb-1">
           <button
             type="button"
             id="btn-storywall-back"
@@ -457,15 +457,17 @@ export const PamojaStoryWallSection: React.FC<PamojaStoryWallSectionProps> = ({
                 onBackToAbout();
               } else {
                 const el = document.getElementById('section-about');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const container = document.getElementById('pamoja-root-container');
+                if (el && container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                else if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }
             }}
             aria-label="Back to About Us Section 5"
-            className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors cursor-pointer shrink-0 ${
+            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-colors cursor-pointer shrink-0 ${
               isLightMode ? 'hover:bg-[#005587]/10 text-[#0b0f17]' : 'hover:bg-white/10 text-white'
             }`}
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
           </button>
 
           <h2 className="text-sm sm:text-base font-semibold tracking-tight text-center">
@@ -595,11 +597,11 @@ export const PamojaStoryWallSection: React.FC<PamojaStoryWallSectionProps> = ({
         {/* ===================================================================== */}
         {/* 3. SCROLLABLE FEED BODY: TOP ROW (PAST) + SECOND ROW (FUTURE)         */}
         {/* ===================================================================== */}
-        <div className="flex-1 min-h-0 overflow-y-auto hide-scroll space-y-3 sm:space-y-4 py-1.5">
+        <div className="flex-1 min-h-0 overflow-y-auto hide-scroll space-y-2 sm:space-y-3 py-1">
           
           {/* TOP ROW: PAST PAMOJA 16 ACTIVITIES STORIES (HORIZONTAL SHOWCASE CARDS) */}
           <div>
-            <div className="flex items-center justify-between mb-1.5">
+            <div className="flex items-center justify-between mb-1">
               <span
                 className={`text-[11px] sm:text-xs font-bold uppercase tracking-wider ${
                   isLightMode ? 'text-[#005587]' : 'text-gray-300'
@@ -625,13 +627,13 @@ export const PamojaStoryWallSection: React.FC<PamojaStoryWallSectionProps> = ({
                 No past stories match this filter yet. Try switching category or scope.
               </div>
             ) : (
-              <div className="flex items-stretch gap-2.5 sm:gap-3.5 overflow-x-auto hide-scroll pb-1">
+              <div className="flex items-stretch gap-2.5 sm:gap-3.5 overflow-x-auto hide-scroll pb-0.5">
                 {pastStories.map((story) => (
                   <button
                     key={story.id}
                     type="button"
                     onClick={() => setActiveStory(story)}
-                    className="group relative min-w-[230px] xs:min-w-[250px] sm:min-w-[285px] lg:min-w-[300px] max-w-[310px] h-[182px] xs:h-[195px] sm:h-[212px] rounded-2xl overflow-hidden p-3.5 sm:p-4 flex flex-col justify-between text-left cursor-pointer shrink-0 transition-transform duration-200 hover:scale-[1.015] shadow-md text-white"
+                    className="group relative min-w-[220px] xs:min-w-[240px] sm:min-w-[275px] lg:min-w-[295px] max-w-[305px] h-[clamp(142px,22dvh,202px)] rounded-2xl overflow-hidden p-3 sm:p-3.5 flex flex-col justify-between text-left cursor-pointer shrink-0 transition-transform duration-200 hover:scale-[1.015] shadow-md text-white"
                   >
                     {/* Background Action Photo */}
                     {!failedImages[story.id] && (
@@ -775,7 +777,7 @@ export const PamojaStoryWallSection: React.FC<PamojaStoryWallSectionProps> = ({
                           setActiveStory(item);
                         }
                       }}
-                      className={`group relative rounded-2xl overflow-hidden border p-3 sm:p-3.5 min-h-[118px] sm:min-h-[128px] flex flex-col justify-between cursor-pointer transition-all duration-200 hover:border-[#00C4CC]/60 text-white ${
+                      className={`group relative rounded-2xl overflow-hidden border p-2.5 sm:p-3 min-h-[104px] sm:min-h-[118px] flex flex-col justify-between cursor-pointer transition-all duration-200 hover:border-[#00C4CC]/60 text-white ${
                         isLightMode ? 'border-[#005587]/20' : 'border-white/10'
                       }`}
                     >

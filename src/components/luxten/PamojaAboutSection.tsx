@@ -202,13 +202,13 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
       />
 
       {/* MAIN CONTAINER (Mirrors screenshot rhythm on mobile, expands cleanly on desktop) */}
-      <div className="w-full max-w-[460px] md:max-w-[820px] lg:max-w-[1200px] mx-auto h-full flex flex-col justify-between gap-2 sm:gap-3 relative z-10 min-h-0">
+      <div className="w-full max-w-[460px] md:max-w-[820px] lg:max-w-[1200px] mx-auto h-full flex flex-col justify-between gap-1.5 sm:gap-2.5 relative z-10 min-h-0">
         
         {/* ===================================================================== */}
         {/* 1. TOP EYEBROW & TWO-TONE HEADLINE                                    */}
         {/* ===================================================================== */}
         <div className="shrink-0">
-          <div className="flex items-center gap-2 mb-1 sm:mb-1.5">
+          <div className="flex items-center gap-2 mb-0.5 sm:mb-1">
             <Sparkles
               className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${
                 isLightMode ? 'text-[#005587]' : 'text-[#00C4CC]'
@@ -224,7 +224,7 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
             </span>
           </div>
 
-          <h2 className="text-[1.75rem] xs:text-[2rem] sm:text-[2.6rem] lg:text-[3.1rem] font-medium tracking-tight leading-[1.02] text-balance">
+          <h2 className="text-[clamp(1.4rem,min(6.4vw,4dvh),2.95rem)] font-medium tracking-tight leading-[1.02] text-balance">
             <span className="block">Meet The Voices</span>
             <span
               className={`block ${
@@ -239,7 +239,7 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
         {/* ===================================================================== */}
         {/* 2. PORTRAIT IMAGE + THREE ENCLOSED LINK BOXES (PARTNERS / STORY WALL / EVENTS) */}
         {/* ===================================================================== */}
-        <div className="flex flex-row items-stretch gap-2.5 sm:gap-4 lg:gap-5 shrink-0 h-[168px] xs:h-[182px] sm:h-[210px] lg:h-[225px]">
+        <div className="flex flex-row items-stretch gap-2.5 sm:gap-4 lg:gap-5 flex-1 min-h-[120px] max-h-[225px]">
           
           {/* First Portrait Image (Warm rim-lit advocate portrait matching screenshot) */}
           <div
@@ -353,8 +353,8 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
         {/* ===================================================================== */}
         {/* 3. MIDDLE EDITORIAL MISSION STATEMENT                                 */}
         {/* ===================================================================== */}
-        <div className="shrink-0 my-0.5 sm:my-1">
-          <p className="text-[0.95rem] xs:text-[1.05rem] sm:text-[1.35rem] lg:text-[1.55rem] font-normal leading-[1.28] tracking-tight max-w-3xl">
+        <div className="shrink-0 my-0.5">
+          <p className="text-[clamp(0.84rem,min(3.5vw,2.15dvh),1.45rem)] font-normal leading-[1.24] tracking-tight max-w-3xl">
             <span className={isLightMode ? 'text-[#0b0f17] font-medium' : 'text-white font-medium'}>
               At Pamoja 16, we bring together youth mediators, civic monitors,{' '}
             </span>
@@ -431,15 +431,15 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
         {/* ===================================================================== */}
         {/* 5. BOTTOM 2-CARD BENTO ROW (PARTNERS CARD + PAMOJA 16 FACT CARD)      */}
         {/* ===================================================================== */}
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 shrink-0 h-[178px] xs:h-[192px] sm:h-[225px] lg:h-[245px]">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 flex-1 min-h-[136px] max-h-[245px]">
           
           {/* Left Card: 50+ Trusted Partners + Partner Wordmarks + Gold/Cyan CTA */}
           <div
-            className={`rounded-2xl sm:rounded-3xl border p-3 sm:p-5 flex flex-col justify-between min-w-0 overflow-hidden ${cardSurface}`}
+            className={`rounded-2xl sm:rounded-3xl border p-2.5 sm:p-4 lg:p-5 flex flex-col justify-between min-w-0 overflow-hidden ${cardSurface}`}
           >
             <div>
               <div className="flex items-baseline justify-between gap-2">
-                <span className="text-2xl xs:text-[1.75rem] sm:text-4xl font-light tracking-tight tabular-nums leading-none">
+                <span className="text-[clamp(1.35rem,3.8dvh,2.35rem)] font-light tracking-tight tabular-nums leading-none">
                   50+
                 </span>
                 <button
@@ -453,7 +453,7 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
                 </button>
               </div>
               <span
-                className={`block text-[10px] sm:text-xs mt-1 ${
+                className={`block text-[10px] sm:text-xs mt-0.5 sm:mt-1 ${
                   isLightMode ? 'text-[#005587]/70' : 'text-gray-400'
                 }`}
               >
@@ -463,7 +463,7 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
 
             {/* Compact 3x2 Partner Wordmark Grid */}
             <div
-              className={`grid grid-cols-3 gap-x-1.5 gap-y-2 my-auto py-1 text-[8.5px] xs:text-[9px] sm:text-xs font-bold tracking-tight ${
+              className={`grid grid-cols-3 gap-x-1.5 gap-y-1 sm:gap-y-2 my-auto py-0.5 text-[8.5px] xs:text-[9px] sm:text-xs font-bold tracking-tight ${
                 isLightMode ? 'text-[#0b0f17]/70' : 'text-white/75'
               }`}
             >
@@ -475,7 +475,7 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
               <span className="truncate">47 Hubs</span>
             </div>
 
-            {/* Accent CTA Pill (Mirrors bright orange button in screenshot -> Kenya Gold / Civic Cyan) */}
+            {/* Accent CTA Pill */}
             <button
               type="button"
               id="btn-about-partner-cta"
@@ -486,7 +486,7 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
                   setActiveModal('partners');
                 }
               }}
-              className={`w-full h-9 sm:h-11 rounded-full font-bold text-[11px] sm:text-xs tracking-wide flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-[0.98] ${
+              className={`w-full h-8 sm:h-10 rounded-full font-bold text-[11px] sm:text-xs tracking-wide flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-[0.98] shrink-0 ${
                 isLightMode
                   ? 'bg-[#005587] hover:bg-[#003f66] text-white shadow-sm'
                   : 'bg-[#E5B80B] hover:bg-[#00C4CC] text-[#0b0f17] shadow-[0_6px_20px_rgba(229,184,11,0.28)]'
@@ -501,7 +501,7 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
             type="button"
             id="btn-about-fact-card"
             onClick={() => setFactIndex((prev) => (prev + 1) % facts.length)}
-            className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#00C4CC]/30 p-3 sm:p-5 flex flex-col justify-between text-left cursor-pointer transition-transform duration-200 hover:scale-[1.01] bg-[#00446e] text-white"
+            className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#00C4CC]/30 p-2.5 sm:p-4 lg:p-5 flex flex-col justify-between text-left cursor-pointer transition-transform duration-200 hover:scale-[1.01] bg-[#00446e] text-white"
             title="Click to cycle Pamoja 16 verified impact facts"
           >
             {/* Background Team Photo */}
@@ -536,10 +536,10 @@ export const PamojaAboutSection: React.FC<PamojaAboutSectionProps> = ({
 
             {/* Bottom Row: Large Light Metric + 2-Line Description */}
             <div className="relative z-10 mt-auto">
-              <span className="block text-2xl xs:text-[1.85rem] sm:text-4xl lg:text-[2.6rem] font-light tracking-tight tabular-nums leading-none text-white">
+              <span className="block text-[clamp(1.45rem,4dvh,2.6rem)] font-light tracking-tight tabular-nums leading-none text-white">
                 {currentFact.metric}
               </span>
-              <p className="text-[9.5px] sm:text-xs text-blue-50/90 leading-snug mt-1.5 line-clamp-2">
+              <p className="text-[9.5px] sm:text-xs text-blue-50/90 leading-snug mt-1 line-clamp-2">
                 {currentFact.caption}
               </p>
             </div>

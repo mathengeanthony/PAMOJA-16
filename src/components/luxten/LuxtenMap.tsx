@@ -249,7 +249,7 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                 }}
             ></div>
             
-            <main className="content-layer px-6 pt-4 pb-6 md:px-12 md:pt-6 md:pb-8 h-full min-h-[100dvh] flex flex-col justify-between overflow-hidden relative z-30">
+            <main className="content-layer px-4 pt-3 pb-4 sm:px-6 md:px-12 md:pt-5 md:pb-6 h-full min-h-0 flex flex-col justify-between overflow-hidden relative z-30">
                 
                 <div className="w-full animate-fade-in-up z-40 flex-shrink-0">
                     <div className="marquee-strip border-t border-b border-[#00C4CC]/20 bg-black/60">
@@ -260,14 +260,14 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                         </div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 mt-4">
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-8 mt-2 sm:mt-3">
                         <div className="text-left">
-                            <h1 className="font-extrabold leading-[0.82] uppercase tracking-tighter text-white" style={{ fontSize: 'clamp(2.5rem, 9vw, 4.8rem)' }}>
+                            <h1 className="font-extrabold leading-[0.84] uppercase tracking-tighter text-white" style={{ fontSize: 'clamp(1.95rem, min(8vw, 6dvh), 4.5rem)' }}>
                                 <div className="block text-white">PAMOJA 16</div>
-                                <div className="block text-white my-2">CIVIC</div>
+                                <div className="block text-white my-1 sm:my-1.5">CIVIC</div>
                                 <div className="block text-white">COMMAND</div>
                             </h1>
-                            <div className="mt-3 pl-4 border-l-2 border-[#E5B80B]">
+                            <div className="mt-2 sm:mt-3 pl-3 sm:pl-4 border-l-2 border-[#E5B80B]">
                                 <p className="text-[10px] md:text-[11px] font-bold tracking-[0.3em] uppercase text-[#E5B80B]">Live Action Map</p>
                             </div>
                         </div>
@@ -278,11 +278,9 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                                 onClick={(e) => {
                                     e.preventDefault();
                                     const el = document.getElementById('section-excellence');
-                                    if (el) {
-                                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                        const container = document.getElementById('pamoja-root-container');
-                                        if (container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
-                                    }
+                                    const container = document.getElementById('pamoja-root-container');
+                                    if (el && container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                                    else if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }} 
                                 className="vertical-nav-link hover:text-[#E5B80B]"
                             >
@@ -293,11 +291,9 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                                 onClick={(e) => {
                                     e.preventDefault();
                                     const el = document.getElementById('section-excellence');
-                                    if (el) {
-                                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                        const container = document.getElementById('pamoja-root-container');
-                                        if (container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
-                                    }
+                                    const container = document.getElementById('pamoja-root-container');
+                                    if (el && container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                                    else if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }} 
                                 className="vertical-nav-link hover:text-[#E5B80B]"
                             >
@@ -308,11 +304,9 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                                 onClick={(e) => {
                                     e.preventDefault();
                                     const el = document.getElementById('section-excellence');
-                                    if (el) {
-                                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                        const container = document.getElementById('pamoja-root-container');
-                                        if (container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
-                                    }
+                                    const container = document.getElementById('pamoja-root-container');
+                                    if (el && container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                                    else if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }} 
                                 className="vertical-nav-link hover:text-[#E5B80B]"
                             >
@@ -322,28 +316,26 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                     </div>
                 </div>
 
-                <div className="flex justify-between items-end w-full opacity-0 animate-fade-in-up z-40 mt-auto text-white" style={{ animationDelay: '500ms' }}>
-                    <div className="flex flex-col gap-4">
-                        <div className="flex flex-col gap-1" id="location-ticker">
-                            <div className="text-[10px] md:text-[11px] font-mono font-bold tracking-widest text-black bg-[#E5B80B] px-2 py-0.5 w-fit uppercase" id="ticker-coords">01.29°S 36.82°E — NAIROBI</div>
-                            <div className="text-[10px] md:text-[11px] font-bold tracking-wide text-gray-300 uppercase mt-1" id="ticker-info">PAMOJA16 • SECRETARIAT • HEADQUARTERS</div>
+                <div className="flex justify-between items-end gap-3 w-full opacity-0 animate-fade-in-up z-40 mt-auto text-white" style={{ animationDelay: '500ms' }}>
+                    <div className="flex flex-col gap-2 sm:gap-3.5 min-w-0">
+                        <div className="flex flex-col gap-0.5 sm:gap-1" id="location-ticker">
+                            <div className="text-[9.5px] md:text-[11px] font-mono font-bold tracking-widest text-black bg-[#E5B80B] px-2 py-0.5 w-fit uppercase" id="ticker-coords">01.29°S 36.82°E — NAIROBI</div>
+                            <div className="text-[9.5px] md:text-[11px] font-bold tracking-wide text-gray-300 uppercase mt-0.5" id="ticker-info">PAMOJA16 • SECRETARIAT • HEADQUARTERS</div>
                         </div>
-                        <p className="text-[11px] md:text-[12px] font-medium text-gray-200 max-w-[280px] md:max-w-[340px] leading-relaxed tracking-wide">
+                        <p className="text-[10.5px] md:text-[12px] font-medium text-gray-200 max-w-[260px] md:max-w-[340px] leading-snug sm:leading-relaxed tracking-wide line-clamp-3">
                             Real-time tracking of youth-led peacebuilding, civic resource allocation, and SDG 16 implementation across Kenya's 47 counties.
                         </p>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3 sm:gap-4">
                             <a 
                                 href="#section-excellence" 
                                 onClick={(e) => {
                                     e.preventDefault();
                                     const el = document.getElementById('section-excellence');
-                                    if (el) {
-                                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                        const container = document.getElementById('pamoja-root-container');
-                                        if (container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
-                                    }
+                                    const container = document.getElementById('pamoja-root-container');
+                                    if (el && container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                                    else if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }}
-                                className="circle-scroll border-white text-white hover:text-[#E5B80B] hover:border-[#E5B80B] transition-colors"
+                                className="circle-scroll border-white text-white hover:text-[#E5B80B] hover:border-[#E5B80B] transition-colors shrink-0"
                             >
                                 <i className="fa-solid fa-arrow-down text-sm"></i>
                             </a>
@@ -352,11 +344,9 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                                 onClick={(e) => {
                                     e.preventDefault();
                                     const el = document.getElementById('section-excellence');
-                                    if (el) {
-                                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                        const container = document.getElementById('pamoja-root-container');
-                                        if (container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
-                                    }
+                                    const container = document.getElementById('pamoja-root-container');
+                                    if (el && container) container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                                    else if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }}
                                 className="explore-pill bg-[#E5B80B] text-black hover:bg-black hover:text-[#E5B80B] border border-transparent hover:border-[#E5B80B] transition-colors"
                             >
@@ -364,14 +354,14 @@ export const LuxtenMap: React.FC<LuxtenMapProps> = ({ isLightMode = false }) => 
                             </a>
                         </div>
                     </div>
-                    <div className="text-right flex flex-col items-end gap-3">
-                        <button id="map-lock-btn" onClick={toggleLock} className="lock-btn border-white text-white hover:text-[#E5B80B] hover:border-[#E5B80B] transition-colors"><i id="lock-icon" className="fa-solid fa-lock text-lg"></i></button>
-                        <p id="lock-text" className="text-[10px] md:text-[11px] font-bold text-white opacity-80 tracking-[0.15em] uppercase leading-tight text-right">Click to interact <br/> with map</p>
+                    <div className="text-right flex flex-col items-end gap-2 sm:gap-3 shrink-0">
+                        <button id="map-lock-btn" onClick={toggleLock} className="lock-btn border-white text-white hover:text-[#E5B80B] hover:border-[#E5B80B] transition-colors"><i id="lock-icon" className="fa-solid fa-lock text-base sm:text-lg"></i></button>
+                        <p id="lock-text" className="text-[9.5px] md:text-[11px] font-bold text-white opacity-80 tracking-[0.15em] uppercase leading-tight text-right">Click to interact <br/> with map</p>
                         <a
                             href="https://www.openstreetmap.org/copyright"
                             target="_blank"
                             rel="noreferrer"
-                            className="text-[9px] font-mono text-white/60 hover:text-[#E5B80B] transition-colors"
+                            className="text-[8.5px] sm:text-[9px] font-mono text-white/60 hover:text-[#E5B80B] transition-colors"
                         >
                             &copy; OpenStreetMap contributors
                         </a>
