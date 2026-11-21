@@ -25,12 +25,38 @@
   --animate-marquee: marquee 22s linear infinite;
   --animate-pulse-fast: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-orbit-spin: orbitSpin 12s linear infinite;
+  --animate-orbit-reverse: orbitReverse 24s linear infinite;
   --animate-pulse-wave: pulse-wave 4s infinite ease-out;
   --animate-heart-bounce: heartBounce 2.4s ease-in-out infinite;
 
   @keyframes orbitSpin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+  @keyframes orbitReverse {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+  }
+  @keyframes hairlineBeam {
+    0% { transform: translateX(-120%); opacity: 0; }
+    18% { opacity: 0.95; }
+    82% { opacity: 0.95; }
+    100% { transform: translateX(460%); opacity: 0; }
+  }
+  @keyframes axisBead {
+    0% { transform: translateY(-4px); opacity: 0; }
+    25% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(16px); opacity: 0; }
+  }
+  @keyframes horizonWave {
+    0% { stroke-dashoffset: 380; opacity: 0.25; }
+    45% { opacity: 1; }
+    100% { stroke-dashoffset: -380; opacity: 0.25; }
+  }
+  @keyframes compassScan {
+    0%, 100% { transform: translateX(-14px); opacity: 0.75; }
+    50% { transform: translateX(14px); opacity: 1; }
   }
   @keyframes pulse-wave {
     0% {
@@ -105,6 +131,27 @@
     transform-origin: center center;
 }
 
+.animate-orbit-reverse {
+    animation: orbitReverse 24s linear infinite !important;
+    transform-origin: center center;
+}
+
+.animate-hairline-beam {
+    animation: hairlineBeam 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-axis-bead {
+    animation: axisBead 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-horizon-wave {
+    animation: horizonWave 4.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-compass-scan {
+    animation: compassScan 5s ease-in-out infinite;
+}
+
 .animate-pulse-wave {
     animation: pulse-wave 4s infinite ease-out !important;
 }
@@ -112,6 +159,19 @@
 .animate-heart-bounce {
     animation: heartBounce 2.4s ease-in-out infinite !important;
     transform-origin: center center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-orbit-spin,
+    .animate-orbit-reverse,
+    .animate-hairline-beam,
+    .animate-axis-bead,
+    .animate-horizon-wave,
+    .animate-compass-scan,
+    .animate-pulse-wave,
+    .animate-heart-bounce {
+        animation: none !important;
+    }
 }
 
 /* --- SNAP SCROLL ENGINE --- */

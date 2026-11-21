@@ -47,6 +47,9 @@ export default function App() {
   const [librarySearch, setLibrarySearch] = useState<string>('');
   const [downloadNotice, setDownloadNotice] = useState<string | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [activeOrbitWord, setActiveOrbitWord] = useState<number>(0);
+  const [activeFocusTrack, setActiveFocusTrack] = useState<number>(0);
+  const [heroCounts, setHeroCounts] = useState({ counties: 0, initiatives: 0, youth: 0 });
 
   // Sync theme with body class
   useEffect(() => {
@@ -56,6 +59,51 @@ export default function App() {
       document.body.classList.remove('light-mode');
     }
   }, [isLightMode]);
+
+  // Cycle active highlight through the 6 orbit perimeter words in sync with the 12s orbit
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const interval = window.setInterval(() => {
+      setActiveOrbitWord((prev) => (prev + 1) % 6);
+    }, 2000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  // Cross-fade grassroots focus tracks every 3.5s
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const interval = window.setInterval(() => {
+      setActiveFocusTrack((prev) => (prev + 1) % 3);
+    }, 3500);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  // Smooth one-time count-up animation for the Hero 3-metric hairline strip
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setHeroCounts({ counties: 47, initiatives: 247, youth: 250 });
+      return;
+    }
+    const duration = 1250;
+    const start = performance.now();
+    let frameId = 0;
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setHeroCounts({
+        counties: Math.round(47 * eased),
+        initiatives: Math.round(247 * eased),
+        youth: Math.round(250 * eased)
+      });
+      if (progress < 1) {
+        frameId = requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const el = document.getElementById(sectionId);
@@ -400,111 +448,294 @@ export default function App() {
               <p className="mt-1 sm:mt-2.5 lg:mt-3 text-[0.7rem] sm:text-xs md:text-sm lg:text-base text-blue-100/85 font-medium max-w-xl leading-snug sm:leading-relaxed line-clamp-2 sm:line-clamp-none">
                 Mobilizing youth advocates, community monitors, and civic pioneers under United Nations Sustainable Development Goal 16 across Kenya and East Africa.
               </p>
+
+              {/* Cross-Fading Grassroots Focus Line (Pure hairline + unboxed typography) */}
+              <div
+                id="hero-focus-track-line"
+                className="mt-1.5 sm:mt-3 lg:mt-4 pt-1.5 sm:pt-2.5 border-t border-white/15 w-full max-w-xl grid shrink-0"
+              >
+                {[
+                  {
+                    label: 'Ward Budget Social Audits',
+                    onSelect: () => {
+                      setSection3Mode('library');
+                      scrollToSection('section-excellence');
+                    }
+                  },
+                  {
+                    label: 'Grassroots Mediation Protocols',
+                    onSelect: () => scrollToSection('section-map')
+                  },
+                  {
+                    label: 'East Africa Youth Peace Walks',
+                    onSelect: () => scrollToSection('section-story-wall')
+                  }
+                ].map((track, idx) => {
+                  const isActive = activeFocusTrack === idx;
+                  return (
+                    <button
+                      key={track.label}
+                      type="button"
+                      onClick={track.onSelect}
+                      aria-hidden={!isActive}
+                      tabIndex={isActive ? 0 : -1}
+                      className={`col-start-1 row-start-1 flex items-center justify-center lg:justify-start gap-2 text-[0.66rem] sm:text-xs font-medium tracking-wide transition-all duration-700 ease-out cursor-pointer min-w-0 ${
+                        isActive
+                          ? 'opacity-100 translate-y-0 pointer-events-auto z-10'
+                          : 'opacity-0 translate-y-1 pointer-events-none z-0'
+                      }`}
+                    >
+                      <span className="text-[#00C4CC] font-bold shrink-0">Active Track</span>
+                      <span className="text-white/40 shrink-0" aria-hidden="true">·</span>
+                      <span className="text-blue-100/85 hover:text-white truncate transition-colors">
+                        {track.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* RIGHT COLUMN: ORBIT VISUAL, HYBRID SPOTLIGHT/CTA & TAGS */}
-            <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-between lg:justify-center gap-1.5 sm:gap-3 lg:gap-4 min-h-0">
+            {/* RIGHT COLUMN: DUAL ORBIT VISUAL, MICRO-TELEMETRY TRIAD, 3-METRIC STRIP & TAGS */}
+            <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-between lg:justify-center gap-1 sm:gap-1.5 min-h-0">
               
-              {/* Circular Feature with Orbit Animation (Symmetrically positioned labels outside) */}
-              <div 
-                id="circular-feature-node"
-                className="w-[clamp(86px,15dvh,156px)] h-[clamp(86px,15dvh,156px)] sm:w-36 sm:h-36 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded-full border-2 border-white/30 relative flex items-center justify-center my-auto lg:my-0 shrink-0 shadow-2xl"
-                style={{
-                  backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
-                  backgroundPosition: 'center',
-                  backgroundSize: 'cover'
-                }}
-              >
-                {/* Radial Shadow overlay inside image */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-b from-black/25 via-transparent to-black/50 pointer-events-none" />
+              {/* Orbit Centered in Available Upper Space */}
+              <div className="w-full max-w-[540px] flex-1 lg:flex-none flex flex-col items-center justify-center min-h-0">
+                <div className="py-[16px] sm:py-7 lg:py-9 xl:py-10 flex items-center justify-center shrink-0">
+                  <div 
+                    id="circular-feature-node"
+                    className="w-[clamp(68px,12dvh,126px)] h-[clamp(68px,12dvh,126px)] sm:w-28 sm:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 rounded-full border-2 border-white/30 relative flex items-center justify-center shrink-0 shadow-2xl"
+                    style={{
+                      backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
+                      backgroundPosition: 'center',
+                      backgroundSize: 'cover'
+                    }}
+                  >
+                    {/* Radial Shadow overlay inside image */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-b from-black/25 via-transparent to-black/50 pointer-events-none" />
 
-                {/* Orbiting Ring (Outer) emitting the pulsing aura */}
-                <div 
-                  id="orbit-ring-line" 
-                  className="absolute -inset-[14%] rounded-full border border-white/25 pointer-events-none animate-pulse-wave" 
-                />
+                    {/* Inner Orbiting Ring emitting the pulsing aura */}
+                    <div 
+                      id="orbit-ring-line" 
+                      className="absolute -inset-[13%] rounded-full border border-white/25 pointer-events-none animate-pulse-wave" 
+                    />
 
-                {/* Orbit Container with Rotating Cyan Dot on the outer ring */}
-                <div id="orbit-dot-spinner" className="absolute -inset-[14%] rounded-full animate-orbit-spin pointer-events-none origin-center">
-                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#00C4CC] rounded-full shadow-[0_0_12px_#00C4CC]" />
+                    {/* Inner Orbit Container with Clockwise Rotating Cyan Dot */}
+                    <div id="orbit-dot-spinner" className="absolute -inset-[13%] rounded-full animate-orbit-spin pointer-events-none origin-center">
+                      <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#00C4CC] rounded-full shadow-[0_0_12px_#00C4CC]" />
+                    </div>
+
+                    {/* Outer Counter-Rotating Dashed Compass Ring */}
+                    <div
+                      id="orbit-outer-dashed-ring"
+                      className="absolute -inset-[24%] rounded-full border border-dashed border-white/20 pointer-events-none"
+                    />
+
+                    {/* Outer Orbit Container with Counter-Clockwise Gold Satellite Node */}
+                    <div id="orbit-gold-spinner" className="absolute -inset-[24%] rounded-full animate-orbit-reverse pointer-events-none origin-center">
+                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#E5B80B] rounded-full shadow-[0_0_10px_#E5B80B]" />
+                    </div>
+
+                    {/* Orbit Perimeter Labels (Anchored cleanly outside the outer -inset-[24%] ring, synced clockwise glow) */}
+                    <div id="feature-orbit-labels" className="absolute -inset-[24%] pointer-events-none">
+                      {/* Left Side Labels (indices 5, 4, 3 in clockwise cycle) */}
+                      <span className={`absolute top-[20%] right-full mr-2 sm:mr-3 md:mr-4 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-right whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 5 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                        Peace
+                      </span>
+                      <span className={`absolute top-1/2 -translate-y-1/2 right-full mr-2.5 sm:mr-4 md:mr-5 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-right whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 4 ? 'text-[#E5B80B] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                        Justice
+                      </span>
+                      <span className={`absolute bottom-[20%] right-full mr-2 sm:mr-3 md:mr-4 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-right whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 3 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                        Action
+                      </span>
+
+                      {/* Right Side Labels (indices 0, 1, 2 in clockwise cycle) */}
+                      <span className={`absolute top-[20%] left-full ml-2 sm:ml-3 md:ml-4 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-left whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 0 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                        Unity
+                      </span>
+                      <span className={`absolute top-1/2 -translate-y-1/2 left-full ml-2.5 sm:ml-4 md:ml-5 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-left whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 1 ? 'text-[#E5B80B] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                        Civic
+                      </span>
+                      <span className={`absolute bottom-[20%] left-full ml-2 sm:ml-3 md:ml-4 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-left whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 2 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                        Voice
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Orbit Perimeter Labels (Positioned outside the orbit so they don't obscure the image) */}
-                <div id="feature-orbit-labels" className="absolute inset-0 pointer-events-none">
-                  {/* Left Side Labels - Anchored right-full so they extend outside to the left */}
-                  <span className="absolute top-[22%] right-full mr-3 sm:mr-4 md:mr-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
-                    Peace
-                  </span>
-                  <span className="absolute top-1/2 -translate-y-1/2 right-full mr-4 sm:mr-5 md:mr-6 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
-                    Justice
-                  </span>
-                  <span className="absolute bottom-[22%] right-full mr-3 sm:mr-4 md:mr-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-right whitespace-nowrap">
-                    Action
-                  </span>
-
-                  {/* Right Side Labels - Anchored left-full so they extend outside to the right */}
-                  <span className="absolute top-[22%] left-full ml-3 sm:ml-4 md:ml-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
-                    Unity
-                  </span>
-                  <span className="absolute top-1/2 -translate-y-1/2 left-full ml-4 sm:ml-5 md:ml-6 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
-                    Civic
-                  </span>
-                  <span className="absolute bottom-[22%] left-full ml-3 sm:ml-4 md:ml-5 text-[0.65rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none text-left whitespace-nowrap">
-                    Voice
-                  </span>
+                {/* BELOW-ORBIT MINIMALIST ADDITION #1: Synced SDG 16 Micro-Readout */}
+                <div
+                  id="hero-orbit-sdg-readout"
+                  className="grid w-full max-w-[420px] px-2 pt-0.5 shrink-0"
+                >
+                  {[
+                    { code: 'SDG 16.a', text: 'Cross-Border Youth Solidarity' },
+                    { code: 'SDG 16.6', text: 'Accountable Local Institutions' },
+                    { code: 'SDG 16.7', text: 'Inclusive Youth Decision-Making' },
+                    { code: 'SDG 16.5', text: 'Public Audits & Anti-Corruption' },
+                    { code: 'SDG 16.3', text: 'Rule of Law & Access to Justice' },
+                    { code: 'SDG 16.1', text: 'Grassroots Conflict Prevention' }
+                  ].map((item, idx) => {
+                    const isSynced = activeOrbitWord === idx;
+                    return (
+                      <div
+                        key={item.code}
+                        aria-hidden={!isSynced}
+                        className={`col-start-1 row-start-1 flex items-center justify-center gap-1.5 text-[0.6rem] sm:text-[0.68rem] tracking-wide transition-all duration-500 ${
+                          isSynced ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 pointer-events-none'
+                        }`}
+                      >
+                        <span className="font-extrabold text-[#00C4CC] tabular-nums shrink-0">{item.code}</span>
+                        <span className="text-white/35 shrink-0" aria-hidden="true">·</span>
+                        <span className="font-medium text-blue-100/85 truncate">{item.text}</span>
+                      </div>
+                    );
+                  })}
                 </div>
-              </div>
 
-              {/* MINIMAL 3-METRIC HAIRLINE STRIP (Option 4) */}
-              <div
-                id="hero-metric-hairline-strip"
-                className="w-full max-w-[540px] border-y border-white/15 py-1.5 sm:py-2.5 grid grid-cols-3 divide-x divide-white/15 shrink-0"
-              >
+                {/* BELOW-ORBIT MINIMALIST ADDITION #2: Civic Horizon Pulse Waveform SVG */}
+                <div
+                  id="hero-horizon-waveform"
+                  className="w-full max-w-[340px] h-[14px] sm:h-[16px] flex items-center justify-center shrink-0 pointer-events-none mt-0.5"
+                  aria-hidden="true"
+                >
+                  <svg
+                    viewBox="0 0 340 16"
+                    className="w-full h-full overflow-visible"
+                    fill="none"
+                  >
+                    <defs>
+                      <linearGradient id="horizonBaseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+                        <stop offset="25%" stopColor="rgba(255,255,255,0.22)" />
+                        <stop offset="50%" stopColor="rgba(0,196,204,0.45)" />
+                        <stop offset="75%" stopColor="rgba(255,255,255,0.22)" />
+                        <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                      </linearGradient>
+                      <linearGradient id="horizonPulseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#00C4CC" />
+                        <stop offset="55%" stopColor="#ffffff" />
+                        <stop offset="100%" stopColor="#E5B80B" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M0 8 L122 8 L131 8 L138 4.5 L145 11.5 L153 2 L162 14 L170 2.5 L178 13 L186 4.5 L193 10.5 L200 8 L340 8"
+                      stroke="url(#horizonBaseGrad)"
+                      strokeWidth="1"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M0 8 L122 8 L131 8 L138 4.5 L145 11.5 L153 2 L162 14 L170 2.5 L178 13 L186 4.5 L193 10.5 L200 8 L340 8"
+                      stroke="url(#horizonPulseGrad)"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeDasharray="64 320"
+                      className="animate-horizon-wave"
+                    />
+                  </svg>
+                </div>
+
+                {/* BELOW-ORBIT MINIMALIST ADDITION #3: Nairobi Compass Coordinate Scale */}
                 <button
                   type="button"
-                  id="hero-metric-counties"
+                  id="hero-compass-scale"
                   onClick={() => scrollToSection('section-map')}
-                  className="group flex flex-col items-center justify-center px-2 py-0.5 text-center cursor-pointer transition-opacity hover:opacity-100"
+                  className="group flex flex-col items-center justify-center w-full max-w-[300px] pt-0.5 cursor-pointer shrink-0"
+                  title="Jump to Live Kenya Map"
                 >
-                  <span className="text-[clamp(1rem,2.4dvh,1.5rem)] font-black tracking-tight tabular-nums leading-none text-white group-hover:text-[#00C4CC] transition-colors">
-                    47
-                  </span>
-                  <span className="text-[0.62rem] sm:text-xs font-semibold tracking-wide text-blue-100/75 group-hover:text-white transition-colors mt-0.5 whitespace-nowrap">
-                    Counties
-                  </span>
-                </button>
-
-                <button
-                  type="button"
-                  id="hero-metric-initiatives"
-                  onClick={() => scrollToSection('section-story-wall')}
-                  className="group flex flex-col items-center justify-center px-2 py-0.5 text-center cursor-pointer transition-opacity hover:opacity-100"
-                >
-                  <span className="text-[clamp(1rem,2.4dvh,1.5rem)] font-black tracking-tight tabular-nums leading-none text-[#E5B80B] group-hover:text-white transition-colors">
-                    247+
-                  </span>
-                  <span className="text-[0.62rem] sm:text-xs font-semibold tracking-wide text-blue-100/75 group-hover:text-white transition-colors mt-0.5 whitespace-nowrap">
-                    Initiatives
-                  </span>
-                </button>
-
-                <button
-                  type="button"
-                  id="hero-metric-youth"
-                  onClick={() => scrollToSection('section-movement')}
-                  className="group flex flex-col items-center justify-center px-2 py-0.5 text-center cursor-pointer transition-opacity hover:opacity-100"
-                >
-                  <span className="text-[clamp(1rem,2.4dvh,1.5rem)] font-black tracking-tight tabular-nums leading-none text-white group-hover:text-[#00C4CC] transition-colors">
-                    250K+
-                  </span>
-                  <span className="text-[0.62rem] sm:text-xs font-semibold tracking-wide text-blue-100/75 group-hover:text-white transition-colors mt-0.5 whitespace-nowrap">
-                    Youth
+                  <div className="relative flex items-center justify-between w-full px-3 h-2">
+                    {Array.from({ length: 21 }).map((_, idx) => {
+                      const isCenter = idx === 10;
+                      const isMajor = idx % 5 === 0;
+                      return (
+                        <span
+                          key={idx}
+                          className={`w-px transition-colors ${
+                            isCenter
+                              ? 'h-2 bg-[#E5B80B]'
+                              : isMajor
+                                ? 'h-1.5 bg-[#00C4CC]/65 group-hover:bg-[#00C4CC]'
+                                : 'h-1 bg-white/20'
+                          }`}
+                        />
+                      );
+                    })}
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-1/2 -translate-x-1/2 -top-0.5 w-1.5 h-1.5 rounded-full bg-[#00C4CC] shadow-[0_0_8px_#00C4CC] animate-compass-scan"
+                    />
+                  </div>
+                  <span className="mt-0.5 text-[0.55rem] sm:text-[0.62rem] font-semibold uppercase tracking-[0.2em] tabular-nums text-blue-100/70 group-hover:text-[#00C4CC] transition-colors whitespace-nowrap">
+                    1.29° S · 36.82° E · Nairobi HQ
                   </span>
                 </button>
               </div>
 
-              {/* Tags Cloud */}
-              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end mt-0 lg:mt-0 gap-1 sm:gap-2 max-w-[540px] px-1 shrink-0 pt-0.5 sm:pt-1">
+              {/* Anchored Bottom Stack: Hairline Axis Stem + 3-Metric Strip directly on top of Tags Cloud */}
+              <div className="w-full max-w-[540px] flex flex-col items-center shrink-0">
+                {/* Hairline Vertical Axis Stem connecting Orbit directly into the 3-Metric Strip */}
+                <div id="hero-axis-connector" className="relative w-px h-2.5 sm:h-3.5 bg-gradient-to-b from-white/30 to-[#00C4CC]/60 overflow-hidden shrink-0 pointer-events-none" aria-hidden="true">
+                  <div className="w-1 h-1 -ml-[1.5px] rounded-full bg-[#00C4CC] shadow-[0_0_6px_#00C4CC] animate-axis-bead" />
+                </div>
+
+                {/* MINIMAL 3-METRIC HAIRLINE STRIP WITH LUMINOUS BEAM & COUNT-UP */}
+                <div
+                  id="hero-metric-hairline-strip"
+                  className="relative w-full border-y border-white/15 py-1.5 sm:py-2 grid grid-cols-3 divide-x divide-white/15 shrink-0 overflow-hidden"
+                >
+                  {/* Whisper-thin traveling gradient beam along the top hairline */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute top-0 left-0 h-px w-28 bg-gradient-to-r from-transparent via-[#00C4CC] to-[#E5B80B] animate-hairline-beam pointer-events-none"
+                  />
+
+                  <button
+                    type="button"
+                    id="hero-metric-counties"
+                    onClick={() => scrollToSection('section-map')}
+                    className="group flex flex-col items-center justify-center px-2 py-0.5 text-center cursor-pointer"
+                  >
+                    <span className="text-[clamp(0.95rem,2.3dvh,1.45rem)] font-black tracking-tight tabular-nums leading-none text-white group-hover:text-[#00C4CC] transition-colors">
+                      {heroCounts.counties}
+                    </span>
+                    <span className="text-[0.6rem] sm:text-xs font-semibold tracking-wide text-blue-100/75 group-hover:text-white transition-colors mt-0.5 whitespace-nowrap">
+                      Counties
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    id="hero-metric-initiatives"
+                    onClick={() => scrollToSection('section-story-wall')}
+                    className="group flex flex-col items-center justify-center px-2 py-0.5 text-center cursor-pointer"
+                  >
+                    <span className="text-[clamp(0.95rem,2.3dvh,1.45rem)] font-black tracking-tight tabular-nums leading-none text-[#E5B80B] group-hover:text-white transition-colors">
+                      {heroCounts.initiatives}+
+                    </span>
+                    <span className="text-[0.6rem] sm:text-xs font-semibold tracking-wide text-blue-100/75 group-hover:text-white transition-colors mt-0.5 whitespace-nowrap">
+                      Initiatives
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    id="hero-metric-youth"
+                    onClick={() => scrollToSection('section-movement')}
+                    className="group flex flex-col items-center justify-center px-2 py-0.5 text-center cursor-pointer"
+                  >
+                    <span className="text-[clamp(0.95rem,2.3dvh,1.45rem)] font-black tracking-tight tabular-nums leading-none text-white group-hover:text-[#00C4CC] transition-colors">
+                      {heroCounts.youth}K+
+                    </span>
+                    <span className="text-[0.6rem] sm:text-xs font-semibold tracking-wide text-blue-100/75 group-hover:text-white transition-colors mt-0.5 whitespace-nowrap">
+                      Youth
+                    </span>
+                  </button>
+                </div>
+
+                {/* Tags Cloud */}
+                <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end mt-2 sm:mt-2.5 gap-1 sm:gap-2 w-full px-1 shrink-0">
                 {tags.map((tag) => {
                   const isSelected = selectedTag === tag;
                   return (
@@ -542,6 +773,8 @@ export default function App() {
                     Kenya
                   </div>
                 </div>
+
+              </div>
 
               </div>
 
