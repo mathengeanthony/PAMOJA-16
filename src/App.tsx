@@ -497,14 +497,14 @@ export default function App() {
             </div>
 
             {/* RIGHT COLUMN: DUAL ORBIT VISUAL, MICRO-TELEMETRY TRIAD, 3-METRIC STRIP & TAGS */}
-            <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-between lg:justify-center gap-1 sm:gap-1.5 min-h-0">
+            <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-between lg:justify-center gap-1.5 sm:gap-2.5 min-h-0">
               
-              {/* Orbit Centered in Available Upper Space */}
-              <div className="w-full max-w-[540px] flex-1 lg:flex-none flex flex-col items-center justify-center min-h-0">
-                <div className="py-[16px] sm:py-7 lg:py-9 xl:py-10 flex items-center justify-center shrink-0">
+              {/* Orbit Centered Cleanly in Available Upper Space */}
+              <div className="w-full max-w-[540px] flex-1 lg:flex-none flex items-center justify-center min-h-0">
+                <div className="py-[20px] sm:py-8 lg:py-9 xl:py-10 flex items-center justify-center shrink-0">
                   <div 
                     id="circular-feature-node"
-                    className="w-[clamp(68px,12dvh,126px)] h-[clamp(68px,12dvh,126px)] sm:w-28 sm:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 rounded-full border-2 border-white/30 relative flex items-center justify-center shrink-0 shadow-2xl"
+                    className="w-[clamp(62px,10.5dvh,118px)] h-[clamp(62px,10.5dvh,118px)] sm:w-28 sm:h-28 lg:w-32 lg:h-32 xl:w-36 xl:h-36 rounded-full border-2 border-white/30 relative flex items-center justify-center shrink-0 shadow-2xl"
                     style={{
                       backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                       backgroundPosition: 'center',
@@ -562,11 +562,15 @@ export default function App() {
                     </div>
                   </div>
                 </div>
+              </div>
 
+              {/* Anchored Bottom Stack: Synced Readout + Waveform + Compass Scale sitting cleanly right above Power Metrics & Tags */}
+              <div className="w-full max-w-[540px] flex flex-col items-center shrink-0">
+                
                 {/* BELOW-ORBIT MINIMALIST ADDITION #1: Synced SDG 16 Micro-Readout */}
                 <div
                   id="hero-orbit-sdg-readout"
-                  className="grid w-full max-w-[420px] px-2 pt-0.5 shrink-0"
+                  className="grid w-full max-w-[420px] px-2 shrink-0"
                 >
                   {[
                     { code: 'SDG 16.a', text: 'Cross-Border Youth Solidarity' },
@@ -596,7 +600,7 @@ export default function App() {
                 {/* BELOW-ORBIT MINIMALIST ADDITION #2: Civic Horizon Pulse Waveform SVG */}
                 <div
                   id="hero-horizon-waveform"
-                  className="w-full max-w-[340px] h-[14px] sm:h-[16px] flex items-center justify-center shrink-0 pointer-events-none mt-0.5"
+                  className="w-full max-w-[340px] h-[14px] sm:h-[16px] flex items-center justify-center shrink-0 pointer-events-none mt-1"
                   aria-hidden="true"
                 >
                   <svg
@@ -642,7 +646,7 @@ export default function App() {
                   type="button"
                   id="hero-compass-scale"
                   onClick={() => scrollToSection('section-map')}
-                  className="group flex flex-col items-center justify-center w-full max-w-[300px] pt-0.5 cursor-pointer shrink-0"
+                  className="group flex flex-col items-center justify-center w-full max-w-[300px] pt-1 cursor-pointer shrink-0"
                   title="Jump to Live Kenya Map"
                 >
                   <div className="relative flex items-center justify-between w-full px-3 h-2">
@@ -671,12 +675,9 @@ export default function App() {
                     1.29° S · 36.82° E · Nairobi HQ
                   </span>
                 </button>
-              </div>
 
-              {/* Anchored Bottom Stack: Hairline Axis Stem + 3-Metric Strip directly on top of Tags Cloud */}
-              <div className="w-full max-w-[540px] flex flex-col items-center shrink-0">
-                {/* Hairline Vertical Axis Stem connecting Orbit directly into the 3-Metric Strip */}
-                <div id="hero-axis-connector" className="relative w-px h-2.5 sm:h-3.5 bg-gradient-to-b from-white/30 to-[#00C4CC]/60 overflow-hidden shrink-0 pointer-events-none" aria-hidden="true">
+                {/* Hairline Vertical Axis Stem connecting Instrument Triad directly into the 3-Metric Strip */}
+                <div id="hero-axis-connector" className="relative w-px h-2 sm:h-3 bg-gradient-to-b from-white/30 to-[#00C4CC]/60 overflow-hidden shrink-0 pointer-events-none mt-0.5" aria-hidden="true">
                   <div className="w-1 h-1 -ml-[1.5px] rounded-full bg-[#00C4CC] shadow-[0_0_6px_#00C4CC] animate-axis-bead" />
                 </div>
 
