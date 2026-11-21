@@ -402,13 +402,13 @@ export default function App() {
               </p>
             </div>
 
-            {/* RIGHT COLUMN: ORBIT VISUAL & TAGS */}
-            <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-between lg:justify-center min-h-0">
+            {/* RIGHT COLUMN: ORBIT VISUAL, HYBRID SPOTLIGHT/CTA & TAGS */}
+            <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-between lg:justify-center gap-1.5 sm:gap-3 lg:gap-4 min-h-0">
               
               {/* Circular Feature with Orbit Animation (Symmetrically positioned labels outside) */}
               <div 
                 id="circular-feature-node"
-                className="w-[clamp(98px,17dvh,168px)] h-[clamp(98px,17dvh,168px)] sm:w-40 sm:h-40 lg:w-52 lg:h-52 xl:w-60 xl:h-60 rounded-full border-2 border-white/30 relative flex items-center justify-center my-auto lg:my-0 shrink-0 shadow-2xl"
+                className="w-[clamp(86px,15dvh,156px)] h-[clamp(86px,15dvh,156px)] sm:w-36 sm:h-36 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded-full border-2 border-white/30 relative flex items-center justify-center my-auto lg:my-0 shrink-0 shadow-2xl"
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                   backgroundPosition: 'center',
@@ -455,8 +455,56 @@ export default function App() {
                 </div>
               </div>
 
+              {/* MINIMAL 3-METRIC HAIRLINE STRIP (Option 4) */}
+              <div
+                id="hero-metric-hairline-strip"
+                className="w-full max-w-[540px] border-y border-white/15 py-1.5 sm:py-2.5 grid grid-cols-3 divide-x divide-white/15 shrink-0"
+              >
+                <button
+                  type="button"
+                  id="hero-metric-counties"
+                  onClick={() => scrollToSection('section-map')}
+                  className="group flex flex-col items-center justify-center px-2 py-0.5 text-center cursor-pointer transition-opacity hover:opacity-100"
+                >
+                  <span className="text-[clamp(1rem,2.4dvh,1.5rem)] font-black tracking-tight tabular-nums leading-none text-white group-hover:text-[#00C4CC] transition-colors">
+                    47
+                  </span>
+                  <span className="text-[0.62rem] sm:text-xs font-semibold tracking-wide text-blue-100/75 group-hover:text-white transition-colors mt-0.5 whitespace-nowrap">
+                    Counties
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  id="hero-metric-initiatives"
+                  onClick={() => scrollToSection('section-story-wall')}
+                  className="group flex flex-col items-center justify-center px-2 py-0.5 text-center cursor-pointer transition-opacity hover:opacity-100"
+                >
+                  <span className="text-[clamp(1rem,2.4dvh,1.5rem)] font-black tracking-tight tabular-nums leading-none text-[#E5B80B] group-hover:text-white transition-colors">
+                    247+
+                  </span>
+                  <span className="text-[0.62rem] sm:text-xs font-semibold tracking-wide text-blue-100/75 group-hover:text-white transition-colors mt-0.5 whitespace-nowrap">
+                    Initiatives
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  id="hero-metric-youth"
+                  onClick={() => scrollToSection('section-movement')}
+                  className="group flex flex-col items-center justify-center px-2 py-0.5 text-center cursor-pointer transition-opacity hover:opacity-100"
+                >
+                  <span className="text-[clamp(1rem,2.4dvh,1.5rem)] font-black tracking-tight tabular-nums leading-none text-white group-hover:text-[#00C4CC] transition-colors">
+                    250K+
+                  </span>
+                  <span className="text-[0.62rem] sm:text-xs font-semibold tracking-wide text-blue-100/75 group-hover:text-white transition-colors mt-0.5 whitespace-nowrap">
+                    Youth
+                  </span>
+                </button>
+              </div>
+
               {/* Tags Cloud */}
-              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end mt-auto gap-1 sm:gap-2 max-w-[540px] px-1 shrink-0 pt-1.5 sm:pt-4 lg:pt-6">
+              <div id="tags-cloud-container" className="flex flex-wrap justify-center lg:justify-end mt-0 lg:mt-0 gap-1 sm:gap-2 max-w-[540px] px-1 shrink-0 pt-0.5 sm:pt-1">
                 {tags.map((tag) => {
                   const isSelected = selectedTag === tag;
                   return (
