@@ -499,12 +499,12 @@ export default function App() {
             {/* RIGHT COLUMN: DUAL ORBIT VISUAL, MICRO-TELEMETRY TRIAD, 3-METRIC STRIP & TAGS */}
             <div id="hero-right-column" className="w-full flex-1 flex flex-col items-center lg:items-end justify-between lg:justify-center gap-1.5 sm:gap-2.5 min-h-0">
               
-              {/* Orbit Centered Cleanly in Available Upper Space */}
+              {/* Orbit Centered Cleanly in Available Upper Space (Restored to Former Bold Frame Size) */}
               <div className="w-full max-w-[540px] flex-1 lg:flex-none flex items-center justify-center min-h-0">
-                <div className="py-[20px] sm:py-8 lg:py-9 xl:py-10 flex items-center justify-center shrink-0">
+                <div className="py-[22px] sm:py-9 lg:py-11 xl:py-[52px] flex items-center justify-center shrink-0">
                   <div 
                     id="circular-feature-node"
-                    className="w-[clamp(62px,10.5dvh,118px)] h-[clamp(62px,10.5dvh,118px)] sm:w-28 sm:h-28 lg:w-32 lg:h-32 xl:w-36 xl:h-36 rounded-full border-2 border-white/30 relative flex items-center justify-center shrink-0 shadow-2xl"
+                    className="w-[clamp(90px,15.5dvh,156px)] h-[clamp(90px,15.5dvh,156px)] sm:w-40 sm:h-40 lg:w-52 lg:h-52 xl:w-60 xl:h-60 rounded-full border-2 border-white/30 relative flex items-center justify-center shrink-0 shadow-2xl"
                     style={{
                       backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')",
                       backgroundPosition: 'center',
@@ -517,46 +517,46 @@ export default function App() {
                     {/* Inner Orbiting Ring emitting the pulsing aura */}
                     <div 
                       id="orbit-ring-line" 
-                      className="absolute -inset-[13%] rounded-full border border-white/25 pointer-events-none animate-pulse-wave" 
+                      className="absolute -inset-[11%] rounded-full border border-white/25 pointer-events-none animate-pulse-wave" 
                     />
 
                     {/* Inner Orbit Container with Clockwise Rotating Cyan Dot */}
-                    <div id="orbit-dot-spinner" className="absolute -inset-[13%] rounded-full animate-orbit-spin pointer-events-none origin-center">
+                    <div id="orbit-dot-spinner" className="absolute -inset-[11%] rounded-full animate-orbit-spin pointer-events-none origin-center">
                       <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#00C4CC] rounded-full shadow-[0_0_12px_#00C4CC]" />
                     </div>
 
                     {/* Outer Counter-Rotating Dashed Compass Ring */}
                     <div
                       id="orbit-outer-dashed-ring"
-                      className="absolute -inset-[24%] rounded-full border border-dashed border-white/20 pointer-events-none"
+                      className="absolute -inset-[21%] rounded-full border border-dashed border-white/20 pointer-events-none"
                     />
 
                     {/* Outer Orbit Container with Counter-Clockwise Gold Satellite Node */}
-                    <div id="orbit-gold-spinner" className="absolute -inset-[24%] rounded-full animate-orbit-reverse pointer-events-none origin-center">
+                    <div id="orbit-gold-spinner" className="absolute -inset-[21%] rounded-full animate-orbit-reverse pointer-events-none origin-center">
                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#E5B80B] rounded-full shadow-[0_0_10px_#E5B80B]" />
                     </div>
 
-                    {/* Orbit Perimeter Labels (Anchored cleanly outside the outer -inset-[24%] ring, synced clockwise glow) */}
-                    <div id="feature-orbit-labels" className="absolute -inset-[24%] pointer-events-none">
+                    {/* Orbit Perimeter Labels (Anchored cleanly outside the outer -inset-[21%] ring, synced clockwise glow) */}
+                    <div id="feature-orbit-labels" className="absolute -inset-[21%] pointer-events-none">
                       {/* Left Side Labels (indices 5, 4, 3 in clockwise cycle) */}
-                      <span className={`absolute top-[20%] right-full mr-2 sm:mr-3 md:mr-4 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-right whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 5 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                      <span className={`absolute top-[20%] right-full mr-2.5 sm:mr-3.5 md:mr-4 text-[0.62rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider select-none text-right whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 5 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
                         Peace
                       </span>
-                      <span className={`absolute top-1/2 -translate-y-1/2 right-full mr-2.5 sm:mr-4 md:mr-5 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-right whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 4 ? 'text-[#E5B80B] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                      <span className={`absolute top-1/2 -translate-y-1/2 right-full mr-3 sm:mr-4 md:mr-5 text-[0.62rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider select-none text-right whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 4 ? 'text-[#E5B80B] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
                         Justice
                       </span>
-                      <span className={`absolute bottom-[20%] right-full mr-2 sm:mr-3 md:mr-4 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-right whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 3 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                      <span className={`absolute bottom-[20%] right-full mr-2.5 sm:mr-3.5 md:mr-4 text-[0.62rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider select-none text-right whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 3 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
                         Action
                       </span>
 
                       {/* Right Side Labels (indices 0, 1, 2 in clockwise cycle) */}
-                      <span className={`absolute top-[20%] left-full ml-2 sm:ml-3 md:ml-4 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-left whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 0 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                      <span className={`absolute top-[20%] left-full ml-2.5 sm:ml-3.5 md:ml-4 text-[0.62rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider select-none text-left whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 0 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
                         Unity
                       </span>
-                      <span className={`absolute top-1/2 -translate-y-1/2 left-full ml-2.5 sm:ml-4 md:ml-5 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-left whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 1 ? 'text-[#E5B80B] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                      <span className={`absolute top-1/2 -translate-y-1/2 left-full ml-3 sm:ml-4 md:ml-5 text-[0.62rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider select-none text-left whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 1 ? 'text-[#E5B80B] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
                         Civic
                       </span>
-                      <span className={`absolute bottom-[20%] left-full ml-2 sm:ml-3 md:ml-4 text-[0.6rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-wider select-none text-left whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 2 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
+                      <span className={`absolute bottom-[20%] left-full ml-2.5 sm:ml-3.5 md:ml-4 text-[0.62rem] sm:text-[0.72rem] md:text-xs font-bold uppercase tracking-wider select-none text-left whitespace-nowrap transition-all duration-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] ${activeOrbitWord === 2 ? 'text-[#00C4CC] scale-105 opacity-100' : 'text-white/65 opacity-80'}`}>
                         Voice
                       </span>
                     </div>
