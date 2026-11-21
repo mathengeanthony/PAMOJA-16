@@ -567,32 +567,47 @@ export default function App() {
               {/* Anchored Bottom Stack: Synced Readout + Waveform + Compass Scale sitting cleanly right above Power Metrics & Tags */}
               <div className="w-full max-w-[540px] flex flex-col items-center shrink-0">
                 
-                {/* BELOW-ORBIT MINIMALIST ADDITION #1: Synced SDG 16 Micro-Readout */}
+                {/* BELOW-ORBIT MINIMALIST ADDITION #1: Synced SDG 16 Micro-Readout (#1 Whisper-Light Frosted Pill) */}
                 <div
                   id="hero-orbit-sdg-readout"
-                  className="grid w-full max-w-[420px] px-2 shrink-0"
+                  className="grid w-full max-w-[440px] px-2 shrink-0 justify-items-center"
                 >
                   {[
-                    { code: 'SDG 16.a', text: 'Cross-Border Youth Solidarity' },
-                    { code: 'SDG 16.6', text: 'Accountable Local Institutions' },
-                    { code: 'SDG 16.7', text: 'Inclusive Youth Decision-Making' },
-                    { code: 'SDG 16.5', text: 'Public Audits & Anti-Corruption' },
-                    { code: 'SDG 16.3', text: 'Rule of Law & Access to Justice' },
-                    { code: 'SDG 16.1', text: 'Grassroots Conflict Prevention' }
+                    { code: 'SDG 16.a', text: 'Cross-Border Youth Solidarity', isGold: false, onSelect: () => scrollToSection('section-network') },
+                    { code: 'SDG 16.6', text: 'Accountable Local Institutions', isGold: true, onSelect: () => scrollToSection('section-map') },
+                    { code: 'SDG 16.7', text: 'Inclusive Youth Decision-Making', isGold: false, onSelect: () => scrollToSection('section-story-wall') },
+                    { code: 'SDG 16.5', text: 'Public Audits & Anti-Corruption', isGold: false, onSelect: () => { setSection3Mode('library'); scrollToSection('section-excellence'); } },
+                    { code: 'SDG 16.3', text: 'Rule of Law & Access to Justice', isGold: true, onSelect: () => { setSection3Mode('library'); scrollToSection('section-excellence'); } },
+                    { code: 'SDG 16.1', text: 'Grassroots Conflict Prevention', isGold: false, onSelect: () => scrollToSection('section-movement') }
                   ].map((item, idx) => {
                     const isSynced = activeOrbitWord === idx;
                     return (
-                      <div
+                      <button
                         key={item.code}
+                        type="button"
+                        onClick={item.onSelect}
                         aria-hidden={!isSynced}
-                        className={`col-start-1 row-start-1 flex items-center justify-center gap-1.5 text-[0.6rem] sm:text-[0.68rem] tracking-wide transition-all duration-500 ${
-                          isSynced ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 pointer-events-none'
+                        tabIndex={isSynced ? 0 : -1}
+                        className={`group col-start-1 row-start-1 w-fit max-w-full flex items-center justify-center gap-1.5 rounded-full bg-white/[0.06] backdrop-blur-sm px-3 py-0.5 sm:px-3.5 sm:py-1 border text-[0.6rem] sm:text-[0.68rem] tracking-wide transition-all duration-500 cursor-pointer shadow-xs ${
+                          item.isGold
+                            ? 'border-[#E5B80B]/30 hover:border-[#E5B80B]/65 hover:bg-[#E5B80B]/10'
+                            : 'border-[#00C4CC]/30 hover:border-[#00C4CC]/65 hover:bg-[#00C4CC]/10'
+                        } ${
+                          isSynced ? 'opacity-100 translate-y-0 pointer-events-auto z-10' : 'opacity-0 translate-y-1 pointer-events-none z-0'
                         }`}
                       >
-                        <span className="font-extrabold text-[#00C4CC] tabular-nums shrink-0">{item.code}</span>
+                        <span
+                          className={`font-extrabold tabular-nums shrink-0 ${
+                            item.isGold ? 'text-[#E5B80B]' : 'text-[#00C4CC]'
+                          }`}
+                        >
+                          {item.code}
+                        </span>
                         <span className="text-white/35 shrink-0" aria-hidden="true">·</span>
-                        <span className="font-medium text-blue-100/85 truncate">{item.text}</span>
-                      </div>
+                        <span className="font-medium text-blue-100/90 group-hover:text-white truncate transition-colors">
+                          {item.text}
+                        </span>
+                      </button>
                     );
                   })}
                 </div>
