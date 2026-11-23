@@ -136,6 +136,26 @@
     transform-origin: center center;
 }
 
+.animate-orbit-fast {
+    animation: orbitSpin 8.5s linear infinite !important;
+    transform-origin: center center;
+}
+
+.animate-orbit-mid {
+    animation: orbitSpin 14.5s linear infinite !important;
+    transform-origin: center center;
+}
+
+.animate-orbit-mid-reverse {
+    animation: orbitReverse 17s linear infinite !important;
+    transform-origin: center center;
+}
+
+.animate-orbit-slow {
+    animation: orbitSpin 34s linear infinite !important;
+    transform-origin: center center;
+}
+
 .animate-hairline-beam {
     animation: hairlineBeam 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
@@ -164,6 +184,10 @@
 @media (prefers-reduced-motion: reduce) {
     .animate-orbit-spin,
     .animate-orbit-reverse,
+    .animate-orbit-fast,
+    .animate-orbit-mid,
+    .animate-orbit-mid-reverse,
+    .animate-orbit-slow,
     .animate-hairline-beam,
     .animate-axis-bead,
     .animate-horizon-wave,

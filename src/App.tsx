@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   HeartHandshake, 
   Sun, 
@@ -22,6 +22,9 @@ import {
   ShieldCheck,
   CheckCircle2,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Check,
   FileText,
   Download,
   Search,
@@ -49,7 +52,58 @@ export default function App() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [activeOrbitWord, setActiveOrbitWord] = useState<number>(0);
   const [activeFocusTrack, setActiveFocusTrack] = useState<number>(0);
+  const [selectedCountryIdx, setSelectedCountryIdx] = useState<number>(0);
+  const [isCountryMenuOpen, setIsCountryMenuOpen] = useState<boolean>(false);
+  const [isCountryAutoCycling, setIsCountryAutoCycling] = useState<boolean>(false);
+  const countryDropdownRef = useRef<HTMLDivElement | null>(null);
   const [heroCounts, setHeroCounts] = useState({ counties: 0, initiatives: 0, youth: 0 });
+
+  const eastAfricaCountries: Array<{
+    code: string;
+    name: string;
+    selectorName?: string;
+    flag: string;
+    capital: string;
+    coords: string;
+  }> = [
+    { code: 'KE', name: 'Kenya', flag: '🇰🇪', capital: 'Nairobi HQ', coords: '1.29° S · 36.82° E' },
+    { code: 'SS', name: 'South Sudan', selectorName: 'S. Sudan', flag: '🇸🇸', capital: 'Juba Hub', coords: '4.86° N · 31.57° E' },
+    { code: 'TZ', name: 'Tanzania', flag: '🇹🇿', capital: 'Dodoma Hub', coords: '6.16° S · 35.75° E' },
+    { code: 'RW', name: 'Rwanda', flag: '🇷🇼', capital: 'Kigali Hub', coords: '1.94° S · 30.06° E' },
+    { code: 'UG', name: 'Uganda', flag: '🇺🇬', capital: 'Kampala Hub', coords: '0.35° N · 32.58° E' },
+    { code: 'SO', name: 'Somalia', flag: '🇸🇴', capital: 'Mogadishu Hub', coords: '2.05° N · 45.32° E' }
+  ];
+
+  const currentCountry = eastAfricaCountries[selectedCountryIdx] ?? eastAfricaCountries[0];
+
+  // Close country dropdown on outside click or Escape
+  useEffect(() => {
+    if (!isCountryMenuOpen) return;
+    const handleOutside = (e: MouseEvent) => {
+      if (countryDropdownRef.current && !countryDropdownRef.current.contains(e.target as Node)) {
+        setIsCountryMenuOpen(false);
+      }
+    };
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsCountryMenuOpen(false);
+    };
+    document.addEventListener('mousedown', handleOutside);
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('mousedown', handleOutside);
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [isCountryMenuOpen]);
+
+  // Optional auto-rotate across East African capitals
+  useEffect(() => {
+    if (!isCountryAutoCycling) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = window.setInterval(() => {
+      setSelectedCountryIdx((prev) => (prev + 1) % eastAfricaCountries.length);
+    }, 3500);
+    return () => window.clearInterval(timer);
+  }, [isCountryAutoCycling, eastAfricaCountries.length]);
 
   // Sync theme with body class
   useEffect(() => {
@@ -260,7 +314,7 @@ export default function App() {
         <div id="hero-content-wrapper" className="relative z-20 flex flex-col justify-between flex-1 w-full max-w-full h-full min-h-0 gap-1 sm:gap-2">
           
           {/* NAVIGATION */}
-          <nav id="hero-navigation" className="w-full max-w-[1360px] mx-auto px-3.5 sm:px-6 lg:px-8 pb-1 sm:pb-2 flex flex-col gap-1.5 sm:gap-2.5 shrink-0">
+          <nav id="hero-navigation" className="relative z-30 w-full max-w-[1360px] mx-auto px-3.5 sm:px-6 lg:px-8 pb-1 sm:pb-2 flex flex-col gap-1.5 sm:gap-2.5 shrink-0">
             
             {/* ROW 1: BRAND | USER TOOLS */}
             <div id="nav-row-1" className="flex justify-between items-center w-full gap-3">
@@ -330,14 +384,84 @@ export default function App() {
                 </button>
               </div>
 
-              <div className="flex-1 flex justify-end">
-                <div 
+              <div className="flex-1 flex justify-end relative" ref={countryDropdownRef}>
+                <button
+                  type="button"
                   id="btn-country-badge"
-                  className="bg-black/50 border border-white/20 text-white px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 font-bold text-xs whitespace-nowrap backdrop-blur-md select-none shrink-0"
+                  onClick={() => setIsCountryMenuOpen((prev) => !prev)}
+                  aria-haspopup="listbox"
+                  aria-expanded={isCountryMenuOpen}
+                  className="bg-black/55 hover:bg-black/75 border border-white/25 hover:border-[#00C4CC]/60 text-white px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 font-bold text-xs whitespace-nowrap backdrop-blur-md select-none shrink-0 transition-all duration-200 cursor-pointer"
                 >
-                  <span>🇰🇪</span>
-                  <span className="tracking-wider uppercase">Kenya</span>
-                </div>
+                  <span>{currentCountry.flag}</span>
+                  <span className="tracking-wider uppercase">{currentCountry.selectorName ?? currentCountry.name}</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-[#00C4CC] transition-transform duration-200 ${isCountryMenuOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {isCountryMenuOpen && (
+                  <div
+                    id="country-dropdown-menu"
+                    role="listbox"
+                    aria-label="Select East African Country"
+                    className="absolute top-full right-0 mt-2 w-56 sm:w-60 rounded-2xl bg-[#071120]/95 backdrop-blur-xl border border-white/20 shadow-2xl p-1.5 z-50 text-left"
+                  >
+                    <div className="px-2.5 py-1.5 text-[0.6rem] font-extrabold uppercase tracking-[0.18em] text-[#00C4CC] border-b border-white/10 mb-1 flex items-center justify-between">
+                      <span>East Africa Chapters</span>
+                      <span className="text-white/50 tabular-nums">{eastAfricaCountries.length}</span>
+                    </div>
+
+                    <div className="flex flex-col gap-0.5">
+                      {eastAfricaCountries.map((country, idx) => {
+                        const isSelected = idx === selectedCountryIdx;
+                        return (
+                          <button
+                            key={country.code}
+                            type="button"
+                            role="option"
+                            aria-selected={isSelected}
+                            onClick={() => {
+                              setSelectedCountryIdx(idx);
+                              setIsCountryAutoCycling(false);
+                              setIsCountryMenuOpen(false);
+                            }}
+                            className={`w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-xl text-xs transition-colors cursor-pointer ${
+                              isSelected
+                                ? 'bg-[#00C4CC]/20 text-white border border-[#00C4CC]/40'
+                                : 'text-blue-100/85 hover:bg-white/10 hover:text-white border border-transparent'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2 min-w-0">
+                              <span className="text-sm leading-none shrink-0">{country.flag}</span>
+                              <div className="min-w-0">
+                                <span className="font-bold block truncate leading-tight">{country.name}</span>
+                                <span className="text-[0.62rem] text-white/55 block truncate">{country.capital}</span>
+                              </div>
+                            </div>
+                            {isSelected && <Check className="w-3.5 h-3.5 text-[#00C4CC] shrink-0" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="mt-1 pt-1 border-t border-white/10">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsCountryAutoCycling((prev) => !prev);
+                          setIsCountryMenuOpen(false);
+                        }}
+                        className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-[0.65rem] font-bold uppercase tracking-wider transition-colors cursor-pointer ${
+                          isCountryAutoCycling
+                            ? 'bg-[#E5B80B]/20 text-[#E5B80B]'
+                            : 'text-white/70 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        <span>Auto-Rotate Capitals</span>
+                        <span className="tabular-nums">{isCountryAutoCycling ? 'On' : 'Off'}</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -514,15 +638,35 @@ export default function App() {
                     {/* Radial Shadow overlay inside image */}
                     <div className="absolute inset-0 rounded-full bg-gradient-to-b from-black/25 via-transparent to-black/50 pointer-events-none" />
 
+                    {/* Inner Micro-Track Fast Cyan Particle (8.5s CW) */}
+                    <div id="orbit-particle-fast" className="absolute -inset-[6%] rounded-full animate-orbit-fast pointer-events-none origin-center">
+                      <div className="absolute top-1/2 -left-[3px] -translate-y-1/2 w-1.5 h-1.5 bg-[#7DF9FF] rounded-full shadow-[0_0_8px_#00C4CC,0_0_3px_#ffffff]" />
+                    </div>
+
                     {/* Inner Orbiting Ring emitting the pulsing aura */}
                     <div 
                       id="orbit-ring-line" 
                       className="absolute -inset-[11%] rounded-full border border-white/25 pointer-events-none animate-pulse-wave" 
                     />
 
-                    {/* Inner Orbit Container with Clockwise Rotating Cyan Dot */}
+                    {/* Inner Orbit Container with Clockwise Rotating Cyan Dot (12s CW) */}
                     <div id="orbit-dot-spinner" className="absolute -inset-[11%] rounded-full animate-orbit-spin pointer-events-none origin-center">
                       <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#00C4CC] rounded-full shadow-[0_0_12px_#00C4CC]" />
+                    </div>
+
+                    {/* Inner Orbit Counter-Particle (17s CCW) */}
+                    <div id="orbit-particle-inner-ccw" className="absolute -inset-[11%] rounded-full animate-orbit-mid-reverse pointer-events-none origin-center">
+                      <div className="absolute bottom-[14%] right-[14%] w-1 h-1 sm:w-1.5 sm:h-1.5 bg-white rounded-full shadow-[0_0_8px_#ffffff,0_0_12px_#00C4CC] opacity-90" />
+                    </div>
+
+                    {/* Mid Ecosystem Hairline Ring & Twin Particles (14.5s CW) */}
+                    <div
+                      id="orbit-mid-hairline"
+                      className="absolute -inset-[16%] rounded-full border border-white/10 pointer-events-none"
+                    />
+                    <div id="orbit-particle-mid-cw" className="absolute -inset-[16%] rounded-full animate-orbit-mid pointer-events-none origin-center">
+                      <div className="absolute top-[14%] right-[14%] w-1.5 h-1.5 bg-[#E5B80B] rounded-full shadow-[0_0_9px_#E5B80B]" />
+                      <div className="absolute bottom-[14%] left-[14%] w-1 h-1 bg-[#00C4CC] rounded-full shadow-[0_0_8px_#00C4CC] opacity-85" />
                     </div>
 
                     {/* Outer Counter-Rotating Dashed Compass Ring */}
@@ -531,9 +675,14 @@ export default function App() {
                       className="absolute -inset-[21%] rounded-full border border-dashed border-white/20 pointer-events-none"
                     />
 
-                    {/* Outer Orbit Container with Counter-Clockwise Gold Satellite Node */}
+                    {/* Outer Orbit Container with Counter-Clockwise Gold Satellite Node (24s CCW) */}
                     <div id="orbit-gold-spinner" className="absolute -inset-[21%] rounded-full animate-orbit-reverse pointer-events-none origin-center">
                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#E5B80B] rounded-full shadow-[0_0_10px_#E5B80B]" />
+                    </div>
+
+                    {/* Outer Slow Ambient Ecosystem Speck (34s CW) */}
+                    <div id="orbit-particle-outer-cw" className="absolute -inset-[21%] rounded-full animate-orbit-slow pointer-events-none origin-center">
+                      <div className="absolute top-1/2 -right-[2.5px] -translate-y-1/2 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-[#7DF9FF] rounded-full shadow-[0_0_8px_#00C4CC] opacity-80" />
                     </div>
 
                     {/* Orbit Perimeter Labels (Anchored cleanly outside the outer -inset-[21%] ring, synced clockwise glow) */}
@@ -656,15 +805,18 @@ export default function App() {
                   </svg>
                 </div>
 
-                {/* BELOW-ORBIT MINIMALIST ADDITION #3: Nairobi Compass Coordinate Scale */}
-                <button
-                  type="button"
+                {/* BELOW-ORBIT MINIMALIST ADDITION #3: East Africa Compass Coordinate Scale & Capital Ticker */}
+                <div
                   id="hero-compass-scale"
-                  onClick={() => scrollToSection('section-map')}
-                  className="group flex flex-col items-center justify-center w-full max-w-[300px] pt-1 cursor-pointer shrink-0"
-                  title="Jump to Live Kenya Map"
+                  className="group flex flex-col items-center justify-center w-full max-w-[330px] pt-1 shrink-0"
                 >
-                  <div className="relative flex items-center justify-between w-full px-3 h-2">
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection('section-map')}
+                    className="relative flex items-center justify-between w-full px-3 h-2 cursor-pointer"
+                    title="Jump to Live East Africa Map"
+                    aria-label="Jump to Live Map"
+                  >
                     {Array.from({ length: 21 }).map((_, idx) => {
                       const isCenter = idx === 10;
                       const isMajor = idx % 5 === 0;
@@ -685,11 +837,60 @@ export default function App() {
                       aria-hidden="true"
                       className="absolute left-1/2 -translate-x-1/2 -top-0.5 w-1.5 h-1.5 rounded-full bg-[#00C4CC] shadow-[0_0_8px_#00C4CC] animate-compass-scan"
                     />
+                  </button>
+
+                  <div className="mt-0.5 flex items-center justify-center gap-1.5 w-full">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsCountryAutoCycling(false);
+                        setSelectedCountryIdx((prev) => (prev - 1 + eastAfricaCountries.length) % eastAfricaCountries.length);
+                      }}
+                      className="p-0.5 text-white/45 hover:text-[#00C4CC] transition-colors cursor-pointer shrink-0"
+                      aria-label="Previous East African Capital"
+                      title="Previous Capital"
+                    >
+                      <ChevronLeft className="w-3 h-3" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => scrollToSection('section-map')}
+                      className="grid items-center justify-items-center cursor-pointer min-w-0"
+                      title={`${currentCountry.name} — Jump to Map`}
+                    >
+                      {eastAfricaCountries.map((country, idx) => {
+                        const isActiveCap = idx === selectedCountryIdx;
+                        return (
+                          <span
+                            key={country.code}
+                            aria-hidden={!isActiveCap}
+                            className={`col-start-1 row-start-1 text-[0.55rem] sm:text-[0.62rem] font-semibold uppercase tracking-[0.18em] tabular-nums transition-all duration-500 whitespace-nowrap ${
+                              isActiveCap
+                                ? 'opacity-100 translate-y-0 text-blue-100/80 hover:text-[#00C4CC]'
+                                : 'opacity-0 translate-y-1 pointer-events-none'
+                            }`}
+                          >
+                            {country.coords} · {country.capital}
+                          </span>
+                        );
+                      })}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsCountryAutoCycling(false);
+                        setSelectedCountryIdx((prev) => (prev + 1) % eastAfricaCountries.length);
+                      }}
+                      className="p-0.5 text-white/45 hover:text-[#00C4CC] transition-colors cursor-pointer shrink-0"
+                      aria-label="Next East African Capital"
+                      title="Next Capital"
+                    >
+                      <ChevronRight className="w-3 h-3" />
+                    </button>
                   </div>
-                  <span className="mt-0.5 text-[0.55rem] sm:text-[0.62rem] font-semibold uppercase tracking-[0.2em] tabular-nums text-blue-100/70 group-hover:text-[#00C4CC] transition-colors whitespace-nowrap">
-                    1.29° S · 36.82° E · Nairobi HQ
-                  </span>
-                </button>
+                </div>
 
                 {/* Hairline Vertical Axis Stem connecting Instrument Triad directly into the 3-Metric Strip */}
                 <div id="hero-axis-connector" className="relative w-px h-2 sm:h-3 bg-gradient-to-b from-white/30 to-[#00C4CC]/60 overflow-hidden shrink-0 pointer-events-none mt-0.5" aria-hidden="true">
@@ -786,7 +987,7 @@ export default function App() {
                     id="tag-kenya-badge"
                     className="bg-white text-gray-900 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[0.64rem] sm:text-xs font-black uppercase shadow-sm select-none"
                   >
-                    Kenya
+                    {currentCountry.name}
                   </div>
                 </div>
 
