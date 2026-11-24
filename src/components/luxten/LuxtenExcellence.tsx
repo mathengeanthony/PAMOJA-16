@@ -32,8 +32,10 @@ import {
   Unlock,
   MoreHorizontal,
   Home,
-  Battery,
-  BookOpen
+  BookOpen,
+  Handshake,
+  ExternalLink,
+  Send
 } from 'lucide-react';
 import { PeaceLibrarySection } from './PeaceLibrarySection';
 
@@ -74,6 +76,7 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
   const [audioProgress, setAudioProgress] = useState(38);
   const [showCalculatorModal, setShowCalculatorModal] = useState(false);
   const [showAboutModal, setShowAboutModal] = useState(false);
+  const [aboutModalTab, setAboutModalTab] = useState<'charter' | 'partners' | 'roadmap'>('charter');
   const [selectedPillar, setSelectedPillar] = useState<number>(0);
   const [isNodeVerified, setIsNodeVerified] = useState<boolean>(true);
 
@@ -152,60 +155,88 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
     }
   ];
 
-  // Content for The Platform Mode
+  // Content for The Platform Mode — aligned with Pamoja 16 Project Proposal (Components 1–4)
   const platformCards: InitiativeCard[] = [
     {
       id: 'platform-1',
       pillarNum: '01',
-      badge: 'REAL-TIME ANALYTICS',
-      titleTop: 'IMPACT DASHBOARD',
-      titleBottom: '& MEL ENGINE',
-      desc: 'Automated participatory monitoring, evaluation, and learning tracking county budget governance.',
-      county: 'National Infrastructure',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
-      impactScore: '247 Verified Initiatives',
-      verifiedTarget: 'SDG Target 16.6 (Transparent Institutions)',
-      icon: BarChart3
+      badge: 'COMPONENT 1 · NGO CHARTER',
+      titleTop: 'ORG SETUP &',
+      titleBottom: 'GOVERNANCE',
+      desc: 'NGO legal registration, Board + 5 staff onboarding, and internal Constitution, Finance & MOU policies.',
+      county: 'Foundation · Aug–Oct 2025',
+      image: 'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=1200&auto=format&fit=crop',
+      impactScore: '5+ MOUs & Bylaws',
+      verifiedTarget: 'Board + 5 Core Staff',
+      icon: Shield
     },
     {
       id: 'platform-2',
       pillarNum: '02',
-      badge: 'LIVE WEBRTC AUDIO',
-      titleTop: 'CIVIC SPACES',
-      titleBottom: '& IMPACT REELS',
-      desc: 'Low-bandwidth WebRTC live audio rooms for county peace dialogues paired with 60-second video streams.',
-      county: '47 Counties Network',
+      badge: 'COMPONENT 2 · ENGAGEMENT',
+      titleTop: 'YOUTH FORUMS',
+      titleBottom: '& ADVOCACY',
+      desc: 'Regional peace dialogues, civic leadership & SDG 16 training workshops, and 3+ county advocacy teams.',
+      county: 'Capacity · Feb–Mar 2026',
       image: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1200&auto=format&fit=crop',
-      impactScore: '1,420 Live Listeners',
-      verifiedTarget: 'SDG Target 16.7 (Inclusive Decision-Making)',
-      icon: Radio
+      impactScore: '500+ Youth Engaged',
+      verifiedTarget: '100+ Youth Trained · 3 Counties',
+      icon: Users
     },
     {
       id: 'platform-3',
       pillarNum: '03',
-      badge: 'FINANCIAL PIPELINE',
-      titleTop: 'M-PESA DARAJA',
-      titleBottom: 'DONOR MATCHMAKING',
-      desc: 'Instant automated M-Pesa micro-tipping for field advocates backed by multilateral donor matchmaking.',
-      county: 'Nairobi & Kilifi',
-      image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1200&auto=format&fit=crop',
-      impactScore: 'KES 18.2M Disbursed',
-      verifiedTarget: 'SDG Target 16.5 (Reduce Corruption)',
-      icon: DollarSign
+      badge: 'COMPONENT 3 · DVAP MVP',
+      titleTop: 'VISIBILITY',
+      titleBottom: 'PLATFORM (DVAP)',
+      desc: 'Co-created MVP unifying Submission Portal, Impact Dashboard, Story Wall, Resource Library & Interactive Map.',
+      county: 'MVP Launch · Oct 2025–May 2026',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
+      impactScore: '50+ Youth Groups',
+      verifiedTarget: '200+ Documented Actions',
+      icon: Layers
     },
     {
       id: 'platform-4',
       pillarNum: '04',
-      badge: 'VERIFIED TESTIMONIALS',
-      titleTop: 'STORY WALL',
-      titleBottom: '& CIVIC REPUTATION',
-      desc: 'Curated multimedia gallery showcasing field testimonies, photo essays, and youth documentary films.',
-      county: 'All 47 Counties',
+      badge: 'COMPONENT 4 · MEL ENGINE',
+      titleTop: 'MEL & UN',
+      titleBottom: 'REPORTING',
+      desc: 'Participatory MEL tracking platform usage, project submissions & quarterly learning briefs for national SDG 16 reporting.',
+      county: 'Launch · Jun 1–22, 2026',
       image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop',
-      impactScore: '47 Counties Represented',
-      verifiedTarget: 'SDG Target 16.10 (Public Access to Information)',
-      icon: Users
+      impactScore: '5,000+ Online Reach',
+      verifiedTarget: 'National Report & UN Sync',
+      icon: BarChart3
     }
+  ];
+
+  const coalitionOrgs = [
+    { name: 'Youth for SDGs Kenya', url: 'https://www.youthforsdgkenya.co.ke', focus: 'Youth SDG Mobilization' },
+    { name: 'YSD – Machakos Chapter', url: 'https://www.ysdkenya.org', focus: 'County Sustainable Dev' },
+    { name: 'Youth Alive Kenya', url: 'https://www.youthalivekenya.org', focus: 'Civic Empowerment' },
+    { name: 'OAYouth – Kenya Chapter', url: 'https://www.oayouthkenya.org', focus: 'African Youth Orgs' },
+    { name: 'Champions for SDG Youth', url: '', focus: 'Youth SDG Advocacy' },
+    { name: 'Refugee Consortium of Kenya', url: 'https://www.rckkenya.org', focus: 'Refugee & Legal Justice' },
+    { name: 'Justice, Peace & Integrity (JPIC)', url: 'https://www.aoskenya.org', focus: 'Peace & Justice' },
+    { name: 'Amani Forum', url: '', focus: 'Regional Peace Dialogue' },
+    { name: 'UoN – Wangari Maathai Institute', url: 'https://wmi.uonbi.ac.ke', focus: 'Research & Environmental Peace' },
+    { name: 'Peace with Land Kenya', url: '', focus: 'Land & Conflict Mediation' }
+  ];
+
+  const unPartners = [
+    { name: 'Food & Agriculture Organization (FAO)', scope: 'Resource Peace & Food Security' },
+    { name: 'UNHCR', scope: 'Refugee Protection & Civic Inclusion' },
+    { name: 'UNICEF', scope: 'Youth Participation & Child Justice' },
+    { name: 'IOM (UN Migration)', scope: 'Cross-Border Stability & Resilience' }
+  ];
+
+  const roadmapPhases = [
+    { phase: '01 · Foundation & Legal Setup', window: 'Aug – Oct 2025', kpi: 'NGO Registered • Board + 5 Staff • Internal Bylaws' },
+    { phase: '02 · System Design & MVP', window: 'Oct 2025 – Jan 2026', kpi: 'Co-Design Sessions • DVAP MVP Functional • 10 Projects' },
+    { phase: '03 · Capacity & Advocacy', window: 'Feb – Mar 2026', kpi: '100+ Youth Trained • 3 County Teams • 5 MOUs Signed' },
+    { phase: '04 · Data Onboarding & Beta', window: 'Mar – May 2026', kpi: '50 Projects + 25 Stories • Beta Launch • 5,000+ Reach' },
+    { phase: '05 · National Launch & Report', window: 'Jun 1 – Jun 22, 2026', kpi: 'National Event • Impact Report Published • UN/Media' }
   ];
 
   const actionHubPillars = [
@@ -216,10 +247,10 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
   ];
 
   const platformPillars = [
-    { mode: 'OS 01', title: 'MEL DASHBOARD', subtitle: 'REAL-TIME METRICS', icon: BarChart3, cardIdx: 0 },
-    { mode: 'OS 02', title: 'CIVIC WEBRTC', subtitle: 'ENCRYPTED DIALOGUE', icon: Radio, cardIdx: 1 },
-    { mode: 'OS 03', title: 'DARAJA FINTECH', subtitle: 'M-PESA BOUNTIES', icon: DollarSign, cardIdx: 2 },
-    { mode: 'OS 04', title: 'STORY WALL', subtitle: 'VERIFIED ESSAYS', icon: Users, cardIdx: 3 }
+    { mode: 'COMP 01', title: 'NGO SETUP', subtitle: 'BOARD & CHARTER', icon: Shield, cardIdx: 0 },
+    { mode: 'COMP 02', title: 'YOUTH FORUMS', subtitle: 'PEACE & TRAINING', icon: Users, cardIdx: 1 },
+    { mode: 'COMP 03', title: 'DVAP PLATFORM', subtitle: '5-MODULE MVP', icon: Layers, cardIdx: 2 },
+    { mode: 'COMP 04', title: 'MEL ENGINE', subtitle: 'SDG 16 REPORTING', icon: BarChart3, cardIdx: 3 }
   ];
 
   const initiativeCards = isPlatformMode ? platformCards : actionHubCards;
@@ -275,150 +306,109 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
       <div className="w-full max-w-[1360px] mx-auto flex flex-col justify-between flex-1 h-full min-h-0 relative z-10">
         
         {/* ========================================================================= */}
-        {/* 1. TOP MODE SWITCHER (The Platform & Action Hub)                         */}
+        {/* 1. TOP MODE SWITCHER (Hero/Map Plain Full-Colour Matte Pills)            */}
         {/* ========================================================================= */}
-        <div className={`w-full grid grid-cols-3 gap-1 sm:gap-1.5 border-b pb-1 shrink-0 transition-colors duration-300 ${
-          isLightMode ? 'border-[#005587]/15' : 'border-white/10'
-        }`}>
-          {/* Button 1: The Platform */}
+        <div
+          className={`w-full grid grid-cols-3 gap-1.5 sm:gap-2.5 border-b pb-2 shrink-0 transition-colors duration-300 ${
+            isLightMode ? 'border-[#005587]/15' : 'border-white/10'
+          }`}
+        >
+          {/* Button 1: The Platform — Plain Full-Colour Matte White Pill */}
           <button
             type="button"
             id="btn-switch-platform"
             onClick={() => handleSwitchMode('platform')}
-            className={`flex items-center justify-between gap-1 py-0.5 px-1.5 sm:px-2.5 rounded-md border transition-all duration-200 cursor-pointer text-left ${
+            aria-pressed={isPlatformMode}
+            className={`flex items-center justify-between gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-4 rounded-full border transition-all duration-200 cursor-pointer text-left bg-white text-[#0b1120] hover:brightness-95 ${
+              isLightMode ? 'border-[#003355]/25' : 'border-white'
+            } ${
               isPlatformMode
                 ? isLightMode
-                  ? 'bg-[#005587] text-white border-[#005587] shadow-xs'
-                  : 'bg-[#005587] text-white border-[#00C4CC] shadow-[0_0_12px_rgba(0,196,204,0.3)]'
-                : isLightMode
-                  ? 'bg-white text-[#003355] border-[#005587]/15 hover:border-[#005587]/35 hover:bg-[#005587]/5'
-                  : 'bg-white/[0.03] text-gray-300 border-white/10 hover:border-white/25 hover:bg-white/[0.06] hover:text-white'
+                  ? 'ring-2 ring-[#003355] ring-offset-2 ring-offset-[#f4f7fb] shadow-md'
+                  : 'ring-2 ring-[#00C4CC] ring-offset-2 ring-offset-[#050505] shadow-[0_0_16px_rgba(255,255,255,0.28)]'
+                : 'opacity-85 hover:opacity-100 shadow-sm'
             }`}
             title="Switch to The Platform mode"
           >
-            <div className="flex items-center gap-1 sm:gap-1.5 min-w-0">
-              <div className={`w-4.5 h-4.5 sm:w-5 sm:h-5 rounded border flex items-center justify-center shrink-0 transition-colors ${
-                isPlatformMode
-                  ? 'bg-white/20 border-white/40 text-white'
-                  : isLightMode
-                    ? 'bg-[#005587]/10 border-[#005587]/30 text-[#005587]'
-                    : 'bg-[#005587]/30 border-[#00C4CC]/40 text-[#00C4CC]'
-              }`}>
-                <Layers className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current opacity-90" />
-              </div>
+            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+              <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#0b1120] shrink-0" />
               <div className="min-w-0">
-                <span className={`text-[8px] sm:text-[9.5px] font-black uppercase tracking-wider block truncate leading-none ${
-                  isPlatformMode ? 'text-white' : isLightMode ? 'text-[#003355]' : 'text-white'
-                }`}>
+                <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-wider block truncate leading-none text-[#0b1120]">
                   THE PLATFORM
                 </span>
-                <span className={`text-[6.5px] sm:text-[7.5px] font-mono uppercase block truncate tracking-tight mt-0.5 ${
-                  isPlatformMode
-                    ? 'text-white/80'
-                    : isLightMode ? 'text-[#005587]/70 font-semibold' : 'text-gray-400'
-                }`}>
+                <span className="text-[6.5px] sm:text-[7.5px] font-mono font-bold uppercase block truncate tracking-tight mt-0.5 text-[#334155]">
                   CIVIC TECH &amp; OS
                 </span>
               </div>
             </div>
             {isPlatformMode && (
-              <span className="text-[6px] sm:text-[7px] font-mono font-bold bg-[#00C4CC] text-black px-1.5 py-0.5 rounded-full uppercase shrink-0 hidden md:inline-block">
+              <span className="text-[6.5px] sm:text-[7.5px] font-mono font-black bg-[#0b1120] text-white px-2 py-0.5 rounded-full uppercase shrink-0 hidden md:inline-block">
                 ACTIVE
               </span>
             )}
           </button>
 
-          {/* Button 2: Action Hub */}
+          {/* Button 2: Action Hub — Plain Full-Colour Matte Yellow Pill */}
           <button
             type="button"
             id="btn-switch-action-hub"
             onClick={() => handleSwitchMode('action-hub')}
-            className={`flex items-center justify-between gap-1 py-0.5 px-1.5 sm:px-2.5 rounded-md border transition-all duration-200 cursor-pointer text-left ${
+            aria-pressed={isActionHubMode}
+            className={`flex items-center justify-between gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-4 rounded-full border border-[#E5B80B] bg-[#E5B80B] text-black transition-all duration-200 cursor-pointer text-left hover:brightness-105 ${
               isActionHubMode
                 ? isLightMode
-                  ? 'bg-[#005587] text-white border-[#005587] shadow-xs'
-                  : 'bg-[#005587] text-white border-[#00C4CC] shadow-[0_0_12px_rgba(0,196,204,0.3)]'
-                : isLightMode
-                  ? 'bg-white text-[#003355] border-[#005587]/15 hover:border-[#005587]/35 hover:bg-[#005587]/5'
-                  : 'bg-white/[0.03] text-gray-300 border-white/10 hover:border-white/25 hover:bg-white/[0.06] hover:text-white'
+                  ? 'ring-2 ring-[#003355] ring-offset-2 ring-offset-[#f4f7fb] shadow-md'
+                  : 'ring-2 ring-white ring-offset-2 ring-offset-[#050505] shadow-[0_0_16px_rgba(229,184,11,0.4)]'
+                : 'opacity-85 hover:opacity-100 shadow-sm'
             }`}
             title="Switch to Action Hub mode"
           >
-            <div className="flex items-center gap-1 sm:gap-1.5 min-w-0">
-              <div className={`w-4.5 h-4.5 sm:w-5 sm:h-5 rounded border flex items-center justify-center shrink-0 transition-colors ${
-                isActionHubMode
-                  ? 'bg-white/20 border-white/40 text-white'
-                  : isLightMode
-                    ? 'bg-[#E5B80B]/20 border-[#E5B80B]/50 text-[#8a7020]'
-                    : 'bg-[#E5B80B]/20 border-[#E5B80B]/40 text-[#E5B80B]'
-              }`}>
-                <Award className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-              </div>
+            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+              <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black shrink-0" />
               <div className="min-w-0">
-                <span className={`text-[8px] sm:text-[9.5px] font-black uppercase tracking-wider block truncate leading-none ${
-                  isActionHubMode ? 'text-white' : isLightMode ? 'text-[#003355]' : 'text-white'
-                }`}>
+                <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-wider block truncate leading-none text-black">
                   ACTION HUB
                 </span>
-                <span className={`text-[6.5px] sm:text-[7.5px] font-mono uppercase block truncate tracking-tight mt-0.5 ${
-                  isActionHubMode
-                    ? 'text-white/80'
-                    : isLightMode ? 'text-[#005587]/70 font-semibold' : 'text-gray-400'
-                }`}>
+                <span className="text-[6.5px] sm:text-[7.5px] font-mono font-bold uppercase block truncate tracking-tight mt-0.5 text-black/80">
                   PEACE &amp; FIELD
                 </span>
               </div>
             </div>
             {isActionHubMode && (
-              <span className="text-[6px] sm:text-[7px] font-mono font-bold bg-[#00C4CC] text-black px-1.5 py-0.5 rounded-full uppercase shrink-0 hidden md:inline-block">
+              <span className="text-[6.5px] sm:text-[7.5px] font-mono font-black bg-[#0b1120] text-[#E5B80B] px-2 py-0.5 rounded-full uppercase shrink-0 hidden md:inline-block">
                 ACTIVE
               </span>
             )}
           </button>
 
-          {/* Button 3: The Library */}
+          {/* Button 3: The Library — Plain Full-Colour Matte Sky Blue Pill */}
           <button
             type="button"
             id="btn-switch-library"
             onClick={() => handleSwitchMode('library')}
-            className={`flex items-center justify-between gap-1 py-0.5 px-1.5 sm:px-2.5 rounded-md border transition-all duration-200 cursor-pointer text-left ${
+            aria-pressed={isLibraryMode}
+            className={`flex items-center justify-between gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-4 rounded-full border border-[#00C4CC] bg-[#00C4CC] text-black transition-all duration-200 cursor-pointer text-left hover:brightness-105 ${
               isLibraryMode
                 ? isLightMode
-                  ? 'bg-[#005587] text-white border-[#005587] shadow-xs'
-                  : 'bg-[#005587] text-white border-[#00C4CC] shadow-[0_0_12px_rgba(0,196,204,0.3)]'
-                : isLightMode
-                  ? 'bg-white text-[#003355] border-[#005587]/15 hover:border-[#005587]/35 hover:bg-[#005587]/5'
-                  : 'bg-white/[0.03] text-gray-300 border-white/10 hover:border-white/25 hover:bg-white/[0.06] hover:text-white'
+                  ? 'ring-2 ring-[#003355] ring-offset-2 ring-offset-[#f4f7fb] shadow-md'
+                  : 'ring-2 ring-white ring-offset-2 ring-offset-[#050505] shadow-[0_0_16px_rgba(0,196,204,0.4)]'
+                : 'opacity-85 hover:opacity-100 shadow-sm'
             }`}
             title="Switch to The Library mode"
           >
-            <div className="flex items-center gap-1 sm:gap-1.5 min-w-0">
-              <div className={`w-4.5 h-4.5 sm:w-5 sm:h-5 rounded border flex items-center justify-center shrink-0 transition-colors ${
-                isLibraryMode
-                  ? 'bg-white/20 border-white/40 text-white'
-                  : isLightMode
-                    ? 'bg-[#00C4CC]/20 border-[#00C4CC]/50 text-[#007a82]'
-                    : 'bg-[#00C4CC]/20 border-[#00C4CC]/40 text-[#00C4CC]'
-              }`}>
-                <BookOpen className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-              </div>
+            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+              <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black shrink-0" />
               <div className="min-w-0">
-                <span className={`text-[8px] sm:text-[9.5px] font-black uppercase tracking-wider block truncate leading-none ${
-                  isLibraryMode ? 'text-white' : isLightMode ? 'text-[#003355]' : 'text-white'
-                }`}>
+                <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-wider block truncate leading-none text-black">
                   THE LIBRARY
                 </span>
-                <span className={`text-[6.5px] sm:text-[7.5px] font-mono uppercase block truncate tracking-tight mt-0.5 ${
-                  isLibraryMode
-                    ? 'text-white/80'
-                    : isLightMode ? 'text-[#005587]/70 font-semibold' : 'text-gray-400'
-                }`}>
+                <span className="text-[6.5px] sm:text-[7.5px] font-mono font-bold uppercase block truncate tracking-tight mt-0.5 text-black/80">
                   SDG 16 VAULT
                 </span>
               </div>
             </div>
             {isLibraryMode && (
-              <span className="text-[6px] sm:text-[7px] font-mono font-bold bg-[#00C4CC] text-black px-1.5 py-0.5 rounded-full uppercase shrink-0 hidden md:inline-block">
+              <span className="text-[6.5px] sm:text-[7.5px] font-mono font-black bg-[#0b1120] text-[#00C4CC] px-2 py-0.5 rounded-full uppercase shrink-0 hidden md:inline-block">
                 ACTIVE
               </span>
             )}
@@ -427,11 +417,11 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
 
         {isPlatformMode ? (
           /* ========================================================================= */
-          /* PLATFORM MODE: ZELLYS-INSPIRED BENTO MOBILE OS DASHBOARD LAYOUT           */
+          /* PLATFORM MODE: DVAP BENTO OS DASHBOARD (PROPOSAL & COALITION ALIGNED)     */
           /* ========================================================================= */
           <div className="flex-1 min-h-0 flex flex-col justify-between w-full h-full max-w-md sm:max-w-lg md:max-w-xl mx-auto py-1 px-1">
             
-            {/* 1. TOP HEADER (Brand & Metadata, like 'Zellys / Serial No. / Birthday') */}
+            {/* 1. TOP HEADER (Brand & Official Proposal Metadata) */}
             <div className="flex items-center justify-between w-full px-1 shrink-0">
               <div className="flex items-center gap-2">
                 <h1 className={`text-xl sm:text-2xl font-black tracking-tight ${
@@ -439,151 +429,175 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
                 }`}>
                   Pamoja 16
                 </h1>
-                <span className="text-[7.5px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-[#c8f036]/20 text-[#c8f036] border border-[#c8f036]/30 uppercase">
-                  OS CORE
+                <span className="text-[7.5px] font-mono font-black px-2 py-0.5 rounded-full bg-[#00C4CC] text-black uppercase">
+                  DVAP MVP
                 </span>
               </div>
-              <div className="text-right font-mono text-[7px] sm:text-[8px] leading-tight text-gray-400">
-                <div>Serial No. 4738963767</div>
-                <div className="mt-0.5 text-gray-500">Kernel v2.4 • 47 Counties</div>
+              <div className={`text-right font-mono text-[7px] sm:text-[8px] leading-tight ${
+                isLightMode ? 'text-[#003355]/75' : 'text-gray-400'
+              }`}>
+                <div className="font-bold">Ziel Chan Bol &amp; Victor Mwangolo</div>
+                <div className={`mt-0.5 ${isLightMode ? 'text-[#005587]' : 'text-gray-500'}`}>
+                  12-Mo NGO Phase • KMUN &amp; Africa for SDGs
+                </div>
               </div>
             </div>
 
-            {/* 2. TOP HERO CARD (like 'The Power You Need') */}
-            <div className="relative w-full rounded-2xl sm:rounded-3xl bg-[#141417] border border-white/10 overflow-hidden p-2.5 sm:p-3.5 flex flex-col justify-between flex-1 min-h-[86px] max-h-[160px] shadow-lg">
+            {/* 2. TOP HERO CARD (4 Project Components Carousel) */}
+            <div className={`relative w-full rounded-2xl sm:rounded-3xl overflow-hidden p-2.5 sm:p-3.5 flex flex-col justify-between flex-1 min-h-[86px] max-h-[160px] shadow-lg border ${
+              isLightMode ? 'bg-[#00223f] border-[#005587]/25' : 'bg-[#0b1120] border-white/15'
+            }`}>
               {/* Photo backdrop with dark vignette */}
               <div 
                 className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none transition-all duration-700"
                 style={{ backgroundImage: `url('${currentCard.image}')` }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#141417] via-[#141417]/85 to-black/40 pointer-events-none" />
+              <div className={`absolute inset-0 pointer-events-none ${
+                isLightMode
+                  ? 'bg-gradient-to-t from-[#001a30] via-[#00223f]/85 to-[#003355]/45'
+                  : 'bg-gradient-to-t from-[#0b1120] via-[#0b1120]/85 to-black/45'
+              }`} />
 
-              {/* Title Top Left */}
-              <div className="relative z-10 flex items-start justify-between">
+              {/* Title Top Left + Component Badge */}
+              <div className="relative z-10 flex items-start justify-between gap-2">
                 <div>
                   <h2 className="text-sm sm:text-lg font-black text-white leading-tight uppercase tracking-tight">
-                    The Power <br />
-                    You Need
+                    Youth Action <br />
+                    Made Visible
                   </h2>
                 </div>
-                <span className="text-[7.5px] font-mono font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/15 uppercase">
+                <span className="text-[7px] sm:text-[7.5px] font-mono font-black px-2 py-0.5 rounded-full bg-[#E5B80B] text-black uppercase shrink-0">
                   {currentCard.badge}
                 </span>
               </div>
 
               {/* Caption Bottom + Carousel Indicator Dots */}
               <div className="relative z-10 mt-auto pt-1">
-                <p className="text-[7.5px] sm:text-[8.5px] text-gray-300 line-clamp-2 leading-tight font-medium">
+                <p className="text-[7.5px] sm:text-[8.5px] text-gray-200 line-clamp-2 leading-tight font-medium">
                   {currentCard.desc}
                 </p>
 
-                {/* 4 Carousel Dots with active elongated pill */}
+                {/* 4 Component Carousel Dots */}
                 <div className="flex items-center justify-center gap-1.5 mt-1.5 sm:mt-2">
                   {[0, 1, 2, 3].map((idx) => (
                     <button
                       key={idx}
+                      type="button"
                       onClick={() => {
                         setActiveCardIndex(idx);
                         setSelectedPillar(idx);
                       }}
                       className={`rounded-full transition-all duration-200 cursor-pointer ${
                         activeCardIndex === idx 
-                          ? 'w-4 h-1 bg-white' 
+                          ? 'w-4 h-1 bg-[#00C4CC]' 
                           : 'w-1 h-1 bg-white/35 hover:bg-white/60'
                       }`}
-                      title={`Pillar ${idx + 1}`}
+                      title={`Component ${idx + 1}`}
                     />
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* 3. MIDDLE BENTO ROW (2 Columns: Tall Light Card + 2 Stacked Cards) */}
+            {/* 3. MIDDLE BENTO ROW (2 Columns: Tall White Module Card + 2 Stacked Cards) */}
             <div className="grid grid-cols-2 gap-2 flex-1 min-h-[104px] max-h-[195px] my-0.5">
               
-              {/* Left Column: Tall High-Contrast Card (like 'Choose Bikes') */}
+              {/* Left Column: Tall High-Contrast White Card (Cycles 4 Proposal Components / 5 MVP Features) */}
               <div 
                 onClick={handleNextCard}
-                className="rounded-2xl sm:rounded-3xl bg-white text-black p-2.5 sm:p-3 flex flex-col justify-between relative overflow-hidden shadow-md cursor-pointer hover:shadow-xl transition-all group min-h-0"
-                title="Click to cycle modules"
+                className={`rounded-2xl sm:rounded-3xl bg-white text-[#0b1120] p-2.5 sm:p-3 flex flex-col justify-between relative overflow-hidden shadow-md cursor-pointer hover:shadow-xl transition-all group min-h-0 border ${
+                  isLightMode ? 'border-[#003355]/15' : 'border-white'
+                }`}
+                title="Tap to cycle Project Proposal Components 01–04"
               >
                 {/* Header */}
                 <div>
-                  <h3 className="text-xs sm:text-sm font-black text-black uppercase tracking-tight leading-tight">
-                    Choose <br />
-                    Modules
+                  <h3 className="text-xs sm:text-sm font-black text-[#0b1120] uppercase tracking-tight leading-tight">
+                    Platform <br />
+                    Components
                   </h3>
-                  <span className="text-[7.5px] sm:text-[8px] font-bold text-gray-500 uppercase tracking-tight block truncate mt-0.5">
-                    {currentCard.titleTop}
+                  <span className="text-[7.5px] sm:text-[8px] font-bold text-[#005587] uppercase tracking-tight block truncate mt-0.5">
+                    {currentCard.titleTop} {currentCard.titleBottom}
                   </span>
                 </div>
 
                 {/* Graphic Visual Representation with Dynamic Icon */}
                 <div className="my-auto py-1 flex items-center justify-center relative">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-black/5 border border-black/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <CurrentIcon className="w-6 h-6 sm:w-7 sm:h-7 text-black" />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#00C4CC]/15 border border-[#00C4CC]/40 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <CurrentIcon className="w-6 h-6 sm:w-7 sm:h-7 text-[#003355]" />
                   </div>
-                  <span className="absolute -bottom-1 text-[7px] font-mono font-bold bg-black text-white px-1.5 py-0.2 rounded-full uppercase">
-                    {currentCard.pillarNum}
+                  <span className="absolute -bottom-1 text-[7px] font-mono font-black bg-[#0b1120] text-[#E5B80B] px-1.5 py-0.2 rounded-full uppercase">
+                    COMP {currentCard.pillarNum}
                   </span>
                 </div>
 
-                {/* Bottom Dots Indicator (like the • • — • • in screenshot) */}
-                <div className="flex items-center justify-center gap-1 pt-1">
-                  {[0, 1, 2, 3].map((idx) => (
-                    <span
-                      key={idx}
-                      className={`rounded-full transition-all duration-200 ${
-                        activeCardIndex === idx 
-                          ? 'w-3.5 h-1 bg-black' 
-                          : 'w-1 h-1 bg-black/25'
-                      }`}
-                    />
-                  ))}
+                {/* Bottom Sub-label + Dots Indicator */}
+                <div className="flex flex-col items-center gap-1 pt-1">
+                  <span className="text-[6.5px] sm:text-[7px] font-mono font-bold text-slate-500 uppercase truncate max-w-full">
+                    {currentCard.county}
+                  </span>
+                  <div className="flex items-center justify-center gap-1">
+                    {[0, 1, 2, 3].map((idx) => (
+                      <span
+                        key={idx}
+                        className={`rounded-full transition-all duration-200 ${
+                          activeCardIndex === idx 
+                            ? 'w-3.5 h-1 bg-[#0b1120]' 
+                            : 'w-1 h-1 bg-slate-300'
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Right Column: 2 Stacked Cards (Target 30 Miles + LOCK your bike) */}
+              {/* Right Column: 2 Stacked Cards */}
               <div className="flex flex-col justify-between gap-1.5">
                 
-                {/* Top Card: Split Pill (like 'Target 30 Miles in a Week') */}
-                <div className="rounded-2xl sm:rounded-3xl bg-[#141417] border border-white/10 p-2 sm:p-2.5 flex items-center gap-2 shadow-sm flex-1 min-h-[58px]">
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white text-black flex items-center justify-center shrink-0 shadow-sm">
+                {/* Top Card: Active Component Target / Expected Result */}
+                <div className={`rounded-2xl sm:rounded-3xl p-2 sm:p-2.5 flex items-center gap-2 shadow-sm flex-1 min-h-[58px] border ${
+                  isLightMode ? 'bg-[#003355] border-[#005587]/25 text-white' : 'bg-[#0b1120] border-white/15 text-white'
+                }`}>
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#00C4CC] text-black flex items-center justify-center shrink-0 shadow-sm">
                     <CurrentIcon className="w-4 h-4 text-black" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-[7px] font-mono text-gray-400 uppercase tracking-wider block leading-none">
-                      Target
+                    <span className="text-[7px] font-mono text-[#E5B80B] uppercase tracking-wider block leading-none font-bold">
+                      Target KPI
                     </span>
                     <span className="text-xs sm:text-sm font-black text-white block leading-tight mt-0.5 truncate">
-                      47 Counties
+                      {currentCard.impactScore}
                     </span>
-                    <span className="text-[7px] text-gray-400 block leading-none">
-                      In Kenya
+                    <span className="text-[7px] text-blue-100/75 block leading-none truncate mt-0.5">
+                      {currentCard.verifiedTarget}
                     </span>
                   </div>
                 </div>
 
-                {/* Bottom Card: Split Action Pill (like 'LOCK your bike') */}
+                {/* Bottom Card: Coalition & SDG 16 Reporting Sync Toggle */}
                 <div 
                   onClick={() => setIsNodeVerified(!isNodeVerified)}
-                  className="rounded-2xl sm:rounded-3xl bg-white text-black p-2 sm:p-2.5 flex items-center justify-between shadow-sm cursor-pointer hover:shadow-md transition-all flex-1 min-h-[58px]"
-                  title="Toggle Audit Security Node"
+                  className={`rounded-2xl sm:rounded-3xl bg-white text-[#0b1120] p-2 sm:p-2.5 flex items-center justify-between shadow-sm cursor-pointer hover:shadow-md transition-all flex-1 min-h-[58px] border ${
+                    isLightMode ? 'border-[#003355]/15' : 'border-white'
+                  }`}
+                  title="Toggle National SDG 16 Reporting Verification"
                 >
                   <div className="min-w-0 pr-1">
-                    <span className="text-xs sm:text-sm font-black text-black uppercase tracking-tight block leading-none">
-                      {isNodeVerified ? 'LOCKED' : 'UNLOCK'}
+                    <span className="text-xs sm:text-sm font-black text-[#0b1120] uppercase tracking-tight block leading-none">
+                      {isNodeVerified ? 'ONBOARDED' : 'SUBMIT HUB'}
                     </span>
-                    <span className="text-[7.5px] sm:text-[8px] text-gray-500 font-semibold block leading-tight mt-0.5 truncate">
-                      your audit
+                    <span className="text-[7.5px] sm:text-[8px] text-[#005587] font-bold block leading-tight mt-0.5 truncate">
+                      {isNodeVerified ? 'UN SDG 16 Ledger Sync' : 'Join Coalition Roster'}
                     </span>
                   </div>
 
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-black text-white flex items-center justify-center shrink-0 shadow-sm transition-transform active:scale-95">
+                  <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 shadow-sm transition-transform active:scale-95 ${
+                    isNodeVerified ? 'bg-[#0b1120] text-[#00C4CC]' : 'bg-[#E5B80B] text-black'
+                  }`}>
                     {isNodeVerified ? (
-                      <Lock className="w-3.5 h-3.5 text-white" />
+                      <Lock className="w-3.5 h-3.5" />
                     ) : (
-                      <Unlock className="w-3.5 h-3.5 text-[#c8f036]" />
+                      <Unlock className="w-3.5 h-3.5" />
                     )}
                   </div>
                 </div>
@@ -592,105 +606,147 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
 
             </div>
 
-            {/* 4. THIRD ROW: 3 STAT TILES (like 'Usage time / Distance / Calories') */}
+            {/* 4. THIRD ROW: 3 PROPOSAL KPI STAT TILES */}
             <div className="grid grid-cols-3 gap-1.5 shrink-0">
-              <div className="rounded-xl sm:rounded-2xl bg-[#141417] border border-white/10 p-1.5 sm:p-2 text-center">
-                <span className="text-[7px] sm:text-[7.5px] font-mono text-gray-400 block leading-none">
-                  Usage time
+              <div className={`rounded-xl sm:rounded-2xl p-1.5 sm:p-2 text-center border ${
+                isLightMode ? 'bg-white border-[#003355]/15 text-[#00223f]' : 'bg-[#0b1120] border-white/15 text-white'
+              }`}>
+                <span className={`text-[7px] sm:text-[7.5px] font-mono block leading-none ${
+                  isLightMode ? 'text-[#005587]' : 'text-gray-400'
+                }`}>
+                  Youth Orgs
                 </span>
-                <span className="text-[10px] sm:text-xs font-black text-white block leading-tight mt-0.5 truncate">
-                  42h 16m
-                </span>
-              </div>
-
-              <div className="rounded-xl sm:rounded-2xl bg-[#141417] border border-white/10 p-1.5 sm:p-2 text-center">
-                <span className="text-[7px] sm:text-[7.5px] font-mono text-gray-400 block leading-none">
-                  Disbursed
-                </span>
-                <span className="text-[10px] sm:text-xs font-black text-[#c8f036] block leading-tight mt-0.5 truncate">
-                  KES 18.2M
+                <span className="text-[10px] sm:text-xs font-black block leading-tight mt-0.5 truncate">
+                  50+ Groups
                 </span>
               </div>
 
-              <div className="rounded-xl sm:rounded-2xl bg-[#141417] border border-white/10 p-1.5 sm:p-2 text-center">
-                <span className="text-[7px] sm:text-[7.5px] font-mono text-gray-400 block leading-none">
-                  Youth Mesh
+              <div className={`rounded-xl sm:rounded-2xl p-1.5 sm:p-2 text-center border ${
+                isLightMode ? 'bg-white border-[#003355]/15 text-[#00223f]' : 'bg-[#0b1120] border-white/15 text-white'
+              }`}>
+                <span className={`text-[7px] sm:text-[7.5px] font-mono block leading-none ${
+                  isLightMode ? 'text-[#005587]' : 'text-gray-400'
+                }`}>
+                  Documented
                 </span>
-                <span className="text-[10px] sm:text-xs font-black text-white block leading-tight mt-0.5 truncate">
-                  1,420 Live
+                <span className={`text-[10px] sm:text-xs font-black block leading-tight mt-0.5 truncate ${
+                  isLightMode ? 'text-[#005587]' : 'text-[#00C4CC]'
+                }`}>
+                  200+ Projects
+                </span>
+              </div>
+
+              <div className={`rounded-xl sm:rounded-2xl p-1.5 sm:p-2 text-center border ${
+                isLightMode ? 'bg-white border-[#003355]/15 text-[#00223f]' : 'bg-[#0b1120] border-white/15 text-white'
+              }`}>
+                <span className={`text-[7px] sm:text-[7.5px] font-mono block leading-none ${
+                  isLightMode ? 'text-[#005587]' : 'text-gray-400'
+                }`}>
+                  Youth Engaged
+                </span>
+                <span className="text-[10px] sm:text-xs font-black block leading-tight mt-0.5 truncate">
+                  500+ Voices
                 </span>
               </div>
             </div>
 
-            {/* 5. FOURTH ROW: VIBRANT LIME SLIDER PILL + OPTIONS BUTTON (like '86% Battery + •••') */}
+            {/* 5. FOURTH ROW: MATTE YELLOW COALITION ACTION PILL + ROADMAP BUTTON (•••) */}
             <div className="flex items-center gap-1.5 shrink-0">
-              {/* Vibrant Lime Battery / Health Pill */}
+              {/* Matte Yellow Partner & Coalition Pill */}
               <button
                 type="button"
-                onClick={() => setShowCalculatorModal(true)}
-                className="flex-1 rounded-2xl bg-[#c8f036] text-black px-3 py-1.5 sm:py-2 flex items-center justify-between cursor-pointer hover:brightness-105 active:scale-[0.99] transition-all shadow-md"
-                title="Open Civic Impact Estimator"
+                onClick={() => {
+                  setAboutModalTab('partners');
+                  setShowAboutModal(true);
+                }}
+                className="flex-1 rounded-full bg-[#E5B80B] border border-[#E5B80B] text-black px-3.5 py-1.5 sm:py-2 flex items-center justify-between cursor-pointer hover:brightness-105 active:scale-[0.99] transition-all shadow-md"
+                title="View 10 Youth Organizations & 4 UN SDG 16 Implementing Partners"
               >
                 <div className="flex items-center gap-1.5 min-w-0">
-                  <Battery className="w-4 h-4 text-black fill-current shrink-0" />
+                  <Handshake className="w-4 h-4 text-black shrink-0" />
                   <span className="text-[10px] sm:text-xs font-black tracking-tight text-black truncate">
-                    86% Accord Resolution
+                    10 Youth Orgs + 4 UN Partners
                   </span>
                 </div>
 
-                {/* Slider Knob Pill */}
-                <div className="w-10 sm:w-11 h-4 sm:h-5 rounded-full bg-black/20 flex items-center justify-end px-0.5 shrink-0">
-                  <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-black/40 shadow-xs" />
+                {/* Badge Pill */}
+                <div className="px-2 py-0.5 rounded-full bg-[#0b1120] text-[#E5B80B] text-[7.5px] sm:text-[8.5px] font-mono font-black uppercase shrink-0">
+                  VIEW 14
                 </div>
               </button>
 
-              {/* Square Options Button (•••) */}
+              {/* Square Options Button (•••) — Opens Proposal & 2025-2026 Matrix */}
               <button
                 type="button"
-                onClick={() => setShowAboutModal(true)}
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#141417] border border-white/10 flex items-center justify-center text-white hover:bg-white/10 cursor-pointer active:scale-95 transition-all shadow-sm shrink-0"
-                title="System Specs & Blueprint"
+                onClick={() => {
+                  setAboutModalTab('roadmap');
+                  setShowAboutModal(true);
+                }}
+                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-sm shrink-0 border ${
+                  isLightMode
+                    ? 'bg-[#00C4CC] border-[#00C4CC] text-black hover:brightness-105'
+                    : 'bg-[#00C4CC] border-[#00C4CC] text-black hover:brightness-105'
+                }`}
+                title="2025–2026 Implementation Matrix & Proposal"
               >
-                <MoreHorizontal className="w-4 h-4 text-gray-300" />
+                <MoreHorizontal className="w-4 h-4 text-black" />
               </button>
             </div>
 
-            {/* 6. BOTTOM NAVIGATION DOCK (like the 4 dock icons in screenshot) */}
-            <div className="flex items-center justify-around w-full py-1 shrink-0 text-gray-400 border-t border-white/5">
+            {/* 6. BOTTOM NAVIGATION DOCK (5 DVAP Core Links & Proposal Tools) */}
+            <div className={`flex items-center justify-around w-full py-1 shrink-0 border-t ${
+              isLightMode ? 'text-[#003355] border-[#005587]/15' : 'text-gray-400 border-white/10'
+            }`}>
               <button 
                 type="button"
+                onClick={() => {
+                  setActiveCardIndex(2);
+                  setSelectedPillar(2);
+                }}
                 className="relative p-1 cursor-pointer"
-                title="Home Dashboard"
+                title="DVAP Core Platform"
               >
-                <Home className="w-4 h-4 text-[#c8f036]" />
-                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#c8f036]" />
+                <Home className={`w-4 h-4 ${isLightMode ? 'text-[#005587]' : 'text-[#00C4CC]'}`} />
+                <span className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full ${
+                  isLightMode ? 'bg-[#005587]' : 'bg-[#00C4CC]'
+                }`} />
               </button>
 
               <button
                 type="button"
-                onClick={() => setIsPlayingAudio(!isPlayingAudio)}
-                className="p-1 hover:text-white transition-colors cursor-pointer"
-                title={isPlayingAudio ? 'Pause Audio Brief' : 'Play Audio Brief'}
+                onClick={() => {
+                  setAboutModalTab('partners');
+                  setShowAboutModal(true);
+                }}
+                className="p-1 hover:text-[#E5B80B] transition-colors cursor-pointer"
+                title="Coalition Partners (10 Orgs + 4 UN)"
               >
-                <Radio className={`w-4 h-4 ${isPlayingAudio ? 'text-[#c8f036] animate-pulse' : 'text-gray-400'}`} />
+                <Globe2 className="w-4 h-4" />
               </button>
 
               <button
                 type="button"
                 onClick={() => setShowCalculatorModal(true)}
-                className="p-1 hover:text-white transition-colors cursor-pointer"
-                title="Impact Simulator"
+                className="p-1 hover:text-[#E5B80B] transition-colors cursor-pointer"
+                title="Civic Impact Estimator"
               >
-                <Sparkles className="w-4 h-4 text-gray-400 hover:text-[#c8f036]" />
+                <Sparkles className="w-4 h-4" />
               </button>
 
               <button
                 type="button"
-                onClick={() => setShowAboutModal(true)}
-                className="p-1 hover:text-white transition-colors cursor-pointer"
-                title="System Specs & Coalition"
+                onClick={() => {
+                  if (onOpenSubmitModal) {
+                    onOpenSubmitModal();
+                  } else {
+                    setAboutModalTab('charter');
+                    setShowAboutModal(true);
+                  }
+                }}
+                className="p-1 hover:text-[#00C4CC] transition-colors cursor-pointer"
+                title="Project Submission Portal"
               >
-                <Shield className="w-4 h-4 text-gray-400 hover:text-[#c8f036]" />
+                <Send className="w-4 h-4" />
               </button>
             </div>
 
@@ -1291,7 +1347,7 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
       )}
 
       {/* ========================================================================= */}
-      {/* INTERACTIVE ABOUT US MODAL                                                */}
+      {/* INTERACTIVE PROPOSAL, COALITION PARTNERS & ROADMAP MODAL                  */}
       {/* ========================================================================= */}
       {showAboutModal && (
         <div 
@@ -1299,31 +1355,37 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
           onClick={() => setShowAboutModal(false)}
         >
           <div 
-            className={`relative w-full max-w-lg border rounded-2xl p-5 shadow-2xl flex flex-col gap-3 ${
+            className={`relative w-full max-w-xl border rounded-2xl p-5 shadow-2xl flex flex-col gap-3 max-h-[88dvh] overflow-y-auto ${
               isLightMode 
                 ? 'bg-white border-[#005587]/20 text-[#003355]' 
-                : 'bg-[#111113] border-white/20 text-white'
+                : 'bg-[#0b1120] border-white/20 text-white'
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className={`flex items-start justify-between border-b pb-2 ${
+            <div className={`flex items-start justify-between border-b pb-2.5 ${
               isLightMode ? 'border-gray-200' : 'border-white/10'
             }`}>
               <div>
                 <span className={`text-[9px] font-mono font-bold uppercase ${
                   isLightMode ? 'text-[#005587]' : 'text-[#E5B80B]'
                 }`}>
-                  PAMOJA 16 CHARTER
+                  PAMOJA 16 INITIATIVE · JULY 22, 2025
                 </span>
-                <h3 className={`text-xl font-black uppercase tracking-tight mt-0.5 ${
+                <h3 className={`text-lg sm:text-xl font-black uppercase tracking-tight mt-0.5 ${
                   isLightMode ? 'text-[#00223f]' : 'text-white'
                 }`}>
-                  ABOUT THE COALITION
+                  PLATFORM CHARTER &amp; COALITION
                 </h3>
+                <p className={`text-[10px] font-mono mt-0.5 ${
+                  isLightMode ? 'text-slate-600' : 'text-gray-400'
+                }`}>
+                  Proposed by Ziel Chan Bol &amp; Victor Mwangolo • Collaborators: KMUN, Africa for SDGs
+                </p>
               </div>
               <button
+                type="button"
                 onClick={() => setShowAboutModal(false)}
-                className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors cursor-pointer ${
+                className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors cursor-pointer shrink-0 ${
                   isLightMode ? 'bg-gray-100 hover:bg-gray-200 text-gray-700' : 'bg-white/10 hover:bg-white/20 text-white'
                 }`}
               >
@@ -1331,43 +1393,193 @@ export const LuxtenExcellence: React.FC<LuxtenExcellenceProps> = ({
               </button>
             </div>
 
-            <p className={`text-xs leading-relaxed ${
-              isLightMode ? 'text-gray-700' : 'text-gray-300'
-            }`}>
-              Pamoja 16 is Kenya's foremost youth-anchored civic infrastructure platform dedicated to United Nations Sustainable Development Goal 16: Peace, Justice, and Strong Institutions.
-            </p>
-
-            <div className={`space-y-1.5 text-xs p-3 rounded-xl border ${
-              isLightMode ? 'bg-gray-50 border-gray-200 text-gray-800' : 'bg-white/5 border-white/10 text-gray-300'
-            }`}>
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${
-                  isLightMode ? 'text-[#005587]' : 'text-[#E5B80B]'
-                }`} />
-                <span>Active civic presence in all 47 counties through certified youth peace ambassadors.</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#00C4CC] shrink-0 mt-0.5" />
-                <span>Integrated M-Pesa Daraja payment pipeline for transparent grassroots micro-donations.</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#E5B80B] shrink-0 mt-0.5" />
-                <span>Official participatory reporting channel compatible with UN and AU accountability mechanisms.</span>
-              </div>
+            {/* Matte Pill Modal Tabs */}
+            <div className="grid grid-cols-3 gap-1.5 shrink-0">
+              <button
+                type="button"
+                onClick={() => setAboutModalTab('charter')}
+                className={`py-1.5 px-2.5 rounded-full text-[10px] font-black uppercase tracking-wider cursor-pointer transition-all ${
+                  aboutModalTab === 'charter'
+                    ? 'bg-white text-[#0b1120] ring-2 ring-[#00C4CC]'
+                    : isLightMode
+                    ? 'bg-slate-100 text-[#003355] hover:bg-slate-200'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                }`}
+              >
+                DVAP Charter
+              </button>
+              <button
+                type="button"
+                onClick={() => setAboutModalTab('partners')}
+                className={`py-1.5 px-2.5 rounded-full text-[10px] font-black uppercase tracking-wider cursor-pointer transition-all ${
+                  aboutModalTab === 'partners'
+                    ? 'bg-[#E5B80B] text-black ring-2 ring-white'
+                    : isLightMode
+                    ? 'bg-amber-50 text-[#003355] hover:bg-amber-100'
+                    : 'bg-[#E5B80B]/20 text-[#E5B80B] hover:bg-[#E5B80B]/30'
+                }`}
+              >
+                Partners (14)
+              </button>
+              <button
+                type="button"
+                onClick={() => setAboutModalTab('roadmap')}
+                className={`py-1.5 px-2.5 rounded-full text-[10px] font-black uppercase tracking-wider cursor-pointer transition-all ${
+                  aboutModalTab === 'roadmap'
+                    ? 'bg-[#00C4CC] text-black ring-2 ring-white'
+                    : isLightMode
+                    ? 'bg-cyan-50 text-[#003355] hover:bg-cyan-100'
+                    : 'bg-[#00C4CC]/20 text-[#00C4CC] hover:bg-[#00C4CC]/30'
+                }`}
+              >
+                2025–26 Matrix
+              </button>
             </div>
 
-            <div className={`flex justify-end pt-2 border-t ${
+            {aboutModalTab === 'charter' && (
+              <div className="space-y-2.5">
+                <p className={`text-xs leading-relaxed ${
+                  isLightMode ? 'text-gray-700' : 'text-gray-300'
+                }`}>
+                  Pamoja 16 bridges fragmented youth-led SDG 16 work into a Digital Visibility &amp; Accountability Platform (DVAP) uniting five core pillars: <strong>Project Submission Portal</strong>, <strong>Impact Dashboard</strong>, <strong>Story Wall</strong>, <strong>Resource Library</strong>, and <strong>Interactive Map</strong>.
+                </p>
+
+                <div className={`space-y-1.5 text-xs p-3 rounded-xl border ${
+                  isLightMode ? 'bg-gray-50 border-gray-200 text-gray-800' : 'bg-white/5 border-white/10 text-gray-300'
+                }`}>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#00C4CC] shrink-0 mt-0.5" />
+                    <span><strong>Expected Results:</strong> 50+ youth groups onboarded, 200+ initiatives documented, 500+ youth mobilized.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#E5B80B] shrink-0 mt-0.5" />
+                    <span><strong>Participatory MEL:</strong> Quarterly learning reviews integrating youth SDG 16 metrics into national &amp; UN reporting.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#00C4CC] shrink-0 mt-0.5" />
+                    <span><strong>Sustainability:</strong> Annual org memberships, partnership grants, university internships &amp; agile platform feedback.</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {aboutModalTab === 'partners' && (
+              <div className="space-y-3">
+                <div>
+                  <span className={`text-[9px] font-mono font-black uppercase tracking-wider block mb-1.5 ${
+                    isLightMode ? 'text-[#005587]' : 'text-[#E5B80B]'
+                  }`}>
+                    10 Youth &amp; Peace Organizations
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                    {coalitionOrgs.map((org, idx) => (
+                      <div
+                        key={org.name}
+                        className={`px-2.5 py-1.5 rounded-xl border flex items-center justify-between gap-2 text-[11px] ${
+                          isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-white/5 border-white/10'
+                        }`}
+                      >
+                        <div className="min-w-0">
+                          <span className="font-bold block truncate">
+                            {idx + 1}. {org.name}
+                          </span>
+                          <span className={`text-[9px] font-mono block truncate ${
+                            isLightMode ? 'text-slate-500' : 'text-gray-400'
+                          }`}>
+                            {org.focus}
+                          </span>
+                        </div>
+                        {org.url && (
+                          <a
+                            href={org.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="p-1 rounded-full bg-[#00C4CC] text-black hover:brightness-110 shrink-0"
+                            title={`Open ${org.name}`}
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <span className={`text-[9px] font-mono font-black uppercase tracking-wider block mb-1.5 ${
+                    isLightMode ? 'text-[#005587]' : 'text-[#00C4CC]'
+                  }`}>
+                    4 UN SDG 16 Implementing &amp; Donor Partners
+                  </span>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {unPartners.map((partner) => (
+                      <div
+                        key={partner.name}
+                        className={`px-2.5 py-1.5 rounded-xl border text-[11px] ${
+                          isLightMode ? 'bg-cyan-50/70 border-cyan-200' : 'bg-[#00C4CC]/10 border-[#00C4CC]/25'
+                        }`}
+                      >
+                        <span className="font-black block truncate">{partner.name}</span>
+                        <span className={`text-[9px] block truncate ${
+                          isLightMode ? 'text-slate-600' : 'text-cyan-100/75'
+                        }`}>
+                          {partner.scope}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {aboutModalTab === 'roadmap' && (
+              <div className="space-y-1.5">
+                {roadmapPhases.map((item) => (
+                  <div
+                    key={item.phase}
+                    className={`p-2.5 rounded-xl border flex flex-col gap-0.5 ${
+                      isLightMode ? 'bg-slate-50 border-slate-200' : 'bg-white/5 border-white/10'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-black">{item.phase}</span>
+                      <span className="text-[9px] font-mono font-black px-2 py-0.5 rounded-full bg-[#E5B80B] text-black shrink-0">
+                        {item.window}
+                      </span>
+                    </div>
+                    <span className={`text-[10px] font-mono ${
+                      isLightMode ? 'text-[#005587]' : 'text-[#00C4CC]'
+                    }`}>
+                      KPI: {item.kpi}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className={`flex items-center justify-between gap-2 pt-2 border-t ${
               isLightMode ? 'border-gray-200' : 'border-white/10'
             }`}>
               <button
+                type="button"
+                onClick={() => {
+                  setShowAboutModal(false);
+                  if (onOpenSubmitModal) onOpenSubmitModal();
+                }}
+                className="font-black uppercase text-[10px] px-4 py-1.5 rounded-full bg-[#00C4CC] text-black hover:brightness-105 transition-all cursor-pointer"
+              >
+                Submit Project to DVAP
+              </button>
+              <button
+                type="button"
                 onClick={() => setShowAboutModal(false)}
-                className={`font-bold uppercase text-xs px-5 py-1.5 rounded-full transition-all cursor-pointer ${
+                className={`font-black uppercase text-[10px] px-5 py-1.5 rounded-full transition-all cursor-pointer ${
                   isLightMode 
-                    ? 'bg-[#005587] text-white hover:bg-[#003f66]' 
+                    ? 'bg-[#003355] text-white hover:bg-[#00223f]' 
                     : 'bg-white text-black hover:bg-[#E5B80B]'
                 }`}
               >
-                Understood
+                Close
               </button>
             </div>
           </div>
