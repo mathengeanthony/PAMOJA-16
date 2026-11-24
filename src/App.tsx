@@ -37,6 +37,7 @@ import { PamojaMovementSection } from './components/luxten/PamojaMovementSection
 import { PamojaAboutSection } from './components/luxten/PamojaAboutSection';
 import { PamojaStoryWallSection } from './components/luxten/PamojaStoryWallSection';
 import { PamojaNetworkSection } from './components/luxten/PamojaNetworkSection';
+import { EAST_AFRICA_CHAPTERS } from './data/eastAfricaChapters';
 
 export default function App() {
   const [isLightMode, setIsLightMode] = useState<boolean>(false);
@@ -58,21 +59,7 @@ export default function App() {
   const countryDropdownRef = useRef<HTMLDivElement | null>(null);
   const [heroCounts, setHeroCounts] = useState({ counties: 0, initiatives: 0, youth: 0 });
 
-  const eastAfricaCountries: Array<{
-    code: string;
-    name: string;
-    selectorName?: string;
-    flag: string;
-    capital: string;
-    coords: string;
-  }> = [
-    { code: 'KE', name: 'Kenya', flag: '🇰🇪', capital: 'Nairobi HQ', coords: '1.29° S · 36.82° E' },
-    { code: 'SS', name: 'South Sudan', selectorName: 'S. Sudan', flag: '🇸🇸', capital: 'Juba Hub', coords: '4.86° N · 31.57° E' },
-    { code: 'TZ', name: 'Tanzania', flag: '🇹🇿', capital: 'Dodoma Hub', coords: '6.16° S · 35.75° E' },
-    { code: 'RW', name: 'Rwanda', flag: '🇷🇼', capital: 'Kigali Hub', coords: '1.94° S · 30.06° E' },
-    { code: 'UG', name: 'Uganda', flag: '🇺🇬', capital: 'Kampala Hub', coords: '0.35° N · 32.58° E' },
-    { code: 'SO', name: 'Somalia', flag: '🇸🇴', capital: 'Mogadishu Hub', coords: '2.05° N · 45.32° E' }
-  ];
+  const eastAfricaCountries = EAST_AFRICA_CHAPTERS;
 
   const currentCountry = eastAfricaCountries[selectedCountryIdx] ?? eastAfricaCountries[0];
 
@@ -1004,7 +991,16 @@ export default function App() {
       </header>
 
       {/* LUXTEN SECTIONS BODY */}
-      <LuxtenMap isLightMode={isLightMode} />
+      <LuxtenMap
+        isLightMode={isLightMode}
+        selectedCountryIdx={selectedCountryIdx}
+        onSelectCountry={setSelectedCountryIdx}
+        chapters={eastAfricaCountries}
+        onNavigateToSection3={(mode = 'platform') => {
+          setSection3Mode(mode);
+          scrollToSection('section-excellence');
+        }}
+      />
       <LuxtenExcellence 
         isLightMode={isLightMode}
         activeMode={section3Mode}
